@@ -508,6 +508,29 @@ public final class RomaConnection extends SpyObject {
 		return locator;
 	}
 
+	public void randOperation(final Operation o) {
+		// @@@ random
+		MemcachedNode placeIn=null;
+		Collection<MemcachedNode> all = locator.getAll();
+		for ( MemcachedNode node : all ) {
+			if(node.isActive()) {
+				if(failureMode == FailureMode.Cancel) {
+					o.cancel();
+				}else {
+					placeIn = node;
+					break;
+				}
+			}
+		}
+		assert o.isCancelled() || placeIn != null
+		: "No node found ";
+		if(placeIn != null) {
+			addOperation(placeIn, o);
+		} else {
+			assert o.isCancelled() : "No not found (and not immediately cancelled)";
+		}
+	}
+	
 	/**
 	 * Add an operation to the given connection.
 	 *

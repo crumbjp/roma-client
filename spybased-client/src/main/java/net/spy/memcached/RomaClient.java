@@ -733,15 +733,18 @@ public class RomaClient extends SpyThread implements MemcachedClientIF {
 		return rv;
 	}
 
-	
-	public <T> Future<T> asyncMklhash(final Transcoder<T> tc) {
-
+	Operation randOp(final Operation op) {
+		checkState();
+		conn.randOperation(op);
+		return op;
+	}
+	public Future<String> asyncMklhash() {
 		final CountDownLatch latch=new CountDownLatch(1);
-		final GetFuture<T> rv=new GetFuture<T>(latch, operationTimeout);
+		final OperationFuture<String> rv=new OperationFuture<String>(latch, operationTimeout);
 
 		Operation op=opFact.mklhash(
 				new RomaMklhashOperation.Callback() {
-					private Future<T> val=null;
+					private String val=null;
 					public void receivedStatus(OperationStatus status) {
 						rv.set(val);
 					}
@@ -749,20 +752,16 @@ public class RomaClient extends SpyThread implements MemcachedClientIF {
 						latch.countDown();
 					}
 					public void gotData(String data) {
-						val=tcService.decode(tc,
-								new CachedData(0, data.getBytes(), tc.getMaxSize()));
+						val= data;
 					}
 				});
 		rv.setOperation(op);
-		addOp(key, op);
+		randOp(op);
 		return rv;
 	}
-	public <T> Future<T> asyncMklhash() {
-		return asyncMklhash(transcoder);
-	}	
-	public <T> T mklhash(Transcoder<T> tc) {
+	public String mklhash() {
 		try {
-			return asyncMklhash(tc).get(
+			return asyncMklhash().get(
 				operationTimeout, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			throw new RuntimeException("Interrupted waiting for value", e);
@@ -771,9 +770,6 @@ public class RomaClient extends SpyThread implements MemcachedClientIF {
 		} catch (TimeoutException e) {
 			throw new OperationTimeoutException("Timeout waiting for value", e);
 		}
-	}
-	public Object mklhash() {
-		return mklhash(transcoder);
 	}
 	/**
 	 * Get the given key asynchronously and decode with the default

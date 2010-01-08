@@ -7,7 +7,8 @@ import net.spy.memcached.ops.OperationState;
 import net.spy.memcached.ops.OperationStatus;
 import net.spy.memcached.ops.RomaMklhashOperation;
 
-class RomaMklhashOpImpl extends OperationImpl {
+class RomaMklhashOpImpl extends OperationImpl 
+	implements RomaMklhashOperation {
 
 	private static final OperationStatus END = new OperationStatus(true, "END");
 	private final String cmd = "mklhash 0";

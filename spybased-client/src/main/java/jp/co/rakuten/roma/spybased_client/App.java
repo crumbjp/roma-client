@@ -19,6 +19,8 @@ public class App
     	l.add(new InetSocketAddress("localhost",11211));
     	l.add(new InetSocketAddress("localhost",11212));
     	RomaClient c = new RomaClient(l);
+    	c.set("foo", 1 , new String("aaaaaaabbb"));
     	System.out.println("GET:"+c.get("foo"));
+    	System.out.println("HASH:"+c.mklhash());
     }
 }

@@ -59,7 +59,7 @@ public interface RomaConnectionFactory {
 	 * Get the operation factory for connections built by this connection
 	 * factory.
 	 */
-	OperationFactory getOperationFactory();
+	RomaOperationFactory getOperationFactory();
 
 	/**
 	 * Get the operation timeout used by this connection.

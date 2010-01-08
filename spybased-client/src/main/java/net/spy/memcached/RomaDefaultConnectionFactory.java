@@ -15,6 +15,7 @@ import net.spy.memcached.compat.SpyObject;
 import net.spy.memcached.ops.Operation;
 import net.spy.memcached.protocol.ascii.AsciiMemcachedNodeImpl;
 import net.spy.memcached.protocol.ascii.AsciiOperationFactory;
+import net.spy.memcached.protocol.ascii.RomaAsciiOperationFactory;
 import net.spy.memcached.protocol.binary.BinaryMemcachedNodeImpl;
 import net.spy.memcached.protocol.binary.BinaryOperationFactory;
 import net.spy.memcached.transcoders.SerializingTranscoder;
@@ -186,8 +187,8 @@ public class RomaDefaultConnectionFactory extends SpyObject
 	/* (non-Javadoc)
 	 * @see net.spy.memcached.ConnectionFactory#getOperationFactory()
 	 */
-	public OperationFactory getOperationFactory() {
-		return new AsciiOperationFactory();
+	public RomaOperationFactory getOperationFactory() {
+		return new RomaAsciiOperationFactory();
 	}
 
 	/* (non-Javadoc)

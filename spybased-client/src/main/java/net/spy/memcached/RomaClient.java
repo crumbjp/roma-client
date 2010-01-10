@@ -42,6 +42,7 @@ import net.spy.memcached.ops.OperationException;
 import net.spy.memcached.ops.OperationState;
 import net.spy.memcached.ops.OperationStatus;
 import net.spy.memcached.ops.RomaMklhashOperation;
+import net.spy.memcached.ops.RomaRoutingdumpOperation;
 import net.spy.memcached.ops.StatsOperation;
 import net.spy.memcached.ops.StoreType;
 import net.spy.memcached.transcoders.TranscodeService;
@@ -762,6 +763,39 @@ public class RomaClient extends SpyThread implements MemcachedClientIF {
 	public String mklhash() {
 		try {
 			return asyncMklhash().get(
+				operationTimeout, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			throw new RuntimeException("Interrupted waiting for value", e);
+		} catch (ExecutionException e) {
+			throw new RuntimeException("Exception waiting for value", e);
+		} catch (TimeoutException e) {
+			throw new OperationTimeoutException("Timeout waiting for value", e);
+		}
+	}
+	public Future<String> asyncRoutingdump() {
+		final CountDownLatch latch=new CountDownLatch(1);
+		final OperationFuture<String> rv=new OperationFuture<String>(latch, operationTimeout);
+
+		Operation op=opFact.routingdump(
+				new RomaRoutingdumpOperation.Callback() {
+					private String val=null;
+					public void receivedStatus(OperationStatus status) {
+						rv.set(val);
+					}
+					public void complete() {
+						latch.countDown();
+					}
+					public void gotData(String data) {
+						val= data;
+					}
+				});
+		rv.setOperation(op);
+		randOp(op);
+		return rv;
+	}
+	public String routingdump() {
+		try {
+			return asyncRoutingdump().get(
 				operationTimeout, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			throw new RuntimeException("Interrupted waiting for value", e);

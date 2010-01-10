@@ -22,5 +22,6 @@ public class App
     	c.set("foo", 1 , new String("aaaaaaabbb"));
     	System.out.println("GET:"+c.get("foo"));
     	System.out.println("HASH:"+c.mklhash());
+    	System.out.println("DUMP:"+c.routingdump());
     }
 }

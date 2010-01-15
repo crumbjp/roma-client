@@ -16,14 +16,23 @@ import net.spy.memcached.MemcachedClient;
  */
 public class App 
 {
-	public static Map<String, String> genData () {
-		Map ret = new TreeMap<String,String>();
-		
+	public static List<String> genData () {
+		List ret = new ArrayList<String>();
+		String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		for ( int l = 0 ; l < str.length(); l++){
+			String c = str.substring(l, l+1);
+			String k = c;
+			for ( int i = 0 ; i < 100 ; i++ ){
+				k = k+c;
+				ret.add(k);
+			}
+		}
 		return ret;
 	}
 	
     public static void main( String[] args ) throws Throwable
     {
+    	List<String> data = genData();
     	List<String> l = new ArrayList<String>();
     	l.add("localhost_11211");
     	l.add("localhost_11212");
@@ -31,6 +40,9 @@ public class App
     	try {
 //    	MemcachedClient mc = new MemcachedClient(new InetSocketAddress("localhost",11211));
 //    	System.out.println("GET:"+mc.get("foo"));
+    		for(String k : data){
+    			c.set(k, 0, k);
+    		}
     	c.set("foo", 10000 , new String("fooaaaaaaabbb"));
     	c.set("bar", 10000 , new String("baraaaaaaabbb"));
     	c.set("baz", 10000 , new String("bazaaaaaaabbb"));

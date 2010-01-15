@@ -55,6 +55,8 @@ public final class RomaNodeLocator extends SpyObject implements NodeLocator {
 	}
 	public void firstUpdate(Map<String,MemcachedNode> nodeMap){
 		this.constNodeMap = nodeMap;
+		this.capability = null;
+		this.virtualNodes = null;
 	}
 	public void update(Map<String,BigDecimal> capability,Map<String,MemcachedNode> nodeMap, Map<String,List<String> > virtual){
 		getLogger().info("Routing info update !");

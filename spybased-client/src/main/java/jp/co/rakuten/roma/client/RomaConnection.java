@@ -84,8 +84,9 @@ public final class RomaConnection extends SpyObject {
 //@@@ デフォルトノードマップを保存しとかないと、全滅した時に復活出来ない・・・
 	private final static Pattern namePattern = Pattern.compile("(.+)_(\\d+)$"); 
 	private String mklhash = "";
-	private Map<String,MemcachedNode> nodeMap = new TreeMap<String,MemcachedNode>(); 
-	private void reconstructNodeMap (List<String> ns) throws IOException {
+	private Map<String,MemcachedNode> nodeMap = new TreeMap<String,MemcachedNode>();
+	// @@@ exception
+	private void reconstructNodeMap (List<String> ns) {
 		List<Pair<String,InetSocketAddress> > a = new ArrayList<Pair<String,InetSocketAddress> >(ns.size());
 		Set<String> removedNodes = new TreeSet<String>(nodeMap.keySet());
 		for ( String n : ns ) {
@@ -100,40 +101,52 @@ public final class RomaConnection extends SpyObject {
 		}
 		for ( String n : removedNodes ) {
 			MemcachedNode node = nodeMap.get(n);
-			if ( node != null && node.isActive() )
-				node.getChannel().close(); // 作戦：念のため閉じとく -> reconnect -> 除外
+			try {
+				if ( node != null && node.isActive() ) {
+					node.getChannel().close(); // 作戦：念のため閉じとく -> reconnect -> 除外
+				}
+			} catch (IOException e) {
+				;
+			}
 			nodeMap.remove(n);
 		}
 		for(Pair<String,InetSocketAddress> sap : a) {
-			SocketAddress sa = sap.second;
-			SocketChannel ch=SocketChannel.open();
-			ch.configureBlocking(false);
-			MemcachedNode qa=f.createMemcachedNode(sap.first, sa, ch, bufSize);
-			nodeMap.put(sap.first, qa);
-			int ops=0;
-			ch.socket().setTcpNoDelay(!f.useNagleAlgorithm());
-			// Initially I had attempted to skirt this by queueing every
-			// connect, but it considerably slowed down start time.
 			try {
-				if(ch.connect(sa)) {
-					getLogger().info("Connected to %s immediately", qa);
-					connected(qa);
-				} else {
-					getLogger().info("Added %s to connect queue", qa);
-					ops=SelectionKey.OP_CONNECT;
+				SocketAddress sa = sap.second;
+				SocketChannel ch=SocketChannel.open();
+				ch.configureBlocking(false);
+				MemcachedNode qa=f.createMemcachedNode(sap.first, sa, ch, bufSize);
+				nodeMap.put(sap.first, qa);
+				int ops=0;
+				ch.socket().setTcpNoDelay(!f.useNagleAlgorithm());
+				// Initially I had attempted to skirt this by queueing every
+				// connect, but it considerably slowed down start time.
+				try {
+					if(ch.connect(sa)) {
+						getLogger().info("Connected to %s immediately", qa);
+						connected(qa);
+					} else {
+						getLogger().info("Added %s to connect queue", qa);
+						ops=SelectionKey.OP_CONNECT;
+					}
+					qa.setSk(ch.register(selector, ops, qa));
+					assert ch.isConnected()
+						|| qa.getSk().interestOps() == SelectionKey.OP_CONNECT
+						: "Not connected, and not wanting to connect";
+				} catch(SocketException e) {
+					queueReconnect(qa);
 				}
-				qa.setSk(ch.register(selector, ops, qa));
-				assert ch.isConnected()
-					|| qa.getSk().interestOps() == SelectionKey.OP_CONNECT
-					: "Not connected, and not wanting to connect";
-			} catch(SocketException e) {
-				queueReconnect(qa);
+			}catch (IOException e){
+				throw new RuntimeException("The system doesn't fill the requirement of socket.");
 			}
 		}
 		return;
 	}
 	public void asyncReconstruction(){
-System.err.println("TRY asyncReconstruction()");
+		if ( selector.selectedKeys().size() == 0 ) {
+			getLogger().error("All nodes are annihilation !");
+//			this.reconstructNodeMap(this.nodeNameSet); @@@
+		}
 		getLogger().debug("Try updating routing-info.");
 		final RomaConnection conn = this;
 		Operation op = opFact.mklhash(
@@ -142,9 +155,9 @@ System.err.println("TRY asyncReconstruction()");
 					public void receivedStatus(OperationStatus status) {
 					}
 					public void complete() {
-System.out.println("hash="+val);
+						getLogger().debug("hash="+val);
 	if ( val == null ) {
-		asyncReconstruction(); // @@@ 全滅の無限ループが・・・
+//		asyncReconstruction(); // @@@ 全滅の無限ループが・・・
 	}else if ( val != null && !conn.mklhash.equals(val)) {
 							conn.mklhash = val;
 							// @@@ hashを取ったホストと違うホストに取りに行ってしまうかもしれない・・・
@@ -158,7 +171,6 @@ System.out.println("hash="+val);
 		randOperation(op);
 	}
 	private void asyncRoutingReconstruction(){
-System.err.println("TRY asyncRoutingReconstruction()");
 		final RomaConnection conn = this;
 		Operation op = opFact.routingdump(
 				new RomaRoutingdumpOperation.Callback() {
@@ -172,22 +184,18 @@ System.err.println("TRY asyncRoutingReconstruction()");
 							getLogger().warn("The routingdump request error. Unexpected value returned : " + val);
 							return;
 						}
-						try {
-							// Check data type.
-							Object r0 = ret.get(0);
-							Object r1 = ret.get(1);
-							Object r2 = ret.get(2);
-							if(! ( r0 instanceof Map<?,?> ||
-									r1 instanceof List<?> ||
-									r2 instanceof Map<?,?> )){
-								getLogger().warn("The routingdump request error. Unexpected value returned : " + val);
-								return;
-							}
-							conn.reconstructNodeMap((List<String>)r1);
-							conn.locator.update((Map<String, BigDecimal>)r0, Collections.unmodifiableMap(nodeMap), (Map<String,List<String>>)r2);
-						} catch (IOException e) {
-							getLogger().fatal("Reconstruct error !", e);
+						// Check data type.
+						Object r0 = ret.get(0);
+						Object r1 = ret.get(1);
+						Object r2 = ret.get(2);
+						if(! ( r0 instanceof Map<?,?> ||
+								r1 instanceof List<?> ||
+								r2 instanceof Map<?,?> )){
+							getLogger().warn("The routingdump request error. Unexpected value returned : " + val);
+							return;
 						}
+						conn.reconstructNodeMap((List<String>)r1);
+						conn.locator.update((Map<String, BigDecimal>)r0, Collections.unmodifiableMap(nodeMap), (Map<String,List<String>>)r2);
 					}
 					public void gotData(String data) {
 						val= data;
@@ -209,21 +217,22 @@ System.err.println("TRY asyncRoutingReconstruction()");
 	 */
 	private final RomaConnectionFactory f;
 	private final int bufSize;
-	
+	private final List<String> nodeNameSet;
 	public RomaConnection(int bufSize, RomaConnectionFactory f,
 			List<String> ns, Collection<ConnectionObserver> obs,
 			FailureMode fm, RomaOperationFactory opfactory)
 		throws IOException {
 		this.f = f;
 		this.bufSize = bufSize;
+		this.nodeNameSet = ns;
 		connObservers.addAll(obs);
 		failureMode = fm;
 		shouldOptimize = f.shouldOptimize();
 		maxDelay = f.getMaxReconnectDelay();
 		opFact = opfactory;
 		selector=Selector.open();
-		reconstructNodeMap(ns);
 		locator=f.createLocator();
+		reconstructNodeMap(ns);
 		locator.firstUpdate(Collections.unmodifiableMap(nodeMap));
 		asyncReconstruction();
 	}
@@ -507,7 +516,7 @@ System.err.println("TRY asyncRoutingReconstruction()");
 	private void queueReconnect(MemcachedNode qa) {
 		if ( ! nodeMap.containsValue(qa)) {
 			// もはやリングの外のノード。再接続の必要なし
-			return; // @@@インスタンス比較できる？
+			return; // @@@インスタンス比較が非効率
 		}
 		if(!shutDown) {
 			getLogger().warn("Closing, and reopening %s, attempt %d.",
@@ -641,7 +650,6 @@ System.err.println("TRY asyncRoutingReconstruction()");
 				if(failureMode == FailureMode.Cancel) {
 					o.cancel();
 				}else {
-System.err.println("@@@randOperation::isActive!" + node.toString());
 					placeIn = node;
 					break;
 				}

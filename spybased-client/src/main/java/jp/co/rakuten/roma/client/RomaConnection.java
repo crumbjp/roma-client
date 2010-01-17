@@ -33,6 +33,7 @@ import java.math.BigDecimal;
 
 import jp.co.rakuten.roma.client.ops.RomaMklhashOperation;
 import jp.co.rakuten.roma.client.ops.RomaRoutingdumpOperation;
+import jp.co.rakuten.util.Pair;
 
 import net.arnx.jsonic.JSON;
 import net.spy.memcached.BroadcastOpFactory;

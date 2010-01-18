@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import jp.co.rakuten.roma.client.RomaClient;
 
@@ -32,6 +33,7 @@ public class App
 	
     public static void main( String[] args ) throws Throwable
     {
+    	
     	List<String> data = genData();
     	List<String> l = new ArrayList<String>();
     	l.add("localhost_11211");

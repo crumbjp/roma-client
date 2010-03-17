@@ -6,6 +6,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import net.spy.memcached.ConnectionObserver;
 import net.spy.memcached.FailureMode;
@@ -25,9 +27,12 @@ public interface RomaConnectionFactory {
 	 * @param addrs the addresses of the memcached servers
 	 * @return a new MemcachedConnection connected to those addresses
 	 * @throws IOException for problems initializing the memcached connections
+	 * @throws TimeoutException 
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
 	RomaConnection createConnection(List<String> names)
-		throws IOException;
+		throws IOException, InterruptedException, ExecutionException, TimeoutException;
 
 	/**
 	 * Create a new memcached node.

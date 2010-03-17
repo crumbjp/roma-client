@@ -27,13 +27,16 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.math.BigDecimal;
 
 import jp.co.rakuten.roma.client.ops.RomaMklhashOperation;
 import jp.co.rakuten.roma.client.ops.RomaRoutingdumpOperation;
-import jp.co.rakuten.util.Pair;
 
 import net.arnx.jsonic.JSON;
 import net.spy.memcached.BroadcastOpFactory;
@@ -42,10 +45,9 @@ import net.spy.memcached.FailureMode;
 import net.spy.memcached.MemcachedNode;
 import net.spy.memcached.NodeLocator;
 import net.spy.memcached.compat.SpyObject;
+import net.spy.memcached.internal.OperationFuture;
 import net.spy.memcached.ops.KeyedOperation;
 import net.spy.memcached.ops.Operation;
-import net.spy.memcached.ops.OperationCallback;
-import net.spy.memcached.ops.OperationException;
 import net.spy.memcached.ops.OperationState;
 import net.spy.memcached.ops.OperationStatus;
 
@@ -53,7 +55,6 @@ import net.spy.memcached.ops.OperationStatus;
  * Connection to a cluster of memcached servers.
  */
 public final class RomaConnection extends SpyObject {
-
 	// The number of empty selects we'll allow before assuming we may have
 	// missed one and should check the current selectors.  This generally
 	// indicates a bug, but we'll check it nonetheless.
@@ -95,7 +96,7 @@ public final class RomaConnection extends SpyObject {
 				// new node !
 				Matcher m = namePattern.matcher(n);
 				m.matches();
-				a.add(new Pair(n , new InetSocketAddress(m.group(1),Integer.parseInt(m.group(2)))));
+				a.add(new Pair<String,InetSocketAddress>(n , new InetSocketAddress(m.group(1),Integer.parseInt(m.group(2)))));
 			}else {
 				removedNodes.remove(n);
 			}
@@ -123,6 +124,7 @@ public final class RomaConnection extends SpyObject {
 				// Initially I had attempted to skirt this by queueing every
 				// connect, but it considerably slowed down start time.
 				try {
+	ch.configureBlocking(true);
 					if(ch.connect(sa)) {
 						getLogger().info("Connected to %s immediately", qa);
 						connected(qa);
@@ -130,6 +132,7 @@ public final class RomaConnection extends SpyObject {
 						getLogger().info("Added %s to connect queue", qa);
 						ops=SelectionKey.OP_CONNECT;
 					}
+	ch.configureBlocking(false);
 					qa.setSk(ch.register(selector, ops, qa));
 					assert ch.isConnected()
 						|| qa.getSk().interestOps() == SelectionKey.OP_CONNECT
@@ -143,13 +146,16 @@ public final class RomaConnection extends SpyObject {
 		}
 		return;
 	}
-	public void asyncReconstruction(){
+	public Future<Boolean> asyncReconstruction(){
 		if ( selector.selectedKeys().size() == 0 ) {
+			// @@@ miss....
 			getLogger().error("All nodes are annihilation !");
 //			this.reconstructNodeMap(this.nodeNameSet); @@@
 		}
 		getLogger().debug("Try updating routing-info.");
 		final RomaConnection conn = this;
+		final CountDownLatch latch=new CountDownLatch(1);
+		final OperationFuture<Boolean> rv=new OperationFuture<Boolean>(latch,0);
 		Operation op = opFact.mklhash(
 				new RomaMklhashOperation.Callback() {
 					private String val=null;
@@ -157,21 +163,23 @@ public final class RomaConnection extends SpyObject {
 					}
 					public void complete() {
 						getLogger().debug("hash="+val);
-	if ( val == null ) {
-//		asyncReconstruction(); // @@@ 全滅の無限ループが・・・
-	}else if ( val != null && !conn.mklhash.equals(val)) {
+						if ( val == null ) {
+							//		asyncReconstruction(); // @@@ 全滅の無限ループが・・・
+						}else if ( val != null && !conn.mklhash.equals(val)) {
 							conn.mklhash = val;
 							// @@@ hashを取ったホストと違うホストに取りに行ってしまうかもしれない・・・
-							conn.asyncRoutingReconstruction();
+							conn.asyncRoutingReconstruction(latch);
 						}
 					}
 					public void gotData(String data) {
 						val= data;
 					}
 				});
+		rv.setOperation(op);
 		randOperation(op);
+		return rv;
 	}
-	private void asyncRoutingReconstruction(){
+	private void asyncRoutingReconstruction(final CountDownLatch latch){
 		final RomaConnection conn = this;
 		Operation op = opFact.routingdump(
 				new RomaRoutingdumpOperation.Callback() {
@@ -197,6 +205,7 @@ public final class RomaConnection extends SpyObject {
 						}
 						conn.reconstructNodeMap((List<String>)r1);
 						conn.locator.update((Map<String, BigDecimal>)r0, Collections.unmodifiableMap(nodeMap), (Map<String,List<String>>)r2);
+						latch.countDown();
 					}
 					public void gotData(String data) {
 						val= data;
@@ -219,6 +228,7 @@ public final class RomaConnection extends SpyObject {
 	private final RomaConnectionFactory f;
 	private final int bufSize;
 	private final List<String> nodeNameSet;
+	private final Future<Boolean> startupFuture;
 	public RomaConnection(int bufSize, RomaConnectionFactory f,
 			List<String> ns, Collection<ConnectionObserver> obs,
 			FailureMode fm, RomaOperationFactory opfactory)
@@ -235,9 +245,11 @@ public final class RomaConnection extends SpyObject {
 		locator=f.createLocator();
 		reconstructNodeMap(ns);
 		locator.firstUpdate(Collections.unmodifiableMap(nodeMap));
-		asyncReconstruction();
+		startupFuture = asyncReconstruction();
 	}
-
+	public void awaitStartup(long timeout) throws InterruptedException, ExecutionException, TimeoutException{
+		startupFuture.get(timeout,TimeUnit.MILLISECONDS);
+	}
 	private boolean selectorsMakeSense() {
 		for(MemcachedNode qa : locator.getAll()) {
 			if(qa.getSk() != null && qa.getSk().isValid()) {
@@ -705,7 +717,7 @@ public final class RomaConnection extends SpyObject {
 	}
 
 	public void addOperation(final MemcachedNode n, final Operation o) {
-System.err.println("OP:"+n.toString());
+		getLogger().debug("OP:"+n.toString());
 		MemcachedNode node = (MemcachedNode)n;
 		o.setHandlingNode(node);
 		o.initialize();

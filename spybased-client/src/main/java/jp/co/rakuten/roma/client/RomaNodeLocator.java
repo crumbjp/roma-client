@@ -97,7 +97,7 @@ public final class RomaNodeLocator extends SpyObject implements NodeLocator {
 			getLogger().warn("Too first operation ! : The locator has not initialized yet.");
 			return constNodeMap.values().iterator().next();
 		}
-System.err.println("getPrimary("+k+"):"+virtualNodes.get(hash(k)).get(0).toString());
+		getLogger().debug("getPrimary("+k+"):"+virtualNodes.get(hash(k)).get(0).toString());
 		return virtualNodes.get(hash(k)).get(0);
 	}
 
@@ -107,7 +107,7 @@ System.err.println("getPrimary("+k+"):"+virtualNodes.get(hash(k)).get(0).toStrin
 			return new NodeIterator(Collections.unmodifiableList(new ArrayList(constNodeMap.values())));
 		}
 		for ( MemcachedNode n : Collections.unmodifiableList(virtualNodes.get(hash(k))))
-System.err.println("getSequence("+k+"):"+n.toString());
+			getLogger().debug("getSequence("+k+"):"+n.toString());
 		return new NodeIterator(Collections.unmodifiableList(virtualNodes.get(hash(k))));
 	}
 

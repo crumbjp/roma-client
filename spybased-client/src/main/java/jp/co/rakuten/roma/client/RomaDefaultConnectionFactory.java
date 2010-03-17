@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeoutException;
 
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAsciiOperationFactory;
 
@@ -105,7 +107,7 @@ public class RomaDefaultConnectionFactory extends SpyObject
 	 * @see net.spy.memcached.ConnectionFactory#createConnection(java.util.List)
 	 */
 	public RomaConnection createConnection(List<String> names)
-		throws IOException {
+		throws IOException{
 		return new RomaConnection(getReadBufSize(), this, names,
 			getInitialObservers(), getFailureMode(), getOperationFactory());
 	}

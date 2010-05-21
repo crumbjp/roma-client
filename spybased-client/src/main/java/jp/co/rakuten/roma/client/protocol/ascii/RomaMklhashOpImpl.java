@@ -12,7 +12,7 @@ class RomaMklhashOpImpl extends OperationImpl
 	implements RomaMklhashOperation {
 
 	private static final OperationStatus END = new OperationStatus(true, "END");
-	private final String cmd = "mklhash 0";
+	private static final String cmd = "mklhash 0";
 
 	public RomaMklhashOpImpl(OperationCallback cb){
 		super(cb);
@@ -21,8 +21,8 @@ class RomaMklhashOpImpl extends OperationImpl
 		getLogger().debug("Got line %s", line);
 		((RomaMklhashOperation.Callback)getCallback()).gotData(line);
 		getCallback().receivedStatus(END);
-		getLogger().debug("mklhash complete!");
 		transitionState(OperationState.COMPLETE);
+		getLogger().debug(cmd+" complete!");
 	}
 	public final void handleRead(ByteBuffer b) {
 	}

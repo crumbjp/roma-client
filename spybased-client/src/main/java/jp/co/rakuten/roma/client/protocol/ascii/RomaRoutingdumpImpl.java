@@ -12,7 +12,7 @@ class RomaRoutingdumpImpl extends OperationImpl
 	implements RomaRoutingdumpOperation {
 
 	private static final OperationStatus END = new OperationStatus(true, "END");
-	private final String cmd = "routingdump json";
+	private static final String cmd = "routingdump json";
 	private StringBuffer data = null;
 	public RomaRoutingdumpImpl(OperationCallback cb){
 		super(cb);
@@ -23,9 +23,9 @@ class RomaRoutingdumpImpl extends OperationImpl
 			getLogger().debug("Got line %s", line);
 			((RomaRoutingdumpOperation.Callback)getCallback()).gotData(data.toString());
 			getCallback().receivedStatus(END);
-			getLogger().debug("mklhash complete!");
 			transitionState(OperationState.COMPLETE);
 			data = null;
+			getLogger().debug(cmd+" complete!");
 		} else {
 			if ( data == null ) {
 				data = new StringBuffer();

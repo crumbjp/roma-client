@@ -2,7 +2,6 @@
 
 package jp.co.rakuten.roma.client;
 
-import java.io.IOException;
 import java.net.SocketAddress;
 import java.util.Collection;
 import java.util.Map;
@@ -12,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import net.spy.memcached.CASResponse;
 import net.spy.memcached.CASValue;
 import net.spy.memcached.ConnectionObserver;
-import net.spy.memcached.MemcachedClientIF;
 import net.spy.memcached.NodeLocator;
 import net.spy.memcached.OperationTimeoutException;
 import net.spy.memcached.transcoders.Transcoder;
@@ -67,7 +65,9 @@ import net.spy.memcached.transcoders.Transcoder;
  *      }
  * </pre>
  */
-public interface RomaClient extends MemcachedClientIF {
+//public interface RomaClient extends MemcachedClientIF {
+//public interface RomaClient extends SimpleRomaClient{
+public interface RomaClient {
 	/**
 	 * Get the addresses of available servers.
 	 *
@@ -77,7 +77,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * working and what's not working.
 	 * </p>
 	 */
-	@Override
+	
 	Collection<SocketAddress> getAvailableServers();
 	/**
 	 * Get the addresses of unavailable servers.
@@ -88,17 +88,17 @@ public interface RomaClient extends MemcachedClientIF {
 	 * working and what's not working.
 	 * </p>
 	 */
-	@Override
+	
 	Collection<SocketAddress> getUnavailableServers();
 	/**
 	 * Get a read-only wrapper around the node locator wrapping this instance.
 	 */
-	@Override
+	
 	NodeLocator getNodeLocator();
 	/**
 	 * Get the default transcoder that's in use.
 	 */
-	@Override
+	
 	Transcoder<Object> getTranscoder();
 	/**
 	 * Reset the default transcoder.
@@ -126,7 +126,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> append(long cas, String key, Object val);
 	/**
 	 * Append to an existing value in the cache.
@@ -151,7 +151,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Boolean> append(long cas, String key, T val,Transcoder<T> tc);
 	/**
 	 * Append to an existing value in the cache.
@@ -176,7 +176,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> prepend(long cas, String key, Object val);
 	/**
 	 * Prepend to an existing value in the cache.
@@ -201,7 +201,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Boolean> prepend(long cas, String key, T val,Transcoder<T> tc);
 	/**
 	 * Prepend to an existing value in the cache.
@@ -227,7 +227,7 @@ public interface RomaClient extends MemcachedClientIF {
      * @throws IllegalStateException in the rare circumstance where queue
      *         is too full to accept any more requests
      */
-	@Override
+	
     <T> Future<CASResponse> asyncCAS(String key, long casId, T value, Transcoder<T> tc);
 	/**
      * Asynchronous CAS operation.
@@ -279,7 +279,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<CASResponse> asyncCAS(String key, long casId, Object value);
 	/**
 	 * Asynchronous CAS operation using the default transcoder.
@@ -306,7 +306,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
      */
-	@Override
+	
     <T> CASResponse cas(String key, long casId, T value, Transcoder<T> tc);
 	/**
 	 * Perform a synchronous CAS operation.
@@ -366,7 +366,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	CASResponse cas(String key, long casId, Object value);
 	/**
 	 * Perform a synchronous CAS operation with the default transcoder.
@@ -410,7 +410,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Boolean> add(String key, int exp, T o, Transcoder<T> tc);
 	/**
 	 * Add an object to the cache iff it does not exist already.
@@ -470,7 +470,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> add(String key, int exp, Object o);
 	/**
 	 * Add an object to the cache (using the default transcoder)
@@ -530,7 +530,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Boolean> set(String key, int exp, T o, Transcoder<T> tc);
 	/**
 	 * Set an object in the cache regardless of any existing value.
@@ -590,7 +590,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> set(String key, int exp, Object o);
 	/**
 	 * Set an object in the cache (using the default transcoder)
@@ -651,7 +651,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Boolean> replace(String key, int exp, T o,Transcoder<T> tc);
 	/**
 	 * Replace an object with the given value iff there is already a value
@@ -712,7 +712,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> replace(String key, int exp, Object o);
 	/**
 	 * Replace an object with the given value (transcoded with the default
@@ -753,7 +753,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<T> asyncGet(final String key, final Transcoder<T> tc);
 	/**
 	 * Get the given key asynchronously.
@@ -766,6 +766,32 @@ public interface RomaClient extends MemcachedClientIF {
 	 *         is too full to accept any more requests
 	 */
 	<T> Future<T> asyncGet(final String key, final Transcoder<T> tc, long timeout);
+	/**
+	 * Get mklhash (Roma extention operation). @@@
+	 *
+	 * @return Returns roma-mklhash 
+	 */
+	Future<Object> asyncExtension(RomaExtension ex);
+	/**
+	 * Get mklhash asynchronously (Roma extention operation). @@@
+	 * 
+	 * @param timeout operationTimeout (msec)
+	 * @return Returns roma-mklhash 
+	 */
+	Future<Object> asyncExtension(long timeout,RomaExtension ex);
+	/**
+	 * Get mklhash (Roma extention operation). @@@
+	 *
+	 * @return Returns roma-mklhash 
+	 */
+	Object extension(RomaExtension ex);
+	/**
+	 * Get mklhash (Roma extention operation). @@@
+	 * 
+	 * @param timeout operationTimeout (msec)
+	 * @return Returns roma-mklhash 
+	 */
+	Object extension(long timeout,RomaExtension ex);
 	/**
 	 * Get mklhash (Roma extention operation).
 	 *
@@ -853,7 +879,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Object> asyncGet(final String key);
 	/**
 	 * Get the given key asynchronously and decode with the default
@@ -875,7 +901,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<CASValue<T>> asyncGets(final String key,final Transcoder<T> tc);
 	/**
 	 * Gets (with CAS support) the given key asynchronously.
@@ -897,7 +923,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<CASValue<Object>> asyncGets(final String key);
 	/**
 	 * Gets (with CAS support) the given key asynchronously and decode using
@@ -921,7 +947,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> CASValue<T> gets(String key, Transcoder<T> tc);
 	/**
 	 * Gets (with CAS support) with a single key.
@@ -946,7 +972,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	CASValue<Object> gets(String key);
 	/**
 	 * Gets (with CAS support) with a single key using the default transcoder.
@@ -971,7 +997,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> T get(String key, Transcoder<T> tc);
 	/**
 	 * Get with a single key.
@@ -996,7 +1022,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Object get(String key);
 	/**
 	 * Get with a single key and decode using the default transcoder.
@@ -1019,7 +1045,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Map<String, T>> asyncGetBulk(Collection<String> keys,final Transcoder<T> tc);
 	/**
 	 * Asynchronously get a bunch of objects from the cache.
@@ -1041,7 +1067,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Map<String, Object>> asyncGetBulk(Collection<String> keys);
 	/**
 	 * Asynchronously get a bunch of objects from the cache and decode them
@@ -1063,7 +1089,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Future<Map<String, T>> asyncGetBulk(Transcoder<T> tc,String... keys);
 	/**
 	 * Varargs wrapper for asynchronous bulk gets with the default transcoder.
@@ -1073,7 +1099,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Map<String, Object>> asyncGetBulk(String... keys);
 	/**
 	 * Get the values for multiple keys from the cache.
@@ -1086,7 +1112,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Map<String, T> getBulk(Collection<String> keys,Transcoder<T> tc);
 	/**
 	 * Get the values for multiple keys from the cache.
@@ -1111,7 +1137,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Map<String, Object> getBulk(Collection<String> keys);
 	/**
 	 * Get the values for multiple keys from the cache.
@@ -1136,7 +1162,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	<T> Map<String, T> getBulk(Transcoder<T> tc, String... keys);
 	/**
 	 * Get the values for multiple keys from the cache.
@@ -1148,14 +1174,14 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Map<String, Object> getBulk(String... keys);
 	/**
 	 * Get the versions of all of the connected memcacheds.
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Map<SocketAddress, String> getVersions();
 	/**
 	 * Get the versions of all of the connected memcacheds.
@@ -1169,7 +1195,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Map<SocketAddress, Map<String, String>> getStats();
 	/**
 	 * Get all of the stats from all of the connections.
@@ -1187,7 +1213,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Map<SocketAddress, Map<String, String>> getStats(final String arg);
 	/**
 	 * Get a set of stats from all connections.
@@ -1211,7 +1237,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	long incr(String key, int by);
 	/**
 	 * Decrement the given key by the given value.
@@ -1224,7 +1250,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	long decr(String key, int by);
 	/**
 	 * Increment the given counter, returning the new value.
@@ -1239,7 +1265,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	long incr(String key, int by, long def, int exp);
 	/**
 	 * Increment the given counter, returning the new value.
@@ -1269,7 +1295,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	long decr(String key, int by, long def, int exp);
 	/**
 	 * Decrement the given counter, returning the new value.
@@ -1294,7 +1320,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Long> asyncIncr(String key, int by);
 	/**
 	 * Asychronous increment.
@@ -1314,7 +1340,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Long> asyncDecr(String key, int by);
 	/**
 	 * Asynchronous decrement.
@@ -1338,7 +1364,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	long incr(String key, int by, long def);
 	/**
 	 * Increment the given counter, returning the new value.
@@ -1366,7 +1392,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	long decr(String key, int by, long def);
 	/**
 	 * Decrement the given counter, returning the new value.
@@ -1409,7 +1435,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> delete(String key);
 	/**
 	 * Delete the given key from the cache.
@@ -1425,7 +1451,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> flush(final int delay);
 	/**
 	 * Flush all caches from all servers with a delay of application.
@@ -1440,7 +1466,7 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	Future<Boolean> flush();
 	/**
 	 * Flush all caches from all servers immediately.
@@ -1454,12 +1480,12 @@ public interface RomaClient extends MemcachedClientIF {
 	/**
 	 * Shut down immediately.
 	 */
-	@Override
+	
 	void shutdown();
 	/**
 	 * Shut down this client gracefully.
 	 */
-	@Override
+	
 	boolean shutdown(long timeout, TimeUnit unit);
 	/**
 	 * Wait for the queues to die down.
@@ -1467,20 +1493,20 @@ public interface RomaClient extends MemcachedClientIF {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	@Override
+	
 	boolean waitForQueues(long timeout, TimeUnit unit);
 	/**
 	 * Add a connection observer.
 	 *
 	 * @return true if the observer was added.
 	 */
-	@Override
+	
 	boolean addObserver(ConnectionObserver obs);
 	/**
 	 * Remove a connection observer.
 	 *
 	 * @return true if the observer existed, but no longer does
 	 */
-	@Override
+	
 	boolean removeObserver(ConnectionObserver obs);
 }

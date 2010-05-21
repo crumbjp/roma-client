@@ -23,6 +23,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
 
 import jp.co.rakuten.roma.client.internal.RomaBulkGetFuture;
+import jp.co.rakuten.roma.client.ops.RomaExtensionOperation;
 import jp.co.rakuten.roma.client.ops.RomaMklhashOperation;
 import jp.co.rakuten.roma.client.ops.RomaRoutingdumpOperation;
 
@@ -32,6 +33,7 @@ import net.spy.memcached.CASValue;
 import net.spy.memcached.CachedData;
 import net.spy.memcached.ConnectionObserver;
 import net.spy.memcached.KeyUtil;
+import net.spy.memcached.MemcachedClientIF;
 import net.spy.memcached.MemcachedNode;
 import net.spy.memcached.NodeLocator;
 import net.spy.memcached.OperationTimeoutException;
@@ -441,7 +443,7 @@ public class RomaClientImpl extends SpyThread implements RomaClient{
 			@Override
 			public void gotData(String key, int flags, byte[] data) {
 				val=tcService.decode(tc,
-					new CachedData(flags, data, tc.getMaxSize()));
+						new CachedData(flags, data, tc.getMaxSize()));
 			}
 			@Override
 			public void complete() {
@@ -1018,6 +1020,45 @@ public class RomaClientImpl extends SpyThread implements RomaClient{
 			throw new RuntimeException("Interrupted waiting for queues", e);
 		}
 	}
+
+	
+	/**
+	 * extension
+	 */
+	@Override
+	public Future<Object> asyncExtension(long timeout,RomaExtension ex) {
+		Pair<RomaExtensionOperation, OperationFuture<Object>> pair = ex.getOperation(timeout);
+		Operation op = pair.first;
+		OperationFuture<Object> rv = pair.second;
+		rv.setOperation(op);
+		if ( ex.getType() == RomaExtension.OperationType.KEY ) {
+			addOp(ex.getKey(),op);
+		}else if( ex.getType() == RomaExtension.OperationType.RANDOM ) {
+			randOp(op);
+		}
+		return rv;
+	}
+	@Override
+	public Future<Object> asyncExtension(RomaExtension ex) {
+		return asyncExtension(operationTimeout, ex);
+	}
+	@Override
+	public Object extension(long timeout,RomaExtension ex) {
+		try {
+			return asyncExtension(timeout, ex).get(timeout, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			throw new RuntimeException("Interrupted waiting for extension", e);
+		} catch (ExecutionException e) {
+			throw new RuntimeException("Exception waiting for extension", e);
+		} catch (TimeoutException e) {
+			throw new OperationTimeoutException("Timeout waiting for extension", e);
+		}
+	}
+	@Override
+	public Object extension(RomaExtension ex) {
+		return extension(operationTimeout,ex);
+	}
+
 	/**
 	 * mklhash
 	 */
@@ -1161,9 +1202,9 @@ public class RomaClientImpl extends SpyThread implements RomaClient{
 	}
 	private void validateKey(String key) {
 		byte[] keyBytes=KeyUtil.getKeyBytes(key);
-		if(keyBytes.length > MAX_KEY_LENGTH) {
+		if(keyBytes.length > MemcachedClientIF.MAX_KEY_LENGTH) {
 			throw new IllegalArgumentException("Key is too long (maxlen = "
-					+ MAX_KEY_LENGTH + ")");
+					+ MemcachedClientIF.MAX_KEY_LENGTH + ")");
 		}
 		if(keyBytes.length == 0) {
 			throw new IllegalArgumentException(

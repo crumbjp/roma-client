@@ -90,6 +90,7 @@ public class AppTest
     	keys.add("bar");
     	keys.add("baz");
     	long tmpTime = System.currentTimeMillis();
+    	int tmpi = 0;
     	try {
         	for(int i = 0 ; i < 100000000 ; i++) {
 //        	for(int i = 0 ; i < 2 ; i++) {
@@ -114,7 +115,8 @@ public class AppTest
         		}
         		if ( (i % 1000) == 0 ) {
         			long newTime = System.currentTimeMillis();
-        			System.err.println("I : " + String.valueOf(i) + " : " + (newTime-tmpTime));
+        			System.err.println("I : " + String.valueOf(i) + " : " + (newTime-tmpTime) + " nq/s: " + (i-tmpi)*keys.size()*1000/(newTime-tmpTime));
+        			tmpi = i;
         			tmpTime = newTime;
         		}
         		if ( (i % 100000) == 0 ) {

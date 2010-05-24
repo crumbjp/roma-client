@@ -14,6 +14,10 @@ import net.spy.memcached.transcoders.Transcoder;
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistClearOpImpl;
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistDeleteAtOpImpl;
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistDeleteOpImpl;
+import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistExpiredSwapInsertOpImpl;
+import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistExpiredSwapPushOpImpl;
+import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistExpiredSwapSizedInsertOpImpl;
+import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistExpiredSwapSizedPushOpImpl;
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistGetOpImpl;
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistGetsOpImpl;
 import jp.co.rakuten.roma.client.protocol.ascii.RomaAlistGetsTimeOpImpl;
@@ -47,12 +51,6 @@ public class RomaAlistImpl<T> implements RomaAlist<T>{
 	@Override
 	public void setTranscoder(Transcoder<Object> tc) {
 		transcoder = tc;
-	}
-
-	@Override
-	public void setExpire(long exp) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -289,6 +287,33 @@ public class RomaAlistImpl<T> implements RomaAlist<T>{
 			}
 		};
 	}
+	@Override
+	public RomaExtensionAlist insertOrMoveToFirst(T val,final Long expire) {
+		final CachedData data = transcoder.encode(val);
+		return new RomaExtensionAlist(key) {
+			@Override
+			public Pair<RomaExtensionOperation, OperationFuture<Object>> getOperation(long timeout) {
+				final CountDownLatch latch=new CountDownLatch(1);
+				final OperationFuture<Object> rv=new OperationFuture<Object>(latch, timeout);
+				return new Pair<RomaExtensionOperation, OperationFuture<Object>>(
+						new RomaAlistExpiredSwapInsertOpImpl(
+								new RomaExtensionOperation.Callback() {
+									@Override
+									public void receivedStatus(OperationStatus status) {
+										rv.set(status.isSuccess());
+									}
+									@Override
+									public void complete() {
+										latch.countDown();
+									}
+									@Override
+									public void gotData(int flg,byte[] data) {
+									}
+								},key,expire,data.getData()
+						),rv);
+			}
+		};
+	}
 
 	@Override
 	public RomaExtensionAlist insertOrMoveToFirst(T val,final Integer limitSize) {
@@ -313,6 +338,33 @@ public class RomaAlistImpl<T> implements RomaAlist<T>{
 									public void gotData(int flg,byte[] data) {
 									}
 								},key,limitSize,data.getData()
+						),rv);
+			}
+		};
+	}
+	@Override
+	public RomaExtensionAlist insertOrMoveToFirst(T val,final Integer limitSize,final Long expire) {
+		final CachedData data = transcoder.encode(val);
+		return new RomaExtensionAlist(key) {
+			@Override
+			public Pair<RomaExtensionOperation, OperationFuture<Object>> getOperation(long timeout) {
+				final CountDownLatch latch=new CountDownLatch(1);
+				final OperationFuture<Object> rv=new OperationFuture<Object>(latch, timeout);
+				return new Pair<RomaExtensionOperation, OperationFuture<Object>>(
+						new RomaAlistExpiredSwapSizedInsertOpImpl(
+								new RomaExtensionOperation.Callback() {
+									@Override
+									public void receivedStatus(OperationStatus status) {
+										rv.set(status.isSuccess());
+									}
+									@Override
+									public void complete() {
+										latch.countDown();
+									}
+									@Override
+									public void gotData(int flg,byte[] data) {
+									}
+								},key,expire,limitSize,data.getData()
 						),rv);
 			}
 		};
@@ -346,6 +398,33 @@ public class RomaAlistImpl<T> implements RomaAlist<T>{
 		};
 	}
 	@Override
+	public RomaExtensionAlist insertOrMoveToLast(T val,final Long expire) {
+		final CachedData data = transcoder.encode(val);
+		return new RomaExtensionAlist(key) {
+			@Override
+			public Pair<RomaExtensionOperation, OperationFuture<Object>> getOperation(long timeout) {
+				final CountDownLatch latch=new CountDownLatch(1);
+				final OperationFuture<Object> rv=new OperationFuture<Object>(latch, timeout);
+				return new Pair<RomaExtensionOperation, OperationFuture<Object>>(
+						new RomaAlistExpiredSwapPushOpImpl(
+								new RomaExtensionOperation.Callback() {
+									@Override
+									public void receivedStatus(OperationStatus status) {
+										rv.set(status.isSuccess());
+									}
+									@Override
+									public void complete() {
+										latch.countDown();
+									}
+									@Override
+									public void gotData(int flg,byte[] data) {
+									}
+								},key,expire,data.getData()
+						),rv);
+			}
+		};
+	}		
+	@Override
 	public RomaExtensionAlist insertOrMoveToLast(T val,final Integer limitSize) {
 		final CachedData data = transcoder.encode(val);
 		return new RomaExtensionAlist(key) {
@@ -368,6 +447,33 @@ public class RomaAlistImpl<T> implements RomaAlist<T>{
 									public void gotData(int flg,byte[] data) {
 									}
 								},key,limitSize,data.getData()
+						),rv);
+			}
+		};
+	}
+	@Override
+	public RomaExtensionAlist insertOrMoveToLast(T val,final Integer limitSize,final Long expire) {
+		final CachedData data = transcoder.encode(val);
+		return new RomaExtensionAlist(key) {
+			@Override
+			public Pair<RomaExtensionOperation, OperationFuture<Object>> getOperation(long timeout) {
+				final CountDownLatch latch=new CountDownLatch(1);
+				final OperationFuture<Object> rv=new OperationFuture<Object>(latch, timeout);
+				return new Pair<RomaExtensionOperation, OperationFuture<Object>>(
+						new RomaAlistExpiredSwapSizedPushOpImpl(
+								new RomaExtensionOperation.Callback() {
+									@Override
+									public void receivedStatus(OperationStatus status) {
+										rv.set(status.isSuccess());
+									}
+									@Override
+									public void complete() {
+										latch.countDown();
+									}
+									@Override
+									public void gotData(int flg,byte[] data) {
+									}
+								},key,expire,limitSize,data.getData()
 						),rv);
 			}
 		};
@@ -429,6 +535,7 @@ public class RomaAlistImpl<T> implements RomaAlist<T>{
 		};
 	}
 
+	
 	public RomaExtensionAlist insert(final Integer index, T val) {
 		final CachedData data = transcoder.encode(val);
 		return new RomaExtensionAlist(key) {

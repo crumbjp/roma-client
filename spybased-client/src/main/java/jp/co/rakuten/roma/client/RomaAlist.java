@@ -18,142 +18,209 @@ public interface RomaAlist<T> {
 	 */
 	public void setTranscoder(Transcoder<Object> tc);
 	/**
-	 * Set the operation date expire.
-	 * @param exp the expiration of this object
-	 */
-	public void setExpire(long exp);
-	/**
-	 * Insert the element to first of this list.
-	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element-value of the list.
+	 * <pre>
+	 * Insert the element to first of this alist.
+	 *   SimpleRomaClient.extension() returns Boolean
+	 * </pre> 
+	 * @param val the element-value of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist prepend(T val);
 	/**
-	 * Insert the element to first of this list.
-	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element-value of the list.
-	 * @param limitSize Capacity of the list.
+	 * <pre>
+	 * Insert the element to first of this alist.
+	 *   SimpleRomaClient.extension() returns Boolean<br>
+	 * The list-size becomes the specified limit-size 
+	 *  even if highest by cutting tails when this function returned. 
+	 * </pre> 
+	 * @param val the element-value of the alist.
+	 * @param limitSize size of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist prepend(T val,Integer limitSize);
 	/**
-	 * Insert the element to end of this list. 
+	 * <pre>
+	 * Insert the element to end of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element-value of the list.
+	 * </pre> 
+	 * @param val the element-value of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist append(T val);
 	/**
-	 * Insert the element to end of this list. 
+	 * <pre>
+	 * Insert the element to end of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element-value of the list.
-	 * @param limitSize Capacity of the list.
+	 * The list-size becomes the specified limit-size 
+	 *  even if highest by cutting tails when this function returned. 
+	 * </pre> 
+	 * @param val the element-value of the alist.
+	 * @param limitSize size of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist append(T val,Integer limitSize);
 	/**
-	 * Insert the element to specific position of this list. 
+	 * <pre>
+	 * Insert the element to specific position of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
+	 * </pre> 
 	 * @param index position.
-	 * @param val the element-value of the list.
+	 * @param val the element-value of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist insert(Integer index,T val);
 	/**
-	 * Move the element to first of this list. 
+	 * <pre>
+	 * Move the element to first of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element of the list.
+	 * </pre> 
+	 * @param val the element of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist insertOrMoveToFirst(T val);
 	/**
-	 * Move the element to first of this list. 
+	 * <pre>
+	 * Insert the element to end of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element of the list.
-	 * @param limitSize Capacity of the list.
+	 * </pre> 
+	 * @param val the element-value of the alist.
+	 * @param expire The expire-time of micro second.
+	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
+	 */
+	public RomaExtensionAlist insertOrMoveToFirst(T val,Long expire);
+	/**
+	 * <pre>
+	 * Move the element to first of this alist. 
+	 *   SimpleRomaClient.extension() returns Boolean 
+	 * The list-size becomes the specified limit-size 
+	 *  even if highest by cutting tails when this function returned. 
+	 * </pre> 
+	 * @param val the element of the alist.
+	 * @param limitSize Capacity of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist insertOrMoveToFirst(T val,Integer limitSize);
 	/**
-	 * Move the element to end of this list. 
+	 * <pre>
+	 * Move the element to first of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element of the list.
+	 * The list-size becomes the specified limit-size 
+	 *  even if highest by cutting tails when this function returned. 
+	 * </pre> 
+	 * @param val the element-value of the alist.
+	 * @param limitSize size of the alist.
+	 * @param expire The expire-time of micro second.
+	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
+	 */
+	public RomaExtensionAlist insertOrMoveToFirst(T val,Integer limitSize,Long expire);
+	/**
+	 * <pre>
+	 * Move the element to end of this alist. 
+	 *   SimpleRomaClient.extension() returns Boolean 
+	 * </pre> 
+	 * @param val the element of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist insertOrMoveToLast(T val);
 	/**
-	 * Move the element to end of this list. 
+	 * <pre>
+	 * Move the element to end of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element of the list.
-	 * @param limitSize Capacity of the list.
+	 * </pre> 
+	 * @param val the element-value of the alist.
+	 * @param expire The expire-time of micro second.
+	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
+	 */
+	public RomaExtensionAlist insertOrMoveToLast(T val,Long expire);
+	/**
+	 * <pre>
+	 * Move the element to end of this alist. 
+	 *   SimpleRomaClient.extension() returns Boolean 
+	 * </pre> 
+	 * @param val the element of the alist.
+	 * @param limitSize Capacity of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist insertOrMoveToLast(T val,Integer limitSize);
 	/**
-	 * Remove the element from this list. 
+	 * <pre>
+	 * Move the element to end of this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
-	 * @param val the element of the list.
+	 * The list-size becomes the specified limit-size 
+	 *  even if highest by cutting tails when this function returned. 
+	 * </pre> 
+	 * @param val the element-value of the alist.
+	 * @param limitSize size of the alist.
+	 * @param expire The expire-time of micro second.
+	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
+	 */
+	public RomaExtensionAlist insertOrMoveToLast(T val,Integer limitSize,Long expire);
+	/**
+	 * <pre>
+	 * Remove the element from this alist. 
+	 *   SimpleRomaClient.extension() returns Boolean 
+	 * </pre> 
+	 * @param val the element of the alist.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist delete(T val);
 	/**
-	 * Remove the element from this list. 
+	 * Remove the element from this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * @param index the position of the element.
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist deleteAt(Integer index);
 	/**
-	 * Remove all elements from this list. 
+	 * Remove all elements from this alist. 
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist deleteAll();
 	/**
-	 * Get all elements in this list. 
+	 * Get all elements in this alist. 
 	 *   SimpleRomaClient.extension() returns List<T> 
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist getAll();
 	/**
-	 * Get all elements in this list. 
+	 * Get all elements in this alist. 
 	 *   SimpleRomaClient.extension() returns List<RomaAlistEntry> 
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist getEntryAll();
 	/**
-	 * Get the element in this list. 
+	 * Get the element in this alist. 
 	 *   SimpleRomaClient.extension() returns T
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist get(Integer index);
 	/**
-	 * Get some elements in this list. 
+	 * Get some elements in this alist. 
 	 *   SimpleRomaClient.extension() returns List<T> 
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist getSubList(Integer index,Integer len);
 	/**
-	 * Get some elements in this list. 
+	 * Get some elements in this alist. 
 	 *   SimpleRomaClient.extension() returns List<RomaAlistEntry> 
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist getEntrySubList(Integer index,Integer len);
 	/**
-	 * Get the number of elements in this list. 
+	 * Get the number of elements in this alist. 
 	 *   SimpleRomaClient.extension() returns Integer
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist size();
 	/**
-	 * Get and delete the element in this list. 
+	 * Get and delete the element in this alist. 
 	 *   SimpleRomaClient.extension() returns T
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
 	public RomaExtensionAlist getAndDeleteFirst();
 	/**
-	 * Get and delete the element in this list. 
+	 * Get and delete the element in this alist. 
 	 *   SimpleRomaClient.extension() returns T
 	 * @return returns Roma extension object. Call SimpeRomaClient.extension() method as the argument. 
 	 */
@@ -162,7 +229,7 @@ public interface RomaAlist<T> {
 	 * RomaAlist inner data structure.  
 	 * @author hiroaki.kubota@mail.rakuten.co.jp
 	 *
-	 * @param <T> Data type of the list
+	 * @param <T> Data type of the alist
 	 */
 	public static interface RomaAlistEntry<T> {
 		/**

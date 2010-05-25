@@ -784,16 +784,8 @@ public class RomaClientImpl extends SpyThread implements RomaClient{
 		return mutateWithDefault(Mutator.incr, key, by, def, 0,operationTimeout);
 	}
 	@Override
-	public long incr(String key, int by, long def, int exp) {
-		return mutateWithDefault(Mutator.incr, key, by, def, exp,operationTimeout);
-	}
-	@Override
 	public long incr(String key, int by, long def, long timeout) {
 		return mutateWithDefault(Mutator.incr, key, by, def, 0,timeout);
-	}
-	@Override
-	public long incr(String key, int by, long def, int exp, long timeout) {
-		return mutateWithDefault(Mutator.incr, key, by, def, exp,timeout);
 	}
 	@Override
 	public Future<Long> asyncIncr(String key, int by , long timeout) {
@@ -815,16 +807,8 @@ public class RomaClientImpl extends SpyThread implements RomaClient{
 		return mutateWithDefault(Mutator.decr, key, by, def, 0,operationTimeout);
 	}
 	@Override
-	public long decr(String key, int by, long def, int exp) {
-		return mutateWithDefault(Mutator.decr, key, by, def, exp,operationTimeout);
-	}
-	@Override
 	public long decr(String key, int by, long def, long timeout) {
 		return mutateWithDefault(Mutator.decr, key, by, def, 0,timeout);
-	}
-	@Override
-	public long decr(String key, int by, long def, int exp, long timeout) {
-		return mutateWithDefault(Mutator.decr, key, by, def, exp,timeout);
 	}
 	@Override
 	public Future<Long> asyncDecr(String key, int by,long timeout) {

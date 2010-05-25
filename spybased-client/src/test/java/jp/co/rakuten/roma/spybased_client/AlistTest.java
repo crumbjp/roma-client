@@ -6,12 +6,12 @@ import java.util.List;
 
 import jp.co.rakuten.roma.client.RomaAlist;
 import jp.co.rakuten.roma.client.RomaAlistImpl;
-import jp.co.rakuten.roma.client.RomaClient;
-import jp.co.rakuten.roma.client.RomaClientImpl;
+import jp.co.rakuten.roma.client.SimpleRomaClient;
+import jp.co.rakuten.roma.client.SimpleRomaClientImpl;
 import junit.framework.TestCase;
 
 public class AlistTest extends TestCase {
-	static RomaClient c = null;
+	static SimpleRomaClient c = null;
 	static RomaAlist<String> alist;
 	static List<String> vlist;
 	static {
@@ -24,7 +24,7 @@ public class AlistTest extends TestCase {
 	protected void setUp() throws Exception {
     	System.err.println("--start--");
     	if ( c == null ) {
-    		c = new RomaClientImpl("localhost_11211","localhost_11212");
+    		c = new SimpleRomaClientImpl("localhost_11211","localhost_11212");
     		alist = new RomaAlistImpl<String>("foobar",c.getTranscoder());
     	}
     	System.err.println("--construct--" );
@@ -212,7 +212,7 @@ public class AlistTest extends TestCase {
 		}
     }
     public void testInsertOrMoveToFirstExpired() throws InterruptedException{
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToFirst("010",(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToFirst("010",(long)2)));
 		vlist.remove(10);
 		vlist.add(0,"010");
 		{
@@ -224,7 +224,7 @@ public class AlistTest extends TestCase {
 			}
 		}
 		// Not expired yet !
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)2)));
 		{
 			List<String> l = (List<String>)c.extension(alist.getAll());
 			Iterator<String> it = vlist.iterator();
@@ -233,11 +233,11 @@ public class AlistTest extends TestCase {
 	    		assertEquals(it.next(),s);
 			}
 		}
-		Thread.sleep(1500);
+		Thread.sleep(2500);
 		// Already expired !
 		vlist.clear();
 		vlist.add("---");
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)2)));
 		{
 			List<String> l = (List<String>)c.extension(alist.getAll());
 			Iterator<String> it = vlist.iterator();
@@ -248,7 +248,7 @@ public class AlistTest extends TestCase {
 		}
     }
     public void testInsertOrMoveToFirstExpiredLimit1(){
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToFirst("010",20,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToFirst("010",20,(long)2)));
 		vlist.remove(10);
 		vlist.add(0,"010");
 		{
@@ -261,7 +261,7 @@ public class AlistTest extends TestCase {
 		}
     }
     public void testInsertOrMoveToFirstExpiredLimit2(){
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToFirst("010",19,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToFirst("010",19,(long)2)));
 		vlist.remove(10);
 		vlist.add(0,"010");
 		vlist.remove(19);
@@ -314,7 +314,7 @@ public class AlistTest extends TestCase {
 		}
     }
     public void testInsertOrMoveToLastExpired() throws InterruptedException{
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("010",(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("010",(long)2)));
 		vlist.remove(10);
 		vlist.add("010");
 		{
@@ -326,7 +326,7 @@ public class AlistTest extends TestCase {
 			}
 		}
 		// Not expired yet !
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)2)));
 		{
 			List<String> l = (List<String>)c.extension(alist.getAll());
 			Iterator<String> it = vlist.iterator();
@@ -335,11 +335,11 @@ public class AlistTest extends TestCase {
 	    		assertEquals(it.next(),s);
 			}
 		}
-		Thread.sleep(1500);
+		Thread.sleep(2500);
 		// Already expired !
 		vlist.clear();
 		vlist.add("---");
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("---", 20,(long)2)));
 		{
 			List<String> l = (List<String>)c.extension(alist.getAll());
 			Iterator<String> it = vlist.iterator();
@@ -350,7 +350,7 @@ public class AlistTest extends TestCase {
 		}
     }
     public void testInsertOrMoveToLastExpiredLimit1(){
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("010",20,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("010",20,(long)2)));
 		vlist.remove(10);
 		vlist.add("010");
 		{
@@ -363,7 +363,7 @@ public class AlistTest extends TestCase {
 		}
     }
     public void testInsertOrMoveToLastExpiredLimit2(){
-		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("010",19,(long)1)));
+		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.insertOrMoveToLast("010",19,(long)2)));
 		vlist.remove(10);
 		{
 			List<String> l = (List<String>)c.extension(alist.getAll());
@@ -433,7 +433,6 @@ public class AlistTest extends TestCase {
 			Iterator<String> it = vlist.iterator();
 			assertEquals(l.size(), vlist.size());
 			for ( String s : l ) {
-				System.err.println("**"+s);
 	    		assertEquals(it.next(),s);
 			}
 		}
@@ -447,7 +446,6 @@ public class AlistTest extends TestCase {
 			Iterator<String> it = vlist.iterator();
 			assertEquals(l.size(), vlist.size());
 			for ( String s : l ) {
-				System.err.println("**"+s);
 	    		assertEquals(it.next(),s);
 			}
 		}
@@ -496,7 +494,6 @@ public class AlistTest extends TestCase {
 			Iterator<String> it = vlist.iterator();
 			assertEquals(l.size(), vlist.size());
 			for ( String s : l ) {
-				System.err.println("**"+s);
 	    		assertEquals(it.next(),s);
 			}
 		}

@@ -5,8 +5,15 @@ import java.util.Map;
 
 import net.spy.memcached.CASResponse;
 import net.spy.memcached.CASValue;
+import net.spy.memcached.transcoders.Transcoder;
 
 public interface SimpleRomaClient {
+	
+	/**
+	 * Get the default transcoder that's in use.
+	 */
+	Transcoder<Object> getTranscoder();
+	
 	/**
 	 * Get mklhash (Roma extention operation).
 	 *
@@ -62,6 +69,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @Deprecated The cas value is ignored on ascii protocol.
 	 */
 	Boolean append(long cas, String key, Object val);
 	/**
@@ -74,6 +83,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @Deprecated The cas value is ignored on ascii protocol.
 	 */
 	Boolean append(long cas, String key, Object val, long timeout);
 	/**
@@ -85,6 +96,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @Deprecated The cas value is ignored on ascii protocol.
 	 */
 	Boolean prepend(long cas, String key, Object val);
 	/**
@@ -97,6 +110,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @Deprecated The cas value is ignored on ascii protocol.
 	 */
 	Boolean prepend(long cas, String key, Object val, long timeout);
 	/**
@@ -401,35 +416,6 @@ public interface SimpleRomaClient {
 	 * @param key the key
 	 * @param by the amount to increment
 	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @return the new value, or -1 if we were unable to increment or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	long incr(String key, int by, long def, int exp);
-	/**
-	 * Increment the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to increment
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @param timeout operationTimeout (msec)
-	 * @return the new value, or -1 if we were unable to increment or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	long incr(String key, int by, long def, int exp, long timeout);
-	/**
-	 * Increment the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to increment
-	 * @param def the default value (if the counter does not exist)
 	 * @return the new value, or -1 if we were unable to increment or add
 	 * @throws OperationTimeoutException if the global operation timeout is
 	 *		   exceeded
@@ -463,35 +449,6 @@ public interface SimpleRomaClient {
 	 *         is too full to accept any more requests
 	 */
 	long decr(String key, int by);
-	/**
-	 * Decrement the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to decrement
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @return the new value, or -1 if we were unable to decrement or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	long decr(String key, int by, long def, int exp);
-	/**
-	 * Decrement the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to decrement
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @param timeout operationTimeout (msec)
-	 * @return the new value, or -1 if we were unable to decrement or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	long decr(String key, int by, long def, int exp, long timeout);
 	/**
 	 * Decrement the given counter, returning the new value.
 	 *
@@ -556,6 +513,7 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
 	 */
 	Boolean delete(String key, long timeout);
 	/**
@@ -564,6 +522,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
 	Boolean flush(final int delay);
 	/**
@@ -574,6 +534,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
 	Boolean flush(final int delay, long timeout);
 	/**
@@ -581,6 +543,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
 	Boolean flush();
 	/**
@@ -590,6 +554,8 @@ public interface SimpleRomaClient {
 	 * @return returns True if success
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
 	Boolean flush(long timeout);
 	/**

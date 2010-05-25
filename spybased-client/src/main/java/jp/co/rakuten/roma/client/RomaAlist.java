@@ -1,7 +1,5 @@
 package jp.co.rakuten.roma.client;
 
-import javax.naming.LimitExceededException;
-
 import net.spy.memcached.transcoders.Transcoder;
 
 /**
@@ -71,7 +69,8 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insert(Integer index,T val);
 	/**
 	 * <pre>
-	 * Move the element to first of this alist. 
+	 * 
+	 * If the specific element found insert into this alist, or move to first.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * </pre> 
 	 * @param val the element of the alist.
@@ -80,7 +79,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToFirst(T val);
 	/**
 	 * <pre>
-	 * Insert the element to end of this alist. 
+	 * If the specific element found insert into this alist, or move to first.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * </pre> 
 	 * @param val the element-value of the alist.
@@ -90,7 +89,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToFirst(T val,Long expire);
 	/**
 	 * <pre>
-	 * Move the element to first of this alist. 
+	 * If the specific element found insert into this alist, or move to first.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * The list-size becomes the specified limit-size 
 	 *  even if highest by cutting tails when this function returned. 
@@ -102,7 +101,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToFirst(T val,Integer limitSize);
 	/**
 	 * <pre>
-	 * Move the element to first of this alist. 
+	 * If the specific element found insert into this alist, or move to first.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * The list-size becomes the specified limit-size 
 	 *  even if highest by cutting tails when this function returned. 
@@ -115,7 +114,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToFirst(T val,Integer limitSize,Long expire);
 	/**
 	 * <pre>
-	 * Move the element to end of this alist. 
+	 * If the specific element found insert into this alist, or move to last.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * </pre> 
 	 * @param val the element of the alist.
@@ -124,7 +123,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToLast(T val);
 	/**
 	 * <pre>
-	 * Move the element to end of this alist. 
+	 * If the specific element found insert into this alist, or move to last.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * </pre> 
 	 * @param val the element-value of the alist.
@@ -134,7 +133,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToLast(T val,Long expire);
 	/**
 	 * <pre>
-	 * Move the element to end of this alist. 
+	 * If the specific element found insert into this alist, or move to last.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * </pre> 
 	 * @param val the element of the alist.
@@ -144,7 +143,7 @@ public interface RomaAlist<T> {
 	public RomaExtensionAlist insertOrMoveToLast(T val,Integer limitSize);
 	/**
 	 * <pre>
-	 * Move the element to end of this alist. 
+	 * If the specific element found insert into this alist, or move to last.
 	 *   SimpleRomaClient.extension() returns Boolean 
 	 * The list-size becomes the specified limit-size 
 	 *  even if highest by cutting tails when this function returned. 

@@ -98,7 +98,6 @@ public interface RomaClient {
 	/**
 	 * Get the default transcoder that's in use.
 	 */
-	
 	Transcoder<Object> getTranscoder();
 	/**
 	 * Reset the default transcoder.
@@ -1250,68 +1249,7 @@ public interface RomaClient {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	
 	long decr(String key, int by);
-	/**
-	 * Increment the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to increment
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @return the new value, or -1 if we were unable to increment or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	
-	long incr(String key, int by, long def, int exp);
-	/**
-	 * Increment the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to increment
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @param timeout operationTimeout (msec)
-	 * @return the new value, or -1 if we were unable to increment or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	long incr(String key, int by, long def, int exp, long timeout);
-	/**
-	 * Decrement the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to decrement
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @return the new value, or -1 if we were unable to decrement or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	
-	long decr(String key, int by, long def, int exp);
-	/**
-	 * Decrement the given counter, returning the new value.
-	 *
-	 * @param key the key
-	 * @param by the amount to decrement
-	 * @param def the default value (if the counter does not exist)
-	 * @param exp the expiration of this object
-	 * @param timeout operationTimeout (msec)
-	 * @return the new value, or -1 if we were unable to decrement or add
-	 * @throws OperationTimeoutException if the global operation timeout is
-	 *		   exceeded
-	 * @throws IllegalStateException in the rare circumstance where queue
-	 *         is too full to accept any more requests
-	 */
-	long decr(String key, int by, long def, int exp, long timeout);
 	/**
 	 * Asychronous increment.
 	 *
@@ -1320,7 +1258,6 @@ public interface RomaClient {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	
 	Future<Long> asyncIncr(String key, int by);
 	/**
 	 * Asychronous increment.
@@ -1340,7 +1277,6 @@ public interface RomaClient {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	
 	Future<Long> asyncDecr(String key, int by);
 	/**
 	 * Asynchronous decrement.
@@ -1450,8 +1386,9 @@ public interface RomaClient {
 	 * Flush all caches from all servers with a delay of application.
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
-	
 	Future<Boolean> flush(final int delay);
 	/**
 	 * Flush all caches from all servers with a delay of application.
@@ -1459,14 +1396,17 @@ public interface RomaClient {
 	 * @param timeout operationTimeout (msec)
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
 	Future<Boolean> flush(final int delay, long timeout);
 	/**
 	 * Flush all caches from all servers immediately.
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
-	
 	Future<Boolean> flush();
 	/**
 	 * Flush all caches from all servers immediately.
@@ -1474,18 +1414,18 @@ public interface RomaClient {
 	 * @param timeout operationTimeout (msec)
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
+	 *         
+	 * @deprecated Not supported in roma.
 	 */
 	Future<Boolean> flush(long timeout);
 
 	/**
 	 * Shut down immediately.
 	 */
-	
 	void shutdown();
 	/**
 	 * Shut down this client gracefully.
 	 */
-	
 	boolean shutdown(long timeout, TimeUnit unit);
 	/**
 	 * Wait for the queues to die down.
@@ -1493,20 +1433,17 @@ public interface RomaClient {
 	 * @throws IllegalStateException in the rare circumstance where queue
 	 *         is too full to accept any more requests
 	 */
-	
 	boolean waitForQueues(long timeout, TimeUnit unit);
 	/**
 	 * Add a connection observer.
 	 *
 	 * @return true if the observer was added.
 	 */
-	
 	boolean addObserver(ConnectionObserver obs);
 	/**
 	 * Remove a connection observer.
 	 *
 	 * @return true if the observer existed, but no longer does
 	 */
-	
 	boolean removeObserver(ConnectionObserver obs);
 }

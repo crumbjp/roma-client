@@ -25,7 +25,9 @@ public class AlistTest extends TestCase {
     	System.err.println("--start--");
     	if ( c == null ) {
     		c = new SimpleRomaClientImpl("localhost_11211","localhost_11212");
-    		alist = new RomaAlistImpl<String>("foobar",c.getTranscoder());
+    		String key = String.valueOf((System.currentTimeMillis())); 
+    		alist = new RomaAlistImpl<String>(key,c.getTranscoder());
+    		//alist = new RomaAlistImpl<String>("foobar",c.getTranscoder());
     	}
     	System.err.println("--construct--" );
     	vlist = new ArrayList<String>();

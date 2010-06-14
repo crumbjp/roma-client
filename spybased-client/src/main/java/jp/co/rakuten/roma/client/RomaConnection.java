@@ -149,7 +149,7 @@ public final class RomaConnection extends SpyObject {
 	public Future<Boolean> asyncReconstruction(){
 		if ( selector.selectedKeys().size() == 0 ) {
 			// @@@ miss....
-			getLogger().error("All nodes are annihilation !");
+//			getLogger().error("All nodes are annihilation !");
 //			this.reconstructNodeMap(this.nodeNameSet); @@@
 		}
 		getLogger().debug("Try updating routing-info.");

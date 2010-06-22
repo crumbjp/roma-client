@@ -1,0 +1,178 @@
+LAW_MAKE = $(MAKE)
+ifdef PARA
+  override MAKE += -j
+endif
+
+#----------------------------------------------------------------------------
+# USER DEFINE (export)
+# make
+export CXX
+export CC
+export LAW_MAKE
+export MAKE
+export UNAME
+export UNAME2
+export JAVA_HOME
+export PURIFY
+export LOCAL_CONF
+export GPROF
+export GCOV
+export M64
+export TMP_DIR
+
+# external packages
+export EXT_INCLUDE_DIRS
+export EXT_LIB_DIRS
+
+#----------------------------------------------------------------------------
+
+# root directry
+export PROJECT_ROOT
+# external package directory
+export EXT_DIR
+
+# Directory define.
+INCLUDE_DIR := include/
+OBJ_DIR := obj/
+SO_DIR  := lib/
+VPATH = $(INCLUDE) $(OBJ_DIR) $(SO_DIR)
+
+
+# Default dependency. (gmake)
+$(patsubst lib%.so,%,$@)
+DEF_HEADERS = $(foreach HEADER,$(shell find include/ -type f -name *.h),$(patsubst $(INCLUDE_DIR)%,%,$(HEADER)))
+#DEF_HEADERS = 
+export DEF_HEADERS
+
+
+# PHONY define
+.PHONY:all
+.PHONY:clean
+
+# Execute definition
+comma:= ,
+empty:=
+space:= $(empty) $(empty)
+$(addprefix run_,$(EXEC_TARGETS)):run_%:%
+	export LD_LIBRARY_PATH="$(PROJECT_ROOT)/lib/;$(subst $(space),;,$(EXT_LIB_DIRS));" ; 	./$^ $(args)
+
+$(addprefix gdb_,$(EXEC_TARGETS)):gdb_%:%
+	export LD_LIBRARY_PATH="$(PROJECT_ROOT)/lib/;$(subst $(space),;,$(EXT_LIB_DIRS));" ; 	gdb ./$^ $(args)
+
+#$(addprefix clean_,$(O_TARGETS)):clean_%:
+#	cd $^; $(MAKE) clean SUB_PROJECT=$^ ;cd $(PROJECT_ROOT);
+
+#$(addprefix clean_,$(SO_TARGETS)):clean_%:
+#	cd $%; $(MAKE) clean SUB_PROJECT=$% ;cd $(PROJECT_ROOT);
+
+#******************************************************************************
+# ALL
+all: $(EXEC_TARGETS)
+
+#******************************************************************************
+# CLEAN (kick sub make.)
+clean:
+	$(foreach EXEC_TARGET,$(EXEC_TARGETS), rm -f $(EXEC_TARGET) $(EXEC_TARGET)d $(EXEC_TARGET)64 $(EXEC_TARGET)64d $(EXEC_TARGET)dc $(EXEC_TARGET)64dc)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean DEBUG=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean DEBUG=1 GCOV=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean DEBUG=1 GPROF=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean DEBUG=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean DEBUG=1 GCOV=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean DEBUG=1 GPROF=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 DEBUG=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 DEBUG=1 GCOV=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(O_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 DEBUG=1 GPROF=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 DEBUG=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 DEBUG=1 GCOV=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+	$(foreach SUB_PROJECT,$(SO_TARGETS), cd $(SUB_PROJECT) && $(MAKE) clean M64=1 DEBUG=1 GPROF=1 SUB_PROJECT=$(SUB_PROJECT) > /dev/null && cd $(PROJECT_ROOT) || cd $(PROJECT_ROOT);)
+
+
+#******************************************************************************
+# Link .
+ifdef M64
+  override FINAL_LINK_FLGS += -m64
+else
+  override FINAL_LINK_FLGS += -m32
+endif
+LDFLAGS=$(FINAL_LINK_FLGS)
+ifdef DEBUG
+  ifdef M64
+    ifdef GCOV
+      define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat r64_$(SUB_PROJECT)dc.links)) -o $@64dc -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS))
+      endef
+    else
+      ifdef GPROF
+        define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat r64_$(SUB_PROJECT)dp.links)) -o $@64dp -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS))
+        endef
+      else
+        define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat r64_$(SUB_PROJECT)d.links)) -o $@64d -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS))
+        endef
+      endif
+    endif
+  else
+    ifdef GCOV
+      define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat $(SUB_PROJECT)dc.links)) -o $@dc -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS))
+      endef
+    else
+      ifdef GPROF
+        define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat $(SUB_PROJECT)dp.links)) -o $@dp -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS))
+        endef
+      else
+        define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat $(SUB_PROJECT)d.links)) -o $@d -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS))
+        endef
+      endif
+    endif
+  endif
+else
+  ifdef M64
+    define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat r64_$(SUB_PROJECT).links)) -o $@64 -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS)) 
+    endef
+  else
+    define gpp_link
+	$(EXE_LINK) $(addprefix -L,$(EXT_LIB_DIRS)) $(foreach SUB_PROJECT,$^,$(shell cat $(SUB_PROJECT).links)) -o $@ -L$(SO_DIR) $(LDFLAGS) $(addprefix -l,$(FINAL_LINK_LIBS)) 
+    endef
+  endif
+endif
+
+$(EXEC_TARGETS): %:$^ FORCE
+	@echo '##############################################'
+	@echo '# $@ :used to [  $(addprefix ",$(addsuffix ",$^)) ]'
+	$(gpp_link)
+
+#******************************************************************************
+#
+$(O_TARGETS): %: %.links
+	@echo '*** links ***'
+$(SO_TARGETS): %: lib%.so
+	@echo '*** libs ****'
+#******************************************************************************
+# Make shared object. (kick sub make.)
+%.so: FORCE
+	@echo '-------------------------------------'
+	@echo 'Generating shared object ! [ $@ ] '
+	@echo '-------------------------------------'
+	cd $(subst $(OBJ_DIR),,$(patsubst lib%.so,%,$@)) && $(MAKE) all SO=1 SUB_PROJECT=$(subst $(OBJ_DIR),,$(patsubst lib%.so,%,$@)) 
+
+# Make object. (kick sub make.)
+%.links: FORCE
+	@echo '-------------------------------------'
+	@echo 'Generating objects ! [ $@ : *.o ] '
+	@echo '-------------------------------------'
+	cd $(subst $(OBJ_DIR),,$*) && $(MAKE) all SUB_PROJECT=$(subst $(OBJ_DIR),,$*)
+# for kick sub make.
+FORCE:
+
+
+#---------------------------------------------------------------------------------------------------------
+

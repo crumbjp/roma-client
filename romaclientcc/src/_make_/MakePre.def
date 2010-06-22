@@ -1,0 +1,9 @@
+ifndef PROJECT_ROOT
+PROJECT_ROOT := $(shell pwd)/
+endif
+
+EXT_DIR:=$(PROJECT_ROOT)_ext_packs_/
+
+ifndef UNAME
+UNAME:= $(shell uname)
+endif

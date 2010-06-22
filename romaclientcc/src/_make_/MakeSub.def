@@ -1,0 +1,218 @@
+# $(PROJECT_ROOT) form [parent make].
+# $(SUB_PROJECT) form [parent make].
+
+ifndef PROJECT_ROOT
+  PROJECT_ROOT := $(shell pwd)/../
+  UNAME:= $(shell uname)
+endif
+
+# Directory define.
+INCLUDE_DIRS :=$(PROJECT_ROOT)include/ $(EXT_INCLUDE_DIRS)
+OBJ_DIR :=$(PROJECT_ROOT)obj/
+SO_DIR  :=$(PROJECT_ROOT)lib/
+
+VPATH = $(PROJECT_ROOT) $(INCLUDE_DIRS) $(foreach OPT_INCLUDE_DIR,$(OPT_INCLUDE_DIRS), $(PROJECT_ROOT)$(OPT_INCLUDE_DIR) ) 
+
+LOCAL_LINK_FLAGS  :=
+CMD_LINKS_FLAGS := 
+
+
+ifdef M64
+DEF_CMPL_FLGS := -m64
+LDFLAGS += -m64
+else
+DEF_CMPL_FLGS := -m32
+LDFLAGS += -m32
+endif
+#----------------------------------------------------------
+# Debug make rules
+ifdef DEBUG
+#
+# Default compile obptions.
+#DEF_CMPL_FLGS := -D$(UNAME) -c -g -ggdb -fPIC -DPIC -DDEBUG -Wall -Werror 
+override DEF_CMPL_FLGS += -D$(UNAME) -c -g -ggdb -fPIC -DPIC -DDEBUG -Wall 
+ifeq ($(UNAME),Linux)
+  override DEF_CMPL_FLGS += -pthread
+endif
+
+ifdef M64
+  ifdef GCOV
+    TARGET := r64_$(SUB_PROJECT)dc
+    override OPT_LINK_FLGS    += $(foreach LINK_LIB,$(LINK_LIBS), -lr64_$(LINK_LIB)dc ) -L$(SO_DIR)
+    override OPT_LINK_FLGS    += -fprofile-arcs -ftest-coverage
+    override LOCAL_LINK_FLAGS += -Wl,-whole-archive -lgcov -Wl,-no-whole-archive
+    override CMD_LINKS_FLAGS  += -lgcov
+    override DEF_CMPL_FLGS    += -fprofile-arcs -ftest-coverage
+    # Compile rule.
+    OBJS = $(SRC:%.cc=%64dc.o)
+    define OBJS_RULE
+      $(OBJS): %64dc.o: %.cc $(DEF_HEADERS) $(HEADERS)
+    endef
+  else
+    ifdef GPROF
+      TARGET := r64_$(SUB_PROJECT)dp
+      override OPT_LINK_FLGS    += $(foreach LINK_LIB,$(LINK_LIBS), -lr64_$(LINK_LIB)dp ) -L$(SO_DIR)
+      override OPT_LINK_FLGS    += -pg
+      override DEF_CMPL_FLGS    += -pg
+      # Compile rule.
+      OBJS = $(SRC:%.cc=%64dp.o)
+      define OBJS_RULE
+        $(OBJS): %64dp.o: %.cc $(DEF_HEADERS) $(HEADERS)
+      endef
+    else
+      TARGET := r64_$(SUB_PROJECT)d
+      override OPT_LINK_FLGS += $(foreach LINK_LIB,$(LINK_LIBS), -lr64_$(LINK_LIB)d ) -L$(SO_DIR)
+      # Compile rule.
+      OBJS = $(SRC:%.cc=%64d.o)
+      define OBJS_RULE
+        $(OBJS): %64d.o: %.cc $(DEF_HEADERS) $(HEADERS)
+      endef
+    endif
+  endif
+else
+  ifdef GCOV
+    TARGET := $(SUB_PROJECT)dc
+    override OPT_LINK_FLGS    += $(foreach LINK_LIB,$(LINK_LIBS), -l$(LINK_LIB)dc ) -L$(SO_DIR) 
+    override OPT_LINK_FLGS    += -fprofile-arcs -ftest-coverage
+    override LOCAL_LINK_FLAGS += -Wl,-whole-archive -lgcov -Wl,-no-whole-archive
+    override CMD_LINKS_FLAGS  += -lgcov
+    override DEF_CMPL_FLGS    += -fprofile-arcs -ftest-coverage
+    # Compile rule.
+    OBJS = $(SRC:%.cc=%dc.o)
+    define OBJS_RULE
+      $(OBJS): %dc.o: %.cc $(DEF_HEADERS) $(HEADERS)
+    endef
+  else
+    ifdef GPROF
+      TARGET := $(SUB_PROJECT)dp
+      override OPT_LINK_FLGS    += $(foreach LINK_LIB,$(LINK_LIBS), -l$(LINK_LIB)dp ) -L$(SO_DIR) 
+      override OPT_LINK_FLGS    += -pg
+      override DEF_CMPL_FLGS    += -pg
+      # Compile rule.
+      OBJS = $(SRC:%.cc=%dp.o)
+      define OBJS_RULE
+        $(OBJS): %dp.o: %.cc $(DEF_HEADERS) $(HEADERS)
+      endef
+    else
+      TARGET := $(SUB_PROJECT)d
+      override OPT_LINK_FLGS += $(foreach LINK_LIB,$(LINK_LIBS), -l$(LINK_LIB)d ) -L$(SO_DIR)
+      # Compile rule.
+      OBJS = $(SRC:%.cc=%d.o)
+      define OBJS_RULE
+        $(OBJS): %d.o: %.cc $(DEF_HEADERS) $(HEADERS)
+      endef
+    endif
+  endif
+endif
+#----------------------------------------------------------
+# Release make rules
+else
+#
+# Default compile obptions.
+override DEF_CMPL_FLGS += -D$(UNAME) -c -fPIC -DPIC -O2
+override OPT_LINK_FLGS += -O2
+
+ifdef M64
+  TARGET := r64_$(SUB_PROJECT)
+  override OPT_LINK_FLGS += $(foreach LINK_LIB,$(LINK_LIBS), -lr64_$(LINK_LIB) ) -L$(SO_DIR)
+  # Compile rule.
+  OBJS = $(SRC:%.cc=%64.o) 
+  define OBJS_RULE
+    $(OBJS): %64.o: %.cc $(DEF_HEADERS) $(HEADERS)
+  endef
+else
+  TARGET := $(SUB_PROJECT)
+  override OPT_LINK_FLGS += $(foreach LINK_LIB,$(LINK_LIBS), -l$(LINK_LIB) ) -L$(SO_DIR)
+  # Compile rule.
+  OBJS = $(SRC:.cc=.o) 
+  define OBJS_RULE
+    $(OBJS): %.o: %.cc $(DEF_HEADERS) $(HEADERS)
+  endef
+endif
+#
+endif
+#----------------------------------------------------------
+# Link hint file.(for [parent make])
+LK_TARGET=$(PROJECT_ROOT)$(TARGET).links
+# Shared object file.
+SO_TARGET=$(SO_DIR)lib$(TARGET).so
+#----------------------------------------------------------
+$(SO_TARGET):$(OBJS)
+#----------------------------------------------------------
+#----------------------------------------------------------
+# ALL
+.PHONY:all
+all::$(LK_TARGET)
+# CLEAN
+.PHONY:clean
+clean:
+	rm -f $(OBJS)
+	$(foreach OBJ,$(OBJS),rm -f $(OBJ_DIR)$(OBJ);)
+	rm -f $(LK_TARGET)
+	rm -f $(SO_TARGET)
+	rm -f $(CLEAN_TARGETS)
+	rm -f $(SRC:.cc=.gcno)
+#----------------------------------------------------------
+# Make link hint rule file definition.
+#  In the case of shared object.
+ifdef SO
+$(LK_TARGET) :$(SO_TARGET)
+
+define cmd_links
+@echo -l$(TARGET) > $(LK_TARGET)
+@echo $(OPT_LINK_FLGS) >> $(LK_TARGET)
+@echo $(CMD_LINKS_FLAGS) >> $(LK_TARGET)
+@echo $(foreach OPT_LIB_DIR,$(OPT_LIB_DIRS),' -L$(OPT_LIB_DIR) ' >> $(LK_TARGET))
+@echo $(foreach OPT_LINK_LIB,$(OPT_LINK_LIBS),' -l$(OPT_LINK_LIB) ' >> $(LK_TARGET))
+endef
+else
+#  In the case of objects.
+$(LK_TARGET) :$(OBJS) 
+
+define cmd_links
+$(foreach OBJ,$(OBJS),ln -f $(OBJ) $(OBJ_DIR);)
+@echo $(addprefix obj/,$(OBJS)) > $(LK_TARGET)
+@echo $(OPT_LINK_FLGS) >> $(LK_TARGET)
+@echo $(CMD_LINKS_FLAGS) >> $(LK_TARGET)
+@echo $(foreach OPT_LIB_DIR,$(OPT_LIB_DIRS),' -L$(OPT_LIB_DIR) ' >> $(LK_TARGET))
+@echo $(foreach OPT_LINK_LIB,$(OPT_LINK_LIBS),' -l$(OPT_LINK_LIB) ' >> $(LK_TARGET))
+endef
+#
+endif
+#----------------------------------------------------------
+# Make link hint file.
+%.links	:
+	$(cmd_links)
+#----------------------------------------------------------
+# Make shared object.(link)
+#LDFLAGS  = -pthread -shared $(OPT_LINK_FLGS)
+override LDFLAGS  += -shared $(OPT_LINK_FLGS)
+ifeq ($(UNAME),Linux)
+  override LDFLAGS += -DPIC -pthread
+endif
+
+%.so	:
+	$(CXX) $(OBJS) -o $@ \
+	$(LDFLAGS) \
+	$(LOCAL_LINK_FLAGS) \
+	$(foreach OPT_LINK_LIB,$(OPT_LINK_LIBS), -l$(OPT_LINK_LIB) ) \
+	$(foreach OPT_LIB_DIR,$(OPT_LIB_DIRS), -L$(PROJECT_ROOT)$(OPT_LIB_DIR) ) \
+	$(foreach EXT_LIB_DIR,$(EXT_LIB_DIRS), -L$(EXT_LIB_DIR) ) 
+
+#----------------------------------------------------------
+# Make objects.(compile)
+CXXFLAGS = $(DEF_CMPL_FLGS) $(OPT_CMPL_FLGS)
+ifdef LOCAL_CONF
+  override CXXFLAGS += -DLOCAL_CONF
+endif
+
+$(OBJS_RULE)
+	@echo "___"
+	$(CXX) $< $(CXXFLAGS) -o $@ \
+	$(foreach INCLUDE_DIR,$(INCLUDE_DIRS), -I$(INCLUDE_DIR) ) \
+	$(foreach OPT_INCLUDE_DIR,$(OPT_INCLUDE_DIRS), -I$(PROJECT_ROOT)$(OPT_INCLUDE_DIR) ) 
+
+#----------------------------------------------------------
+
+
+

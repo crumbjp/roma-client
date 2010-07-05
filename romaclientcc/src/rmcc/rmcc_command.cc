@@ -56,7 +56,7 @@ namespace rakuten {
       parse_mode = BIN_MODE;
     }
     string_vbuffer & CmdMklHash::send_callback(){
-      TRACE_LOG("%s\n",__PRETTY_FUNCTION__);
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
     callback_ret_t CmdMklHash::recv_callback_bin(string_vbuffer &rbuf){
@@ -82,7 +82,7 @@ namespace rakuten {
       parse_mode = BIN_MODE;
     }
     string_vbuffer & CmdRoutingDump::send_callback(){
-      TRACE_LOG("%s\n",__PRETTY_FUNCTION__);
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
 
@@ -212,7 +212,7 @@ namespace rakuten {
       sbuf.append("\r\n",2);
     }
     string_vbuffer & CmdSet::send_callback(){
-      TRACE_LOG("%s\n",__PRETTY_FUNCTION__);
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
     callback_ret_t CmdSet::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
@@ -261,7 +261,7 @@ namespace rakuten {
       sbuf.append_sprintf("get %s\r\n",key);
     }
     string_vbuffer & CmdGet::send_callback(){
-      TRACE_LOG("%s\n",__PRETTY_FUNCTION__);
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
     callback_ret_t CmdGet::recv_callback_bin(string_vbuffer &rbuf){
@@ -285,7 +285,7 @@ namespace rakuten {
     }
 
     string_vbuffer & CmdAlistSizedInsert::send_callback(){
-      TRACE_LOG("%s\n",__PRETTY_FUNCTION__);
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
     callback_ret_t CmdAlistSizedInsert::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
@@ -305,7 +305,7 @@ namespace rakuten {
       sbuf.append_sprintf("alist_join %s %d\r\n%s\r\n",key,strlen(sep),sep);
     }
     string_vbuffer & CmdAlistJoin::send_callback(){
-      TRACE_LOG("%s\n",__PRETTY_FUNCTION__);
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
     callback_ret_t CmdAlistJoin::recv_callback_bin(string_vbuffer &rbuf){

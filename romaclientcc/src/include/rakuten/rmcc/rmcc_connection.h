@@ -16,6 +16,7 @@
 
 #include <vector>
 #include <map>
+#include <sys/time.h>
 
 namespace rakuten {
   namespace rmcc {
@@ -54,13 +55,16 @@ namespace rakuten {
       string_vbuffer rbuf;
       unsigned int seed;
       char mklhash[41];
+      timeval tv_last_mklhash;
+      unsigned long mklhash_threshold;
       int dgst_bits;
       int div_bits;
       int rn;
+      routing_mode_t routing_mode;
     public:
       typedef std::vector<const char*> node_info_list_t;
       RomaConnection();
-      void init(const node_info_list_t &info_list);
+      void init(const node_info_list_t &info_list,routing_mode_t routing_mode);
       void command(Command & cmd);
       void term();
       ~RomaConnection();

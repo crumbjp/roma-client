@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 export LD_LIBRARY_PATH=$1/../lib:$LD_LIBRARY_PATH
-/usr/local/pear/bin/pecl-gen -f rmcc.xml
+export TZ=Asia/Tokyo 
+pecl-gen -f rmcc.xml
 cd phprmcc
 phpize
-./configure
+    ./configure CPPFLAGS="-I`pwd`/../../include"
 make clean all test LDFLAGS=-L../../lib
 # sudo make install

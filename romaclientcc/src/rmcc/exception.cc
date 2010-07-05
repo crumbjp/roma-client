@@ -1,5 +1,5 @@
 #include "rakuten/exception.h"
-int loglv = LOGLV_INFO;
+int loglv = LOGLV_WARN;
 namespace rakuten {
   Exception::Exception(int k, const char *pf, const char *f, int pl, const char *m)
     : kind(k), pref_func(pf), pref_file(f),pref_line(pl),msg(m)

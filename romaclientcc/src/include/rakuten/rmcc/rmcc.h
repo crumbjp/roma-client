@@ -42,9 +42,11 @@ namespace rakuten {
        *
        * @throws Exception Around network error. It'll be set the error message.
        */
-      void init();
+      void init(routing_mode_t routing_mode);
       /**
        * @brief Try to disconnect to the all-nodes.
+       *
+       * @param routing_mode ROUTING_MODE_USE meams using routingdump.
        *
        * @throws Exception Around network error. It'll be set the error message.
        */

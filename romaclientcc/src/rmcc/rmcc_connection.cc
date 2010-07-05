@@ -25,7 +25,7 @@
 
 namespace rakuten {
   namespace rmcc {
-    long sum_timeval(struct timeval &start ,struct timeval &end){
+    unsigned long sum_timeval(struct timeval &start ,struct timeval &end){
       long msec = (end.tv_sec - start.tv_sec) * 1000;
       long usec = end.tv_usec - start.tv_usec;
       if(usec < 0){
@@ -155,16 +155,16 @@ namespace rakuten {
       }
       buf.relength(offset+rsize); // fit
     }
-    // std::string Node::to_string()const {
-    //   return node_info_to_string(this->host.c_str(),this->port);
-    // }
 
     RomaConnection::RomaConnection() : seed(345678) {
       memset(mklhash,0,sizeof(mklhash));
+      memset(&tv_last_mklhash,0,sizeof(tv_last_mklhash));
     }
-    void RomaConnection::init(const node_info_list_t &nl){
+    void RomaConnection::init(const node_info_list_t &nl,routing_mode_t routing_mode){
       if ( ! this->nodelist.size() ) {
-        INFO_LOG("Init nodes");
+        INFO_LOG("Init nodes (%d)",routing_mode);
+        this->routing_mode = routing_mode;
+        this->mklhash_threshold = 10000; // @@@
         prepare_nodes(nl);
         routing_table();
       }
@@ -195,48 +195,58 @@ namespace rakuten {
     }
 
     void RomaConnection::routing_table(){
-      Node & node = *this->get_node_random();
-      try {
-        CmdMklHash cmdmklhash;
-        this->command(cmdmklhash,node);
-        if ( memcmp(mklhash,cmdmklhash.mklhash,sizeof(mklhash)) ) {
-          memcpy(this->mklhash,cmdmklhash.mklhash,sizeof(mklhash));
-          this->mklhash[40] = 0;
-          WARN_LOG("New routing dump [%s] : mklhash=%s",node.node_info.c_str(),this->mklhash);
-          // Init datas
-          this->dgst_bits = 0;
-          this->div_bits  = 0;
-          this->rn        = 0;
-          this->routing.clear();
-          CmdRoutingDump cmdroutingdump;
-          this->command(cmdroutingdump,node);
-          for ( std::map<char*,char*>::iterator it(cmdroutingdump.cap.begin()),itend(cmdroutingdump.cap.end());
-               it!=itend;
-               it++){
-            if ( 0==strcmp(it->first,"dgst_bits") ) {
-              this->dgst_bits = strtoul(it->second,0,0);
-            } else if ( 0==strcmp(it->first,"div_bits") ) {
-              this->div_bits = strtoul(it->second,0,0);
-            } else if ( 0==strcmp(it->first,"rn") ) {
-              this->rn = strtoul(it->second,0,0);
+      if (this->routing_mode == ROUTING_MODE_USE ) {
+        timeval tv_now;
+        gettimeofday(&tv_now,0);
+        unsigned long diff_mklhash = sum_timeval(this->tv_last_mklhash,tv_now);
+        TRACE_LOG("The %lu msec passed from the last mklhash : %lu",diff_mklhash,mklhash_threshold);
+        if ( diff_mklhash > this->mklhash_threshold ) {
+          INFO_LOG("Try to get new mklhash (msec:%ld)",diff_mklhash);
+          Node & node = *this->get_node_random();
+          try {
+            CmdMklHash cmdmklhash;
+            this->command(cmdmklhash,node);
+            gettimeofday(&tv_last_mklhash,0);
+            if ( memcmp(mklhash,cmdmklhash.mklhash,sizeof(mklhash)) ) {
+              memcpy(this->mklhash,cmdmklhash.mklhash,sizeof(mklhash));
+              this->mklhash[40] = 0;
+              WARN_LOG("New routing dump [%s] : mklhash=%s",node.node_info.c_str(),this->mklhash);
+              // Init datas
+              this->dgst_bits = 0;
+              this->div_bits  = 0;
+              this->rn        = 0;
+              this->routing.clear();
+              CmdRoutingDump cmdroutingdump;
+              this->command(cmdroutingdump,node);
+              for ( std::map<char*,char*>::iterator it(cmdroutingdump.cap.begin()),itend(cmdroutingdump.cap.end());
+                    it!=itend;
+                    it++){
+                if ( 0==strcmp(it->first,"dgst_bits") ) {
+                  this->dgst_bits = strtoul(it->second,0,0);
+                } else if ( 0==strcmp(it->first,"div_bits") ) {
+                  this->div_bits = strtoul(it->second,0,0);
+                } else if ( 0==strcmp(it->first,"rn") ) {
+                  this->rn = strtoul(it->second,0,0);
+                }
+              }
+              for ( std::map<char*,std::vector<char*> >::iterator it(cmdroutingdump.ht.begin()),itend(cmdroutingdump.ht.end());
+                    it!=itend;
+                    it++){
+                hash_t hash = strtoul(it->first,0,0);
+                for (std::vector<char*>::iterator vit(it->second.begin()),vitend(it->second.end());
+                     vit!=vitend;
+                     vit++){
+                  routing[hash].push_back(*vit);
+                }
+              }
+              this->prepare_nodes(cmdroutingdump.nl);
             }
+            return;
+          }catch(const Exception & ex ) {
+            ERR_LOG("New RoutingTable error [%s]",node.node_info.c_str());
+            routing_table();
           }
-          for ( std::map<char*,std::vector<char*> >::iterator it(cmdroutingdump.ht.begin()),itend(cmdroutingdump.ht.end());
-                it!=itend;
-                it++){
-            hash_t hash = strtoul(it->first,0,0);
-            for (std::vector<char*>::iterator vit(it->second.begin()),vitend(it->second.end());
-                 vit!=vitend;
-                 vit++){
-              routing[hash].push_back(*vit);
-            }
-          }
-          this->prepare_nodes(cmdroutingdump.nl);
         }
-        return;
-      }catch(const Exception & ex ) {
-        ERR_LOG("New RoutingTable error [%s]",node.node_info.c_str());
-        routing_table();
       }
     }
 
@@ -259,6 +269,7 @@ namespace rakuten {
         return this->get_node_random();
       }
     }
+
     hash_t RomaConnection::calc_hash(const char * t , long l ) {
       unsigned char buf[SHA_DIGEST_LENGTH];
       SHA1(reinterpret_cast<const unsigned char*>(t),l,buf);
@@ -270,6 +281,7 @@ namespace rakuten {
     }
 
     std::vector<std::string> &  RomaConnection::get_node_key(const char * key){
+      this->routing_table();
       hash_t hash = calc_hash(key,strlen(key));
       routing_t::iterator it = this->routing.find(hash);
       if ( it != this->routing.end() ) {
@@ -280,7 +292,7 @@ namespace rakuten {
 
     void RomaConnection::command(Command & cmd){
       Node *node = 0;
-      if ( cmd.get_op() == Command::RANDOM ){
+      if ( cmd.get_op() == Command::RANDOM || this->routing_mode != ROUTING_MODE_USE ){
         node = this->get_node_random();
       } else if( cmd.get_op() == Command::KEYED ){
         std::vector<std::string> & nodes = this->get_node_key(cmd.get_key());
@@ -297,8 +309,12 @@ namespace rakuten {
       // int status;
       // __cxxabiv1::__cxa_demangle(typeid(cmd).name(), cmdname,&cmdname_len,&status);
       // INFO_LOG("Command to [%s] %s",node.node_info.c_str(),cmdname);
-      INFO_LOG("Command to [%s] %s",node->node_info.c_str(),typeid(cmd).name());
-      this->command(cmd,*node);
+      if ( node ) {
+        INFO_LOG("Command to [%s] %s",node->node_info.c_str(),typeid(cmd).name());
+        this->command(cmd,*node);
+      }else {
+        ERR_LOG("Command failure(No-nodes) %s",typeid(cmd).name());
+      }
     }
     void RomaConnection::command(Command & cmd,Node & node){
       try { 

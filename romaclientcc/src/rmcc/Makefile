@@ -9,8 +9,9 @@ SRC = \
 
 HEADERS =
 LINK_LIBS = 
-OPT_LINK_FLGS = /usr/local/openssl/lib/libcrypto.a
-OPT_LINK_LIBS = 
+#OPT_LINK_FLGS = /usr/local/openssl/lib/libcrypto.a
+OPT_LINK_FLGS = -L/usr/local/openssl/lib
+OPT_LINK_LIBS = crypto
 #OPT_LIB_DIRS = 
 OPT_CMPL_FLGS = -I/usr/local/openssl/include
 OPT_INCLUDE_DIRS = 

@@ -1,0 +1,30 @@
+* ROMA C++ client library
+  * How to build ? (librmcc.so)
+    $ ./build.sh
+     It'll create file. 'lib/librmcc.so'
+  * REFERENCE
+     View doc-html/index.html
+
+* ROMA PHP client library (PHP-extension)
+   It require librmcc.so.
+  * How to build ? (phprmcc.so)
+    $ cd PECL
+    $ WITH_CONFIGURE=1 ./build.sh
+     It'll create file. 'PECL/phprmcc/modules/librmcc.so'
+
+* ROMA PHP client class (RomaClient.php)
+   It need setting the php enviroment.
+  * php.ini
+    * How to find the php.ini ?
+      $ php -r 'phpinfo();' | grep php.ini
+    * php.ini settings
+      - extension_dir
+        extension_dir=<PATH-TO-DIRECTORY of phprmcc.so>
+      - extension=phprmcc.so
+  * TEST
+     Please try to kick the test-script to check settings.
+     $ export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH
+     $ cd PECL
+     $ php example/test.php
+  * REFERENCE
+     View doc-html/index.html

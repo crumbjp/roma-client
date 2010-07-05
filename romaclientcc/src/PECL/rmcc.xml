@@ -26,47 +26,68 @@
 
  <deps language="cpp" platform="all">
   <with defaults="/usr:/usr/local">
+  <header name="string" />
+  <header name="map" />
   <header name="fstream" />
   <header name="stdlib.h" />
-  <header name="rakuten/rmcc/rmcc.h" path="/home/hirkubota/dev/git/roma-client/romaclientcc/src/include" />
-  <header name="rakuten/exception.h" path="../../../include" />
-  <lib name="rmccd" platform="all" />
+  <header name="string.h" />
+  <header name="rakuten/rmcc/rmcc.h" path="include" />
+  <header name="rakuten/exception.h" path="include" />
+  <lib name="rmcc" platform="all" />
   </with>
  </deps>
 
  <globals>
-  <global name="client" type="rakuten::rmcc::RomaClient *" />
+  <global name="client_map" type="void*" />
  </globals>
 
  <function role="internal" name="MINIT">
   <code>
     <![CDATA[
-       static rakuten::rmcc::RomaClient client;
-       PHPRMCC_G(client) = &client;
+       typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+       static client_map_t client_map;
+       PHPRMCC_G(client_map) = (void*)&client_map;
     ]]>
   </code>
  </function>
 
  <function name="rmc_init">
-  <proto>int rmc_init(array nl)</proto>
+  <proto>string rmc_init(array nl,int routing)</proto>
   <code>
   <![CDATA[
-     //std::ofstream logfs("/tmp/test.txt");
-     //logfs << "***********" << ::std::endl;
+//std::ofstream logfs("/tmp/test.txt");
+//logfs << "***********" << ::std::endl;
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     std::string client_id;     
      for ( int i = 0 ; i < zend_hash_num_elements(nl_hash) ; i++ ) {
 	 zval **pData;
 	 zend_hash_index_find(nl_hash,i,(void **)&pData);
 	 convert_to_string_ex(pData);
 	 char * str = Z_STRVAL_PP(pData);
-	 //char * s1;
-	 //const char * host = strtok_r(str,"_",&s1);
-	 //const char * port = strtok_r(0,"_",&s1);
-         //logfs << host << " => " << port << std::endl;
-	 //PHPRMCC_G(client)->get_nodelist().push_back(rakuten::rmcc::NodeInfo(host,strtoul(port,0,0)));
-	 PHPRMCC_G(client)->get_nodelist().push_back(str);
+         client_id = client_id + str;
      }
-     PHPRMCC_G(client)->init();
-     RETURN_LONG(0);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it == client_map->end() ) {
+         rakuten::rmcc::RomaClient * client = new rakuten::rmcc::RomaClient();
+         for ( int i = 0 ; i < zend_hash_num_elements(nl_hash) ; i++ ) {
+             zval **pData;
+             zend_hash_index_find(nl_hash,i,(void **)&pData);
+             convert_to_string_ex(pData);
+             char * str = Z_STRVAL_PP(pData);
+             if ( strchr(str,'_') ) {
+                 client->get_nodelist().push_back(str);
+             }
+         }
+         try {
+           client->init(routing);
+           client_map->insert(client_map_t::value_type(client_id,client));
+         }catch(const rakuten::Exception & ex ) {
+           // @@@ log...
+           RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+         }
+     }
+     RETURN_STRING((char*)client_id.c_str(),1);
   ]]>
   </code>
   <test>
@@ -75,78 +96,36 @@
      {
        $fp = fopen("/tmp/test.txt","a+");
        fwrite($fp,$buffer);
+       fwrite($fp,"\n");
        fclose($fp);
        return ($buffer);
      }
      ob_start("callback");
+     echo "## rmc_init() ##";
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     echo rmc_init($nl);
+     echo rmc_init($nl,0);
      ob_end_flush();
    </code>
-   <result>0</result>
+   <result>## rmc_init() ##localhost_11211localhost_11212</result>
   </test>
  </function>
 
  <function name="rmc_term">
-  <proto>int rmc_init()</proto>
+  <proto>int rmc_term(string client_id)</proto>
   <code>
   <![CDATA[
-   PHPRMCC_G(client)->term();
-   RETURN_LONG(0);
-  ]]>
-  </code>
-  <test>
-   <code>
-     $nl = array();
-     $nl[] = "localhost_11211";
-     $nl[] = "localhost_11212";
-     echo rmc_init($nl);
-     echo rmc_term();
-   </code>
-   <result>00</result>
-  </test>
- </function>
-
- <function name="rmc_set">
-  <proto>int rmc_set(string key, string value, int exptime)</proto>
-  <code>
-  <![CDATA[
-    int ret = rakuten::rmcc::RMC_RET_ERROR;
-    try {
-      RETURN_LONG(
-        PHPRMCC_G(client)->cmd_store(key,rakuten::rmcc::RomaValue(value,value_len),exptime);
-      );
-    }catch(const rakuten::Exception & ex ) {
-      // @@@ log...
-    }
-    RETURN_LONG(1);
-  ]]>
-  </code>
-  <test>
-   <code>
-     $nl = array();
-     $nl[] = "localhost_11211";
-     $nl[] = "localhost_11212";
-     echo rmc_init($nl);
-     echo rmc_set("foobar","FOOBAR",100);
-   </code>
-   <result>00</result>
-  </test>
- </function>
- <function name="rmc_get">
-  <proto>array rmc_get(string key)</proto>
-  <code>
-  <![CDATA[
-	try {
-	  rakuten::rmcc::RomaValue v = PHPRMCC_G(client)->cmd_get(key);
-          add_index_stringl(return_value,0,v.data,v.length,1);
-          add_index_long(return_value,1,v.length);
-          add_index_long(return_value,2,v.cas);
-	}catch(const rakuten::Exception & ex ) {
-	  // @@@ log...
-	}
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       it->second->term();
+       delete it->second;
+       client_map->erase(it);
+       RETURN_LONG(rakuten::rmcc::RMC_RET_OK);
+     }
+     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
   ]]>
   </code>
   <test>
@@ -155,22 +134,117 @@
      {
        $fp = fopen("/tmp/test.txt","a+");
        fwrite($fp,$buffer);
+       fwrite($fp,"\n");
        fclose($fp);
        return ($buffer);
      }
+     ob_start("callback");
+     echo "## rmc_term() ##";
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     echo rmc_init($nl);
-     echo rmc_set("foobar","FOOBAR",100);
-     //ob_start("callback");
-     $ret = rmc_get("foobar");
+     $cid = rmc_init($nl,0);
+     echo $cid;
+     echo rmc_term($cid);
+     ob_end_flush();
+   </code>
+   <result>## rmc_term() ##localhost_11211localhost_112120</result>
+  </test>
+ </function>
+
+ <function name="rmc_set">
+  <proto>int rmc_set(string client_id, string key, string value, int exptime)</proto>
+  <code>
+  <![CDATA[
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       try {
+         RETURN_LONG(
+           it->second->cmd_store(key,rakuten::rmcc::RomaValue(value,value_len),exptime);
+         );
+       }catch(const rakuten::Exception & ex ) {
+         // @@@ log...
+       }
+     }
+     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+  ]]>
+  </code>
+  <test>
+   <code>
+     function callback($buffer)
+     {
+       $fp = fopen("/tmp/test.txt","a+");
+       fwrite($fp,$buffer);
+       fwrite($fp,"\n");
+       fclose($fp);
+       return ($buffer);
+     }
+     ob_start("callback");
+     echo "## rmc_set() ##";
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $nl[] = "localhost_11212";
+     $cid = rmc_init($nl,0);
+     echo $cid;
+     echo rmc_set($cid,"foobar","FOOBAR",100);
+     ob_end_flush();
+   </code>
+   <result>## rmc_set() ##localhost_11211localhost_112120</result>
+  </test>
+ </function>
+ <function name="rmc_get">
+  <proto>array rmc_get(string client_id, string key)</proto>
+  <code>
+  <![CDATA[
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       try {
+         rakuten::rmcc::RomaValue v = it->second->cmd_get(key);
+         if ( v.length < 0 ) {
+           add_index_stringl(return_value,0,(char*)"",0,1);
+         }else {
+           add_index_stringl(return_value,0,(char*)v.data,v.length,1);
+         }
+         add_index_long(return_value,1,v.length);
+         add_index_long(return_value,2,v.cas);
+       }catch(const rakuten::Exception & ex ) {
+            // @@@ log...
+         RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+       }
+     } else {
+       RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     }
+  ]]>
+  </code>
+  <test>
+   <code>
+     function callback($buffer)
+     {
+       $fp = fopen("/tmp/test.txt","a+");
+       fwrite($fp,$buffer);
+       fwrite($fp,"\n");
+       fclose($fp);
+       return ($buffer);
+     }
+     ob_start("callback");
+     echo "## rmc_get() ##";
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $nl[] = "localhost_11212";
+     $cid = rmc_init($nl,0);
+     echo $cid;
+     echo rmc_set($cid,"foobar","FOOBAR",100);
+     $ret = rmc_get($cid,"foobar");
      var_dump($ret);
-     //ob_end_flush();
+     ob_end_flush();
    </code>
    <result>
   <![CDATA[
-00array(3) {
+## rmc_get() ##localhost_11211localhost_112120array(3) {
   [0]=>
   string(6) "FOOBAR"
   [1]=>
@@ -184,45 +258,22 @@
  </function>
 
  <function name="rmc_alist_sized_insert">
-  <proto>int rmc_alist_sized_insert(string key,int size,string value)</proto>
+  <proto>int rmc_alist_sized_insert(string client_id, string key,int size,string value)</proto>
   <code>
   <![CDATA[
-    int ret = rakuten::rmcc::RMC_RET_ERROR;
-    try {
-      RETURN_LONG(
-        PHPRMCC_G(client)->cmd_alist_sized_insert(key,size,rakuten::rmcc::RomaValue(value,value_len));
-      );
-    }catch(const rakuten::Exception & ex ) {
-      // @@@ log...
-    }
-    RETURN_LONG(1);
-  ]]>
-  </code>
-  <test>
-   <code>
-     $nl = array();
-     $nl[] = "localhost_11211";
-     $nl[] = "localhost_11212";
-     echo rmc_init($nl);
-     echo rmc_alist_sized_insert("FOOBAR",2,"FOOBAR");
-     echo rmc_alist_sized_insert("FOOBAR",2,"FOOBAR");
-     echo rmc_alist_sized_insert("FOOBAR",2,"BARFOO");
-   </code>
-   <result>0000</result>
-  </test>
- </function>
- <function name="rmc_alist_join">
-  <proto>array rmc_alist_join(string key,string sep)</proto>
-  <code>
-  <![CDATA[
-	try {
-	  rakuten::rmcc::RomaValue v = PHPRMCC_G(client)->cmd_alist_join(key,sep);
-          add_index_stringl(return_value,0,v.data,v.length,1);
-          add_index_long(return_value,1,v.length);
-          add_index_long(return_value,2,v.cas);
-	}catch(const rakuten::Exception & ex ) {
-	  // @@@ log...
-	}
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       try {
+         RETURN_LONG(
+           it->second->cmd_alist_sized_insert(key,size,rakuten::rmcc::RomaValue(value,value_len));
+         );
+       }catch(const rakuten::Exception & ex ) {
+         // @@@ log...
+       }
+     }
+     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
   ]]>
   </code>
   <test>
@@ -231,24 +282,79 @@
      {
        $fp = fopen("/tmp/test.txt","a+");
        fwrite($fp,$buffer);
+       fwrite($fp,"\n");
        fclose($fp);
        return ($buffer);
      }
+     ob_start("callback");
+     echo "## rmc_alist_sized_insert() ##";
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     echo rmc_init($nl);
-     echo rmc_alist_sized_insert("FOOBAR",2,"FOOBAR");
-     echo rmc_alist_sized_insert("FOOBAR",2,"FOOBAR");
-     echo rmc_alist_sized_insert("FOOBAR",2,"###");
-     // ob_start("callback");
-     $ret = rmc_alist_join("FOOBAR",",");
+     $cid = rmc_init($nl,0);
+     echo $cid;
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"BARFOO");
+     ob_end_flush();
+   </code>
+   <result>## rmc_alist_sized_insert() ##localhost_11211localhost_11212000</result>
+  </test>
+ </function>
+ <function name="rmc_alist_join">
+  <proto>array rmc_alist_join(string client_id, string key,string sep)</proto>
+  <code>
+  <![CDATA[
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       try {
+         rakuten::rmcc::RomaValue v = it->second->cmd_alist_join(key,sep);
+         if ( v.length < 0 ) {
+           add_index_stringl(return_value,0,(char*)"",0,1);
+         }else {
+           add_index_stringl(return_value,0,(char*)v.data,v.length,1);
+         }
+         add_index_long(return_value,1,v.length);
+         add_index_long(return_value,2,v.cas);
+       }catch(const rakuten::Exception & ex ) {
+	  // @@@ log...
+         RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+       }
+     }else {
+       RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     }
+
+  ]]>
+  </code>
+  <test>
+   <code>
+     function callback($buffer)
+     {
+       $fp = fopen("/tmp/test.txt","a+");
+       fwrite($fp,$buffer);
+       fwrite($fp,"\n");
+       fclose($fp);
+       return ($buffer);
+     }
+     ob_start("callback");
+     echo "## rmc_alist_join() ##";
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $nl[] = "localhost_11212";
+     $cid = rmc_init($nl,0);
+     echo $cid;
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"###");
+     $ret = rmc_alist_join($cid,"FOOBAR",",");
      var_dump($ret);
-     // ob_end_flush();
+     ob_end_flush();
    </code>
    <result>
 <![CDATA[
-0000array(3) {
+## rmc_alist_join() ##localhost_11211localhost_11212000array(3) {
   [0]=>
   string(10) "###,FOOBAR"
   [1]=>

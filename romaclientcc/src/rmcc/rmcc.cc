@@ -15,9 +15,9 @@ namespace rakuten{
     const char * RomaClient::get_lasterror()const {
       return this->lasterr.str().c_str();
     }
-    void RomaClient::init(){
+    void RomaClient::init(routing_mode_t routing_mode){
       try {
-        this->conn.init(this->node_info_list);
+        this->conn.init(this->node_info_list,routing_mode);
       }catch(const Exception & ex ) {
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;

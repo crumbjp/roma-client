@@ -10,7 +10,7 @@
  * @date 2010-06-15
  * @version $Id: RomaClient.php,v 1.0 2010/06/15 09:00:00 hiroaki.kubota Exp $
  */
-extension_loaded('phprmcc') || dl('phprmcc.so');
+#extension_loaded('phprmcc') || dl('phprmcc.so');
 
 class RomaClient {
     private $client_id = "";

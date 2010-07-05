@@ -34,14 +34,15 @@ static const int LOGLV_INFO  = 1;
 static const int LOGLV_WARN  = 2;
 static const int LOGLV_ERR   = 3;
 static const int LOGLV_FATAL = 4;
+static const int LOGLV_NONE = 100;
 #include <stdio.h>
-#ifdef DEBUG_
+#if DEBUG_
 #  ifdef GNU_THREE_DOTS_MACRO    // gnu style
 #    define TRACE_LOG(va_args...) \
-  fprintf(stderr,va_args);
+  fprintf(stderr,va_args);fprintf(stderr,"\n");
 #  else
 #    define TRACE_LOG(...) \
-  fprintf(stderr,__VA_ARGS__);
+  fprintf(stderr,__VA_ARGS__);fprintf(stderr,"\n");
 #  endif
 #else
 #    define TRACE_LOG(...)

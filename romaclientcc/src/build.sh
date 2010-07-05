@@ -2,7 +2,11 @@
 
 # Test-Build & Test
 export LD_LIBRARY_PATY=`pwd`/lib:$LD_LIBRARY_PATH
-make clean bin/rmcc_test DEBUG=1
-./bin/rmcc_testd
+make clean
+if [ WITH_TEST == "1" ];then
+    make bin/rmcc_test DEBUG=1
+    ./bin/rmcc_testd
+fi
 # Build
-make bin/rmcc_test 
+make rmcc
+# valgrind -v --leak-check=yes --track-origins=yes ./bin/rmcc_testd

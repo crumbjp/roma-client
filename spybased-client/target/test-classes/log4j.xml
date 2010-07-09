@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+  <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender" >
+    <param name="threshold" value="DEBUG"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p [%t] (%F:%L) - %m%n"/>
+    </layout>
+  </appender>
+  <appender name="DAILY" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="file" value="log/ao.log" /> 
+    <param name="threshold" value="INFO"/>
+    <param name="append" value="true" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p [%t] (%F:%L) - %m%n"/>
+<!--
+      <param name="ConversionPattern" value="'%c', '%p', '%d', '%m'%n" /> 
+-->
+    </layout>
+  </appender>
+
+<!--
+  <category name="jp.co.rakuten.i18n.pegasus2.core.frame.FrameMain">
+    <priority value="INFO" />
+    <appender-ref ref="STDOUT"/>
+  </category>
+-->
+  <root>
+    <priority value="DEBUG" />
+    <appender-ref ref="STDOUT"/>
+<!--
+    <appender-ref ref="DAILY"/>
+-->
+  </root>
+</log4j:configuration>

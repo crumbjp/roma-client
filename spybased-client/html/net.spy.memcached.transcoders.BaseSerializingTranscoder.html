@@ -1,0 +1,386 @@
+<html>
+<head>
+
+<title>jcoverage details for net.spy.memcached.transcoders.BaseSerializingTranscoder</title><style>
+<!--
+body {
+background-color: white;
+}
+
+p {
+text-align: left;
+margin-top: 10pt;
+margin-bottom: 10pt;
+}
+
+p, h1, h2, h3, td, th, dt {
+font-family: verdana, arial, sans-serif;
+font-size: 10pt;
+line-height: 100%;
+margin-left: 0pt;
+}
+
+li {
+font-family: verdana, arial, sans-serif;
+font-size: 10pt;
+line-height: 100%;
+margin-left: 0pt;
+}
+
+h1 {
+font-size: 14pt;
+}
+
+h2 {
+font-size: 12pt;
+margin-top: 12pt;
+}
+
+pre {
+line-height: 100%;
+}
+
+tr.yin td {
+background: #f0f0f0;
+}
+
+tr.yin td {
+background: #f0f0f0;
+}
+
+tr.highlight td {
+background: #ffff44;
+}
+
+th {
+border-width: 1px 0px 1px 1px;
+border-color: black;
+border-style: solid;
+text-align: center;
+}
+
+th.remainder {
+border-width: 1px 1px 1px 1px;
+}
+
+td.lineno {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: right;
+}
+
+td.hits {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: right;
+}
+
+td.code {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: left;
+}
+
+td.coverage {
+text-align: right;
+}
+
+td.lines {
+text-align: right;
+}
+
+td.files {
+text-align: right;
+}
+
+.navbar {
+margin-top: 0pt;
+color: white;
+vertical-align: top;
+text-align: left;
+font-size: 10pt;
+margin-left: 0pt;
+background-color: green;
+padding: 2pt;
+padding-left: 4pt;
+line-height: 120%;
+}
+
+.navbar a {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:visited {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:link {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:hover {
+color: white;
+text-decoration: none;
+}
+
+p.view a {
+color: #0000aa;
+text-decoration: none;
+}
+
+p.legalleft {
+font-size: 8pt;
+margin-top: 6pt;
+border-top: 1px solid black;
+color: #444444;
+text-align: left;
+}
+
+p.legalright {
+font-size: 8pt;
+margin-top: 6pt;
+border-top: 1px solid black;
+color: #444444;
+text-align: right;
+}
+
+a:link {
+color: #0000aa;
+text-decoration: none;
+}
+
+a:visited {
+color: #0000aa;
+text-decoration: none;
+}
+
+-->
+
+</style>
+
+</head>
+<body>
+<img src="http://jcoverage.com/images/shim@product.version@.gif" width="1" height="1">
+<p class="navbar"><b><a href="http://jcoverage.com">jcoverage</a></b> | <a href="index.html">summary</a> | <a href="net.spy.memcached.transcoders.html">package</a> | file
+<p>
+<h1>Coverage details for net.spy.memcached.transcoders.BaseSerializingTranscoder</h1><table border="0" cellpadding="2" cellspacing="0" width="85%">
+<tr><th>Line</th><th>Hits</th><th class="remainder">Source</th></tr>
+<tr class="yang"><td class="lineno">1</td><td class="hits">&nbsp;</td><td class="code"><tt>package net.spy.memcached.transcoders;</tt></td></tr>
+<tr class="yin"><td class="lineno">2</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">3</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.ByteArrayInputStream;</tt></td></tr>
+<tr class="yin"><td class="lineno">4</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.ByteArrayOutputStream;</tt></td></tr>
+<tr class="yang"><td class="lineno">5</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.IOException;</tt></td></tr>
+<tr class="yin"><td class="lineno">6</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.ObjectInputStream;</tt></td></tr>
+<tr class="yang"><td class="lineno">7</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.ObjectOutputStream;</tt></td></tr>
+<tr class="yin"><td class="lineno">8</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.UnsupportedEncodingException;</tt></td></tr>
+<tr class="yang"><td class="lineno">9</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.zip.GZIPInputStream;</tt></td></tr>
+<tr class="yin"><td class="lineno">10</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.zip.GZIPOutputStream;</tt></td></tr>
+<tr class="yang"><td class="lineno">11</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">12</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.CachedData;</tt></td></tr>
+<tr class="yang"><td class="lineno">13</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.compat.CloseUtil;</tt></td></tr>
+<tr class="yin"><td class="lineno">14</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.compat.SpyObject;</tt></td></tr>
+<tr class="yang"><td class="lineno">15</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">16</td><td class="hits">&nbsp;</td><td class="code"><tt>/**</tt></td></tr>
+<tr class="yang"><td class="lineno">17</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;* Base class for any transcoders that may want to work with serialized or</tt></td></tr>
+<tr class="yin"><td class="lineno">18</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;* compressed data.</tt></td></tr>
+<tr class="yang"><td class="lineno">19</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">20</td><td class="hits">&nbsp;</td><td class="code"><tt>public abstract class BaseSerializingTranscoder extends SpyObject {</tt></td></tr>
+<tr class="yang"><td class="lineno">21</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">22</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">23</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Default compression threshold value.</tt></td></tr>
+<tr class="yin"><td class="lineno">24</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">25</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public static final int DEFAULT_COMPRESSION_THRESHOLD = 16384;</tt></td></tr>
+<tr class="yin"><td class="lineno">26</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">27</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private static final String DEFAULT_CHARSET = &quot;UTF-8&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">28</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">29</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected int compressionThreshold=DEFAULT_COMPRESSION_THRESHOLD;</tt></td></tr>
+<tr class="yin"><td class="lineno">30</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected String charset=DEFAULT_CHARSET;</tt></td></tr>
+<tr class="yang"><td class="lineno">31</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">32</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final int maxSize;</tt></td></tr>
+<tr class="yang"><td class="lineno">33</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">34</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">35</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Initialize a serializing transcoder with the given maximum data size.</tt></td></tr>
+<tr class="yin"><td class="lineno">36</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">37</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public BaseSerializingTranscoder(int max) {</tt></td></tr>
+<tr class="yin"><td class="lineno">38</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super();</tt></td></tr>
+<tr class="yang"><td class="lineno">39</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxSize = max;</tt></td></tr>
+<tr class="yin"><td class="lineno">40</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">41</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">42</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public boolean asyncDecode(CachedData d) {</tt></td></tr>
+<tr class="yang"><td class="lineno">43</td><td class="hits">163</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;</tt></td></tr>
+<tr class="yin"><td class="lineno">44</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">45</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">46</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">47</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Set the compression threshold to the given number of bytes.  This</tt></td></tr>
+<tr class="yin"><td class="lineno">48</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* transcoder will attempt to compress any data being stored that's larger</tt></td></tr>
+<tr class="yang"><td class="lineno">49</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* than this.</tt></td></tr>
+<tr class="yin"><td class="lineno">50</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yang"><td class="lineno">51</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @param to the number of bytes</tt></td></tr>
+<tr class="yin"><td class="lineno">52</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">53</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void setCompressionThreshold(int to) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">54</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compressionThreshold=to;</tt></td></tr>
+<tr class="highlight"><td class="lineno">55</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">56</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">57</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">58</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Set the character set for string value transcoding (defaults to UTF-8).</tt></td></tr>
+<tr class="yang"><td class="lineno">59</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">60</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void setCharset(String to) {</tt></td></tr>
+<tr class="yang"><td class="lineno">61</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Validate the character set.</tt></td></tr>
+<tr class="yin"><td class="lineno">62</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="highlight"><td class="lineno">63</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new String(new byte[97], to);</tt></td></tr>
+<tr class="highlight"><td class="lineno">64</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (UnsupportedEncodingException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">65</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new RuntimeException(e);</tt></td></tr>
+<tr class="yin"><td class="lineno">66</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">67</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charset=to;</tt></td></tr>
+<tr class="highlight"><td class="lineno">68</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">69</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">70</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">71</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Get the bytes representing the given serialized object.</tt></td></tr>
+<tr class="yin"><td class="lineno">72</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">73</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected byte[] serialize(Object o) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">74</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(o == null) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">75</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new NullPointerException(&quot;Can't serialize null&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">76</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">77</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[] rv=null;</tt></td></tr>
+<tr class="yin"><td class="lineno">78</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="highlight"><td class="lineno">79</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayOutputStream bos=new ByteArrayOutputStream();</tt></td></tr>
+<tr class="highlight"><td class="lineno">80</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ObjectOutputStream os=new ObjectOutputStream(bos);</tt></td></tr>
+<tr class="highlight"><td class="lineno">81</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.writeObject(o);</tt></td></tr>
+<tr class="highlight"><td class="lineno">82</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.close();</tt></td></tr>
+<tr class="highlight"><td class="lineno">83</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bos.close();</tt></td></tr>
+<tr class="highlight"><td class="lineno">84</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv=bos.toByteArray();</tt></td></tr>
+<tr class="highlight"><td class="lineno">85</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(IOException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">86</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new IllegalArgumentException(&quot;Non-serializable object&quot;, e);</tt></td></tr>
+<tr class="yang"><td class="lineno">87</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">88</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">89</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">90</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">91</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">92</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Get the object represented by the given serialized bytes.</tt></td></tr>
+<tr class="yang"><td class="lineno">93</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">94</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected Object deserialize(byte[] in) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">95</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object rv=null;</tt></td></tr>
+<tr class="yin"><td class="lineno">96</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="highlight"><td class="lineno">97</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(in != null) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">98</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayInputStream bis=new ByteArrayInputStream(in);</tt></td></tr>
+<tr class="highlight"><td class="lineno">99</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ObjectInputStream is=new ObjectInputStream(bis);</tt></td></tr>
+<tr class="highlight"><td class="lineno">100</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv=is.readObject();</tt></td></tr>
+<tr class="highlight"><td class="lineno">101</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is.close();</tt></td></tr>
+<tr class="highlight"><td class="lineno">102</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bis.close();</tt></td></tr>
+<tr class="yang"><td class="lineno">103</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">104</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(IOException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">105</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Caught IOException decoding %d bytes of data&quot;,</tt></td></tr>
+<tr class="highlight"><td class="lineno">106</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in.length, e);</tt></td></tr>
+<tr class="highlight"><td class="lineno">107</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (ClassNotFoundException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">108</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Caught CNFE decoding %d bytes of data&quot;,</tt></td></tr>
+<tr class="highlight"><td class="lineno">109</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in.length, e);</tt></td></tr>
+<tr class="yin"><td class="lineno">110</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">111</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yin"><td class="lineno">112</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">113</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">114</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">115</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Compress the given array of bytes.</tt></td></tr>
+<tr class="yin"><td class="lineno">116</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">117</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected byte[] compress(byte[] in) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">118</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(in == null) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">119</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new NullPointerException(&quot;Can't compress null&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">120</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">121</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayOutputStream bos=new ByteArrayOutputStream();</tt></td></tr>
+<tr class="highlight"><td class="lineno">122</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GZIPOutputStream gz=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">123</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="highlight"><td class="lineno">124</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gz = new GZIPOutputStream(bos);</tt></td></tr>
+<tr class="highlight"><td class="lineno">125</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gz.write(in);</tt></td></tr>
+<tr class="highlight"><td class="lineno">126</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">127</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new RuntimeException(&quot;IO exception compressing data&quot;, e);</tt></td></tr>
+<tr class="yin"><td class="lineno">128</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} finally {</tt></td></tr>
+<tr class="highlight"><td class="lineno">129</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CloseUtil.close(gz);</tt></td></tr>
+<tr class="highlight"><td class="lineno">130</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CloseUtil.close(bos);</tt></td></tr>
+<tr class="highlight"><td class="lineno">131</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">132</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[] rv=bos.toByteArray();</tt></td></tr>
+<tr class="highlight"><td class="lineno">133</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Compressed %d bytes to %d&quot;, in.length, rv.length);</tt></td></tr>
+<tr class="highlight"><td class="lineno">134</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">135</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">136</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">137</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">138</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Decompress the given array of bytes.</tt></td></tr>
+<tr class="yang"><td class="lineno">139</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yin"><td class="lineno">140</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @return null if the bytes cannot be decompressed</tt></td></tr>
+<tr class="yang"><td class="lineno">141</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">142</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected byte[] decompress(byte[] in) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">143</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayOutputStream bos=null;</tt></td></tr>
+<tr class="highlight"><td class="lineno">144</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(in != null) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">145</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayInputStream bis=new ByteArrayInputStream(in);</tt></td></tr>
+<tr class="highlight"><td class="lineno">146</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bos=new ByteArrayOutputStream();</tt></td></tr>
+<tr class="yang"><td class="lineno">147</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GZIPInputStream gis;</tt></td></tr>
+<tr class="yin"><td class="lineno">148</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="highlight"><td class="lineno">149</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gis = new GZIPInputStream(bis);</tt></td></tr>
+<tr class="yin"><td class="lineno">150</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="highlight"><td class="lineno">151</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[] buf=new byte[8192];</tt></td></tr>
+<tr class="highlight"><td class="lineno">152</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int r=-1;</tt></td></tr>
+<tr class="highlight"><td class="lineno">153</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while((r=gis.read(buf)) &gt; 0) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">154</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bos.write(buf, 0, r);</tt></td></tr>
+<tr class="yang"><td class="lineno">155</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">156</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">157</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Failed to decompress data&quot;, e);</tt></td></tr>
+<tr class="highlight"><td class="lineno">158</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bos = null;</tt></td></tr>
+<tr class="yang"><td class="lineno">159</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">160</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">161</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return bos == null ? null : bos.toByteArray();</tt></td></tr>
+<tr class="yin"><td class="lineno">162</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">163</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">164</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">165</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Decode the string with the current character set.</tt></td></tr>
+<tr class="yin"><td class="lineno">166</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">167</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected String decodeString(byte[] data) {</tt></td></tr>
+<tr class="yin"><td class="lineno">168</td><td class="hits">849</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String rv=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">169</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yin"><td class="lineno">170</td><td class="hits">849</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(data != null) {</tt></td></tr>
+<tr class="yang"><td class="lineno">171</td><td class="hits">849</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv=new String(data, charset);</tt></td></tr>
+<tr class="yin"><td class="lineno">172</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="highlight"><td class="lineno">173</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (UnsupportedEncodingException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">174</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new RuntimeException(e);</tt></td></tr>
+<tr class="yang"><td class="lineno">175</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">176</td><td class="hits">849</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">177</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">178</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">179</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">180</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Encode a string into the current character set.</tt></td></tr>
+<tr class="yang"><td class="lineno">181</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">182</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected byte[] encodeString(String in) {</tt></td></tr>
+<tr class="yang"><td class="lineno">183</td><td class="hits">905</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[] rv=null;</tt></td></tr>
+<tr class="yin"><td class="lineno">184</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yang"><td class="lineno">185</td><td class="hits">905</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv=in.getBytes(charset);</tt></td></tr>
+<tr class="highlight"><td class="lineno">186</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (UnsupportedEncodingException e) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">187</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new RuntimeException(e);</tt></td></tr>
+<tr class="yin"><td class="lineno">188</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">189</td><td class="hits">905</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yin"><td class="lineno">190</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">191</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">192</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public int getMaxSize() {</tt></td></tr>
+<tr class="yang"><td class="lineno">193</td><td class="hits">1756</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return maxSize;</tt></td></tr>
+<tr class="yin"><td class="lineno">194</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">195</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">196</td><td class="hits">&nbsp;</td><td class="code"><tt>}</tt></td></tr>
+</table>
+<p>
+<p class="navbar"><b><a href="http://jcoverage.com">jcoverage</a></b> | <a href="index.html">summary</a> | <a href="net.spy.memcached.transcoders.html">package</a> | file
+<p>
+<table width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td>
+<p class="legalleft">
+this report was generated by version @product.version@ of jcoverage.<br>
+visit <a href="http://www.jcoverage.com">www.jcoverage.com</a> for updates.<br>
+</td><td>
+<p class="legalright">
+copyright &copy; 2003, jcoverage ltd. all rights reserved.<br>
+Java is a trademark of Sun Microsystems, Inc. in the United States and other countries.<br>
+</td></tr></table>
+
+</body>
+
+</html>

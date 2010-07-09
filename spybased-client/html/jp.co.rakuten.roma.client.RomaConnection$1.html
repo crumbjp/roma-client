@@ -1,0 +1,988 @@
+<html>
+<head>
+
+<title>jcoverage details for jp.co.rakuten.roma.client.RomaConnection$1</title><style>
+<!--
+body {
+background-color: white;
+}
+
+p {
+text-align: left;
+margin-top: 10pt;
+margin-bottom: 10pt;
+}
+
+p, h1, h2, h3, td, th, dt {
+font-family: verdana, arial, sans-serif;
+font-size: 10pt;
+line-height: 100%;
+margin-left: 0pt;
+}
+
+li {
+font-family: verdana, arial, sans-serif;
+font-size: 10pt;
+line-height: 100%;
+margin-left: 0pt;
+}
+
+h1 {
+font-size: 14pt;
+}
+
+h2 {
+font-size: 12pt;
+margin-top: 12pt;
+}
+
+pre {
+line-height: 100%;
+}
+
+tr.yin td {
+background: #f0f0f0;
+}
+
+tr.yin td {
+background: #f0f0f0;
+}
+
+tr.highlight td {
+background: #ffff44;
+}
+
+th {
+border-width: 1px 0px 1px 1px;
+border-color: black;
+border-style: solid;
+text-align: center;
+}
+
+th.remainder {
+border-width: 1px 1px 1px 1px;
+}
+
+td.lineno {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: right;
+}
+
+td.hits {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: right;
+}
+
+td.code {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: left;
+}
+
+td.coverage {
+text-align: right;
+}
+
+td.lines {
+text-align: right;
+}
+
+td.files {
+text-align: right;
+}
+
+.navbar {
+margin-top: 0pt;
+color: white;
+vertical-align: top;
+text-align: left;
+font-size: 10pt;
+margin-left: 0pt;
+background-color: green;
+padding: 2pt;
+padding-left: 4pt;
+line-height: 120%;
+}
+
+.navbar a {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:visited {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:link {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:hover {
+color: white;
+text-decoration: none;
+}
+
+p.view a {
+color: #0000aa;
+text-decoration: none;
+}
+
+p.legalleft {
+font-size: 8pt;
+margin-top: 6pt;
+border-top: 1px solid black;
+color: #444444;
+text-align: left;
+}
+
+p.legalright {
+font-size: 8pt;
+margin-top: 6pt;
+border-top: 1px solid black;
+color: #444444;
+text-align: right;
+}
+
+a:link {
+color: #0000aa;
+text-decoration: none;
+}
+
+a:visited {
+color: #0000aa;
+text-decoration: none;
+}
+
+-->
+
+</style>
+
+</head>
+<body>
+<img src="http://jcoverage.com/images/shim@product.version@.gif" width="1" height="1">
+<p class="navbar"><b><a href="http://jcoverage.com">jcoverage</a></b> | <a href="index.html">summary</a> | <a href="jp.co.rakuten.roma.client.html">package</a> | file
+<p>
+<h1>Coverage details for jp.co.rakuten.roma.client.RomaConnection$1</h1><table border="0" cellpadding="2" cellspacing="0" width="85%">
+<tr><th>Line</th><th>Hits</th><th class="remainder">Source</th></tr>
+<tr class="yang"><td class="lineno">1</td><td class="hits">8</td><td class="code"><tt>// Copyright (c) 2006  Dustin Sallings &lt;dustin@spy.net&gt;</tt></td></tr>
+<tr class="yin"><td class="lineno">2</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">3</td><td class="hits">&nbsp;</td><td class="code"><tt>package jp.co.rakuten.roma.client;</tt></td></tr>
+<tr class="yin"><td class="lineno">4</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">5</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.IOException;</tt></td></tr>
+<tr class="yin"><td class="lineno">6</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.net.ConnectException;</tt></td></tr>
+<tr class="yang"><td class="lineno">7</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.net.InetSocketAddress;</tt></td></tr>
+<tr class="yin"><td class="lineno">8</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.net.SocketAddress;</tt></td></tr>
+<tr class="yang"><td class="lineno">9</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.net.SocketException;</tt></td></tr>
+<tr class="yin"><td class="lineno">10</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.ByteBuffer;</tt></td></tr>
+<tr class="yang"><td class="lineno">11</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.channels.ClosedChannelException;</tt></td></tr>
+<tr class="yin"><td class="lineno">12</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.channels.SelectionKey;</tt></td></tr>
+<tr class="yang"><td class="lineno">13</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.channels.Selector;</tt></td></tr>
+<tr class="yin"><td class="lineno">14</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.channels.SocketChannel;</tt></td></tr>
+<tr class="yang"><td class="lineno">15</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.ArrayList;</tt></td></tr>
+<tr class="yin"><td class="lineno">16</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.Collection;</tt></td></tr>
+<tr class="yang"><td class="lineno">17</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.Collections;</tt></td></tr>
+<tr class="yin"><td class="lineno">18</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.HashSet;</tt></td></tr>
+<tr class="yang"><td class="lineno">19</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.IdentityHashMap;</tt></td></tr>
+<tr class="yin"><td class="lineno">20</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.Iterator;</tt></td></tr>
+<tr class="yang"><td class="lineno">21</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.List;</tt></td></tr>
+<tr class="yin"><td class="lineno">22</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.Map;</tt></td></tr>
+<tr class="yang"><td class="lineno">23</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.NoSuchElementException;</tt></td></tr>
+<tr class="yin"><td class="lineno">24</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.Set;</tt></td></tr>
+<tr class="yang"><td class="lineno">25</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.SortedMap;</tt></td></tr>
+<tr class="yin"><td class="lineno">26</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.TreeMap;</tt></td></tr>
+<tr class="yang"><td class="lineno">27</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.TreeSet;</tt></td></tr>
+<tr class="yin"><td class="lineno">28</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.ConcurrentLinkedQueue;</tt></td></tr>
+<tr class="yang"><td class="lineno">29</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.CountDownLatch;</tt></td></tr>
+<tr class="yin"><td class="lineno">30</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.ExecutionException;</tt></td></tr>
+<tr class="yang"><td class="lineno">31</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.Future;</tt></td></tr>
+<tr class="yin"><td class="lineno">32</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.TimeUnit;</tt></td></tr>
+<tr class="yang"><td class="lineno">33</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.TimeoutException;</tt></td></tr>
+<tr class="yin"><td class="lineno">34</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.regex.Matcher;</tt></td></tr>
+<tr class="yang"><td class="lineno">35</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.regex.Pattern;</tt></td></tr>
+<tr class="yin"><td class="lineno">36</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.math.BigDecimal;</tt></td></tr>
+<tr class="yang"><td class="lineno">37</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">38</td><td class="hits">&nbsp;</td><td class="code"><tt>import jp.co.rakuten.roma.client.ops.RomaMklhashOperation;</tt></td></tr>
+<tr class="yang"><td class="lineno">39</td><td class="hits">&nbsp;</td><td class="code"><tt>import jp.co.rakuten.roma.client.ops.RomaRoutingdumpOperation;</tt></td></tr>
+<tr class="yin"><td class="lineno">40</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">41</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.arnx.jsonic.JSON;</tt></td></tr>
+<tr class="yin"><td class="lineno">42</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.BroadcastOpFactory;</tt></td></tr>
+<tr class="yang"><td class="lineno">43</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ConnectionObserver;</tt></td></tr>
+<tr class="yin"><td class="lineno">44</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.FailureMode;</tt></td></tr>
+<tr class="yang"><td class="lineno">45</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.MemcachedNode;</tt></td></tr>
+<tr class="yin"><td class="lineno">46</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.NodeLocator;</tt></td></tr>
+<tr class="yang"><td class="lineno">47</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.compat.SpyObject;</tt></td></tr>
+<tr class="yin"><td class="lineno">48</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.internal.OperationFuture;</tt></td></tr>
+<tr class="yang"><td class="lineno">49</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ops.KeyedOperation;</tt></td></tr>
+<tr class="yin"><td class="lineno">50</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ops.Operation;</tt></td></tr>
+<tr class="yang"><td class="lineno">51</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ops.OperationState;</tt></td></tr>
+<tr class="yin"><td class="lineno">52</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ops.OperationStatus;</tt></td></tr>
+<tr class="yang"><td class="lineno">53</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">54</td><td class="hits">&nbsp;</td><td class="code"><tt>/**</tt></td></tr>
+<tr class="yang"><td class="lineno">55</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;* Connection to a cluster of memcached servers.</tt></td></tr>
+<tr class="yin"><td class="lineno">56</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">57</td><td class="hits">&nbsp;</td><td class="code"><tt>public final class RomaConnection extends SpyObject {</tt></td></tr>
+<tr class="yin"><td class="lineno">58</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// The number of empty selects we'll allow before assuming we may have</tt></td></tr>
+<tr class="yang"><td class="lineno">59</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// missed one and should check the current selectors.  This generally</tt></td></tr>
+<tr class="yin"><td class="lineno">60</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// indicates a bug, but we'll check it nonetheless.</tt></td></tr>
+<tr class="yang"><td class="lineno">61</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private static final int DOUBLE_CHECK_EMPTY = 256;</tt></td></tr>
+<tr class="yin"><td class="lineno">62</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// The number of empty selects we'll allow before blowing up.  It's too</tt></td></tr>
+<tr class="yang"><td class="lineno">63</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// easy to write a bug that causes it to loop uncontrollably.  This helps</tt></td></tr>
+<tr class="yin"><td class="lineno">64</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// find those bugs and often works around them.</tt></td></tr>
+<tr class="yang"><td class="lineno">65</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private static final int EXCESSIVE_EMPTY = 0x1000000;</tt></td></tr>
+<tr class="yin"><td class="lineno">66</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">67</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private volatile boolean shutDown=false;</tt></td></tr>
+<tr class="yin"><td class="lineno">68</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// If true, optimization will collapse multiple sequential get ops</tt></td></tr>
+<tr class="yang"><td class="lineno">69</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final boolean shouldOptimize;</tt></td></tr>
+<tr class="yin"><td class="lineno">70</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private Selector selector=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">71</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final RomaNodeLocator locator;</tt></td></tr>
+<tr class="yin"><td class="lineno">72</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final FailureMode failureMode;</tt></td></tr>
+<tr class="yang"><td class="lineno">73</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// maximum amount of time to wait between reconnect attempts</tt></td></tr>
+<tr class="yin"><td class="lineno">74</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final long maxDelay;</tt></td></tr>
+<tr class="yang"><td class="lineno">75</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private int emptySelects=0;</tt></td></tr>
+<tr class="yin"><td class="lineno">76</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// AddedQueue is used to track the QueueAttachments for which operations</tt></td></tr>
+<tr class="yang"><td class="lineno">77</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// have recently been queued.</tt></td></tr>
+<tr class="yin"><td class="lineno">78</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final ConcurrentLinkedQueue&lt;MemcachedNode&gt; addedQueue=new ConcurrentLinkedQueue&lt;MemcachedNode&gt;();</tt></td></tr>
+<tr class="yang"><td class="lineno">79</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// reconnectQueue contains the attachments that need to be reconnected</tt></td></tr>
+<tr class="yin"><td class="lineno">80</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// The key is the time at which they are eligible for reconnect</tt></td></tr>
+<tr class="yang"><td class="lineno">81</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final SortedMap&lt;Long, MemcachedNode&gt; reconnectQueue=new TreeMap&lt;Long, MemcachedNode&gt;();</tt></td></tr>
+<tr class="yin"><td class="lineno">82</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">83</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final Collection&lt;ConnectionObserver&gt; connObservers =</tt></td></tr>
+<tr class="yin"><td class="lineno">84</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new ConcurrentLinkedQueue&lt;ConnectionObserver&gt;();</tt></td></tr>
+<tr class="yang"><td class="lineno">85</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final RomaOperationFactory opFact;</tt></td></tr>
+<tr class="yin"><td class="lineno">86</td><td class="hits">&nbsp;</td><td class="code"><tt>//@@@ デフォルトノードマップを保存しとかないと、全滅した時に復活出来ない・・・</tt></td></tr>
+<tr class="yang"><td class="lineno">87</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final static Pattern namePattern = Pattern.compile(&quot;(.+)_(\\d+)$&quot;); </tt></td></tr>
+<tr class="yin"><td class="lineno">88</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private String mklhash = &quot;&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">89</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private Map&lt;String,MemcachedNode&gt; nodeMap = new TreeMap&lt;String,MemcachedNode&gt;();</tt></td></tr>
+<tr class="yin"><td class="lineno">90</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// @@@ exception</tt></td></tr>
+<tr class="yang"><td class="lineno">91</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void reconstructNodeMap (List&lt;String&gt; ns) {</tt></td></tr>
+<tr class="yin"><td class="lineno">92</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;Pair&lt;String,InetSocketAddress&gt; &gt; a = new ArrayList&lt;Pair&lt;String,InetSocketAddress&gt; &gt;(ns.size());</tt></td></tr>
+<tr class="yang"><td class="lineno">93</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set&lt;String&gt; removedNodes = new TreeSet&lt;String&gt;(nodeMap.keySet());</tt></td></tr>
+<tr class="yin"><td class="lineno">94</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for ( String n : ns ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">95</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( ! nodeMap.containsKey(n)) {</tt></td></tr>
+<tr class="yin"><td class="lineno">96</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// new node !</tt></td></tr>
+<tr class="yang"><td class="lineno">97</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matcher m = namePattern.matcher(n);</tt></td></tr>
+<tr class="yin"><td class="lineno">98</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.matches();</tt></td></tr>
+<tr class="yang"><td class="lineno">99</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.add(new Pair&lt;String,InetSocketAddress&gt;(n , new InetSocketAddress(m.group(1),Integer.parseInt(m.group(2)))));</tt></td></tr>
+<tr class="yin"><td class="lineno">100</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else {</tt></td></tr>
+<tr class="yang"><td class="lineno">101</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removedNodes.remove(n);</tt></td></tr>
+<tr class="yin"><td class="lineno">102</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">103</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">104</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for ( String n : removedNodes ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">105</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode node = nodeMap.get(n);</tt></td></tr>
+<tr class="yin"><td class="lineno">106</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yang"><td class="lineno">107</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( node != null &amp;&amp; node.isActive() ) {</tt></td></tr>
+<tr class="yin"><td class="lineno">108</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.getChannel().close(); // 作戦：念のため閉じとく -&gt; reconnect -&gt; 除外</tt></td></tr>
+<tr class="yang"><td class="lineno">109</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">110</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {</tt></td></tr>
+<tr class="yang"><td class="lineno">111</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;</tt></td></tr>
+<tr class="yin"><td class="lineno">112</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">113</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodeMap.remove(n);</tt></td></tr>
+<tr class="yin"><td class="lineno">114</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">115</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Pair&lt;String,InetSocketAddress&gt; sap : a) {</tt></td></tr>
+<tr class="yin"><td class="lineno">116</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yang"><td class="lineno">117</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SocketAddress sa = sap.second;</tt></td></tr>
+<tr class="yin"><td class="lineno">118</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SocketChannel ch=SocketChannel.open();</tt></td></tr>
+<tr class="yang"><td class="lineno">119</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch.configureBlocking(false);</tt></td></tr>
+<tr class="yin"><td class="lineno">120</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode qa=f.createMemcachedNode(sap.first, sa, ch, bufSize);</tt></td></tr>
+<tr class="yang"><td class="lineno">121</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodeMap.put(sap.first, qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">122</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int ops=0;</tt></td></tr>
+<tr class="yang"><td class="lineno">123</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch.socket().setTcpNoDelay(!f.useNagleAlgorithm());</tt></td></tr>
+<tr class="yin"><td class="lineno">124</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Initially I had attempted to skirt this by queueing every</tt></td></tr>
+<tr class="yang"><td class="lineno">125</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// connect, but it considerably slowed down start time.</tt></td></tr>
+<tr class="yin"><td class="lineno">126</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yang"><td class="lineno">127</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;ch.configureBlocking(true);</tt></td></tr>
+<tr class="yin"><td class="lineno">128</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(ch.connect(sa)) {</tt></td></tr>
+<tr class="yang"><td class="lineno">129</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Connected to %s immediately&quot;, qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">130</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connected(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">131</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">132</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Added %s to connect queue&quot;, qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">133</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ops=SelectionKey.OP_CONNECT;</tt></td></tr>
+<tr class="yin"><td class="lineno">134</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">135</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;ch.configureBlocking(false);</tt></td></tr>
+<tr class="yin"><td class="lineno">136</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.setSk(ch.register(selector, ops, qa));</tt></td></tr>
+<tr class="yang"><td class="lineno">137</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert ch.isConnected()</tt></td></tr>
+<tr class="yin"><td class="lineno">138</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|| qa.getSk().interestOps() == SelectionKey.OP_CONNECT</tt></td></tr>
+<tr class="yang"><td class="lineno">139</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Not connected, and not wanting to connect&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">140</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(SocketException e) {</tt></td></tr>
+<tr class="yang"><td class="lineno">141</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queueReconnect(qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">142</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">143</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}catch (IOException e){</tt></td></tr>
+<tr class="yin"><td class="lineno">144</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new RuntimeException(&quot;The system doesn't fill the requirement of socket.&quot;);</tt></td></tr>
+<tr class="yang"><td class="lineno">145</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">146</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">147</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</tt></td></tr>
+<tr class="yin"><td class="lineno">148</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">149</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public Future&lt;Boolean&gt; asyncReconstruction(){</tt></td></tr>
+<tr class="yin"><td class="lineno">150</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( selector.selectedKeys().size() == 0 ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">151</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// @@@ miss....</tt></td></tr>
+<tr class="yin"><td class="lineno">152</td><td class="hits">&nbsp;</td><td class="code"><tt>//            getLogger().error(&quot;All nodes are annihilation !&quot;);</tt></td></tr>
+<tr class="yang"><td class="lineno">153</td><td class="hits">&nbsp;</td><td class="code"><tt>//            this.reconstructNodeMap(this.nodeNameSet); @@@</tt></td></tr>
+<tr class="yin"><td class="lineno">154</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">155</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Try updating routing-info.&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">156</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final RomaConnection conn = this;</tt></td></tr>
+<tr class="yang"><td class="lineno">157</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final CountDownLatch latch=new CountDownLatch(1);</tt></td></tr>
+<tr class="yin"><td class="lineno">158</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final OperationFuture&lt;Boolean&gt; rv=new OperationFuture&lt;Boolean&gt;(latch,0);</tt></td></tr>
+<tr class="yang"><td class="lineno">159</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation op = opFact.mklhash(</tt></td></tr>
+<tr class="yin"><td class="lineno">160</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new RomaMklhashOperation.Callback() {</tt></td></tr>
+<tr class="yang"><td class="lineno">161</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private String val=null;</tt></td></tr>
+<tr class="yin"><td class="lineno">162</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public void receivedStatus(OperationStatus status) {</tt></td></tr>
+<tr class="yang"><td class="lineno">163</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">164</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public void complete() {</tt></td></tr>
+<tr class="yang"><td class="lineno">165</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;hash=&quot;+val);</tt></td></tr>
+<tr class="yin"><td class="lineno">166</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( val == null ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">167</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//        asyncReconstruction(); // @@@ 全滅の無限ループが・・・</tt></td></tr>
+<tr class="yin"><td class="lineno">168</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else if ( val != null &amp;&amp; !conn.mklhash.equals(val)) {</tt></td></tr>
+<tr class="yang"><td class="lineno">169</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conn.mklhash = val;</tt></td></tr>
+<tr class="yin"><td class="lineno">170</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// @@@ hashを取ったホストと違うホストに取りに行ってしまうかもしれない・・・</tt></td></tr>
+<tr class="yang"><td class="lineno">171</td><td class="hits">2</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conn.asyncRoutingReconstruction(latch);</tt></td></tr>
+<tr class="yin"><td class="lineno">172</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">173</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">174</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public void gotData(String data) {</tt></td></tr>
+<tr class="yang"><td class="lineno">175</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val= data;</tt></td></tr>
+<tr class="yin"><td class="lineno">176</td><td class="hits">8</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">177</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</tt></td></tr>
+<tr class="yin"><td class="lineno">178</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv.setOperation(op);</tt></td></tr>
+<tr class="yang"><td class="lineno">179</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;randOperation(op);</tt></td></tr>
+<tr class="yin"><td class="lineno">180</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">181</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">182</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void asyncRoutingReconstruction(final CountDownLatch latch){</tt></td></tr>
+<tr class="yang"><td class="lineno">183</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final RomaConnection conn = this;</tt></td></tr>
+<tr class="yin"><td class="lineno">184</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation op = opFact.routingdump(</tt></td></tr>
+<tr class="yang"><td class="lineno">185</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new RomaRoutingdumpOperation.Callback() {</tt></td></tr>
+<tr class="yin"><td class="lineno">186</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private String val=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">187</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public void receivedStatus(OperationStatus status) {</tt></td></tr>
+<tr class="yin"><td class="lineno">188</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">189</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public void complete(){</tt></td></tr>
+<tr class="yin"><td class="lineno">190</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Give up checking cast error perfectly.</tt></td></tr>
+<tr class="yang"><td class="lineno">191</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;?&gt; ret =  JSON.decode(val,List.class);</tt></td></tr>
+<tr class="yin"><td class="lineno">192</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( ret == null || ret.size() != 3 ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">193</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;The routingdump request error. Unexpected value returned : &quot; + val);</tt></td></tr>
+<tr class="yin"><td class="lineno">194</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</tt></td></tr>
+<tr class="yang"><td class="lineno">195</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">196</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Check data type.</tt></td></tr>
+<tr class="yang"><td class="lineno">197</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object r0 = ret.get(0);</tt></td></tr>
+<tr class="yin"><td class="lineno">198</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object r1 = ret.get(1);</tt></td></tr>
+<tr class="yang"><td class="lineno">199</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object r2 = ret.get(2);</tt></td></tr>
+<tr class="yin"><td class="lineno">200</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(! ( r0 instanceof Map&lt;?,?&gt; ||</tt></td></tr>
+<tr class="yang"><td class="lineno">201</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r1 instanceof List&lt;?&gt; ||</tt></td></tr>
+<tr class="yin"><td class="lineno">202</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r2 instanceof Map&lt;?,?&gt; )){</tt></td></tr>
+<tr class="yang"><td class="lineno">203</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;The routingdump request error. Unexpected value returned : &quot; + val);</tt></td></tr>
+<tr class="yin"><td class="lineno">204</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</tt></td></tr>
+<tr class="yang"><td class="lineno">205</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">206</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conn.reconstructNodeMap((List&lt;String&gt;)r1);</tt></td></tr>
+<tr class="yang"><td class="lineno">207</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conn.locator.update((Map&lt;String, BigDecimal&gt;)r0, Collections.unmodifiableMap(nodeMap), (Map&lt;String,List&lt;String&gt;&gt;)r2);</tt></td></tr>
+<tr class="yin"><td class="lineno">208</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;latch.countDown();</tt></td></tr>
+<tr class="yang"><td class="lineno">209</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">210</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public void gotData(String data) {</tt></td></tr>
+<tr class="yang"><td class="lineno">211</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val= data;</tt></td></tr>
+<tr class="yin"><td class="lineno">212</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">213</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</tt></td></tr>
+<tr class="yin"><td class="lineno">214</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;randOperation(op);</tt></td></tr>
+<tr class="yang"><td class="lineno">215</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">216</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public int getRn(){</tt></td></tr>
+<tr class="yang"><td class="lineno">217</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return locator.getRn();</tt></td></tr>
+<tr class="yin"><td class="lineno">218</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">219</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">220</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Construct a memcached connection.</tt></td></tr>
+<tr class="yang"><td class="lineno">221</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yin"><td class="lineno">222</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @param bufSize the size of the buffer used for reading from the server</tt></td></tr>
+<tr class="yang"><td class="lineno">223</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @param f the factory that will provide an operation queue</tt></td></tr>
+<tr class="yin"><td class="lineno">224</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @param a the addresses of the servers to connect to</tt></td></tr>
+<tr class="yang"><td class="lineno">225</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yin"><td class="lineno">226</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @throws IOException if a connection attempt fails early</tt></td></tr>
+<tr class="yang"><td class="lineno">227</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">228</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final RomaConnectionFactory f;</tt></td></tr>
+<tr class="yang"><td class="lineno">229</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final int bufSize;</tt></td></tr>
+<tr class="yin"><td class="lineno">230</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final List&lt;String&gt; nodeNameSet;</tt></td></tr>
+<tr class="yang"><td class="lineno">231</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final Future&lt;Boolean&gt; startupFuture;</tt></td></tr>
+<tr class="yin"><td class="lineno">232</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public RomaConnection(int bufSize, RomaConnectionFactory f,</tt></td></tr>
+<tr class="yang"><td class="lineno">233</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;String&gt; ns, Collection&lt;ConnectionObserver&gt; obs,</tt></td></tr>
+<tr class="yin"><td class="lineno">234</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FailureMode fm, RomaOperationFactory opfactory)</tt></td></tr>
+<tr class="yang"><td class="lineno">235</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws IOException {</tt></td></tr>
+<tr class="yin"><td class="lineno">236</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.f = f;</tt></td></tr>
+<tr class="yang"><td class="lineno">237</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.bufSize = bufSize;</tt></td></tr>
+<tr class="yin"><td class="lineno">238</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.nodeNameSet = ns;</tt></td></tr>
+<tr class="yang"><td class="lineno">239</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connObservers.addAll(obs);</tt></td></tr>
+<tr class="yin"><td class="lineno">240</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failureMode = fm;</tt></td></tr>
+<tr class="yang"><td class="lineno">241</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shouldOptimize = f.shouldOptimize();</tt></td></tr>
+<tr class="yin"><td class="lineno">242</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxDelay = f.getMaxReconnectDelay();</tt></td></tr>
+<tr class="yang"><td class="lineno">243</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;opFact = opfactory;</tt></td></tr>
+<tr class="yin"><td class="lineno">244</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selector=Selector.open();</tt></td></tr>
+<tr class="yang"><td class="lineno">245</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locator=f.createLocator();</tt></td></tr>
+<tr class="yin"><td class="lineno">246</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconstructNodeMap(ns);</tt></td></tr>
+<tr class="yang"><td class="lineno">247</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locator.firstUpdate(Collections.unmodifiableMap(nodeMap));</tt></td></tr>
+<tr class="yin"><td class="lineno">248</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startupFuture = asyncReconstruction();</tt></td></tr>
+<tr class="yang"><td class="lineno">249</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">250</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void awaitStartup(long timeout) throws InterruptedException, ExecutionException, TimeoutException{</tt></td></tr>
+<tr class="yang"><td class="lineno">251</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startupFuture.get(timeout,TimeUnit.MILLISECONDS);</tt></td></tr>
+<tr class="yin"><td class="lineno">252</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">253</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private boolean selectorsMakeSense() {</tt></td></tr>
+<tr class="yin"><td class="lineno">254</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(MemcachedNode qa : locator.getAll()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">255</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getSk() != null &amp;&amp; qa.getSk().isValid()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">256</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getChannel().isConnected()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">257</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int sops=qa.getSk().interestOps();</tt></td></tr>
+<tr class="yin"><td class="lineno">258</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int expected=0;</tt></td></tr>
+<tr class="yang"><td class="lineno">259</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.hasReadOp()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">260</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expected |= SelectionKey.OP_READ;</tt></td></tr>
+<tr class="yang"><td class="lineno">261</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">262</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.hasWriteOp()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">263</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expected |= SelectionKey.OP_WRITE;</tt></td></tr>
+<tr class="yin"><td class="lineno">264</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">265</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getBytesRemainingToWrite() &gt; 0) {</tt></td></tr>
+<tr class="yin"><td class="lineno">266</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expected |= SelectionKey.OP_WRITE;</tt></td></tr>
+<tr class="yang"><td class="lineno">267</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">268</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert sops == expected : &quot;Invalid ops:  &quot;</tt></td></tr>
+<tr class="yang"><td class="lineno">269</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ qa + &quot;, expected &quot; + expected + &quot;, got &quot; + sops;</tt></td></tr>
+<tr class="yin"><td class="lineno">270</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yang"><td class="lineno">271</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int sops=qa.getSk().interestOps();</tt></td></tr>
+<tr class="yin"><td class="lineno">272</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert sops == SelectionKey.OP_CONNECT</tt></td></tr>
+<tr class="yang"><td class="lineno">273</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Not connected, and not watching for connect: &quot;</tt></td></tr>
+<tr class="yin"><td class="lineno">274</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ sops;</tt></td></tr>
+<tr class="yang"><td class="lineno">275</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">276</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">277</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">278</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Checked the selectors.&quot;);</tt></td></tr>
+<tr class="yang"><td class="lineno">279</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;</tt></td></tr>
+<tr class="yin"><td class="lineno">280</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">281</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">282</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">283</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* MemcachedClient calls this method to handle IO over the connections.</tt></td></tr>
+<tr class="yin"><td class="lineno">284</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">285</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void handleIO() throws IOException {</tt></td></tr>
+<tr class="yin"><td class="lineno">286</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(shutDown) {</tt></td></tr>
+<tr class="yang"><td class="lineno">287</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new IOException(&quot;No IO while shut down&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">288</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">289</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">290</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Deal with all of the stuff that's been added, but may not be marked</tt></td></tr>
+<tr class="yang"><td class="lineno">291</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// writable.</tt></td></tr>
+<tr class="yin"><td class="lineno">292</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleInputQueue();</tt></td></tr>
+<tr class="yang"><td class="lineno">293</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Done dealing with queue.&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">294</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">295</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long delay=0;</tt></td></tr>
+<tr class="yin"><td class="lineno">296</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!reconnectQueue.isEmpty()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">297</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long now=System.currentTimeMillis();</tt></td></tr>
+<tr class="yin"><td class="lineno">298</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long then=reconnectQueue.firstKey();</tt></td></tr>
+<tr class="yang"><td class="lineno">299</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay=Math.max(then-now, 1);</tt></td></tr>
+<tr class="yin"><td class="lineno">300</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">301</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Selecting with delay of %sms&quot;, delay);</tt></td></tr>
+<tr class="yin"><td class="lineno">302</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert selectorsMakeSense() : &quot;Selectors don't make sense.&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">303</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int selected=selector.select(delay);</tt></td></tr>
+<tr class="yin"><td class="lineno">304</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set&lt;SelectionKey&gt; selectedKeys=selector.selectedKeys();</tt></td></tr>
+<tr class="yang"><td class="lineno">305</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">306</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(selectedKeys.isEmpty() &amp;&amp; !shutDown) {</tt></td></tr>
+<tr class="yang"><td class="lineno">307</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;No selectors ready, interrupted: &quot;</tt></td></tr>
+<tr class="yin"><td class="lineno">308</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ Thread.interrupted());</tt></td></tr>
+<tr class="yang"><td class="lineno">309</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(++emptySelects &gt; DOUBLE_CHECK_EMPTY) {</tt></td></tr>
+<tr class="yin"><td class="lineno">310</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(SelectionKey sk : selector.keys()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">311</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;%s has %s, interested in %s&quot;,</tt></td></tr>
+<tr class="yin"><td class="lineno">312</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sk, sk.readyOps(), sk.interestOps());</tt></td></tr>
+<tr class="yang"><td class="lineno">313</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(sk.readyOps() != 0) {</tt></td></tr>
+<tr class="yin"><td class="lineno">314</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;%s has a ready op, handling IO&quot;, sk);</tt></td></tr>
+<tr class="yang"><td class="lineno">315</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleIO(sk);</tt></td></tr>
+<tr class="yin"><td class="lineno">316</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yang"><td class="lineno">317</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lostConnection((MemcachedNode)sk.attachment());</tt></td></tr>
+<tr class="yin"><td class="lineno">318</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">319</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">320</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert emptySelects &lt; EXCESSIVE_EMPTY</tt></td></tr>
+<tr class="yang"><td class="lineno">321</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Too many empty selects&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">322</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">323</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">324</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Selected %d, selected %d keys&quot;,</tt></td></tr>
+<tr class="yang"><td class="lineno">325</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selected, selectedKeys.size());</tt></td></tr>
+<tr class="yin"><td class="lineno">326</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emptySelects=0;</tt></td></tr>
+<tr class="yang"><td class="lineno">327</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(SelectionKey sk : selectedKeys) {</tt></td></tr>
+<tr class="yin"><td class="lineno">328</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleIO(sk);</tt></td></tr>
+<tr class="yang"><td class="lineno">329</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} // for each selector</tt></td></tr>
+<tr class="yin"><td class="lineno">330</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selectedKeys.clear();</tt></td></tr>
+<tr class="yang"><td class="lineno">331</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">332</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">333</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!shutDown &amp;&amp; !reconnectQueue.isEmpty()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">334</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attemptReconnects();</tt></td></tr>
+<tr class="yang"><td class="lineno">335</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">336</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">337</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">338</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// Handle any requests that have been made against the client.</tt></td></tr>
+<tr class="yang"><td class="lineno">339</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void handleInputQueue() {</tt></td></tr>
+<tr class="yin"><td class="lineno">340</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!addedQueue.isEmpty()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">341</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Handling queue&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">342</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// If there's stuff in the added queue.  Try to process it.</tt></td></tr>
+<tr class="yang"><td class="lineno">343</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection&lt;MemcachedNode&gt; toAdd=new HashSet&lt;MemcachedNode&gt;();</tt></td></tr>
+<tr class="yin"><td class="lineno">344</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Transfer the queue into a hashset.  There are very likely more</tt></td></tr>
+<tr class="yang"><td class="lineno">345</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// additions than there are nodes.</tt></td></tr>
+<tr class="yin"><td class="lineno">346</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection&lt;MemcachedNode&gt; todo=new HashSet&lt;MemcachedNode&gt;();</tt></td></tr>
+<tr class="yang"><td class="lineno">347</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yin"><td class="lineno">348</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode qa=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">349</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while((qa=addedQueue.remove()) != null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">350</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;todo.add(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">351</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">352</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(NoSuchElementException e) {</tt></td></tr>
+<tr class="yang"><td class="lineno">353</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Found everything</tt></td></tr>
+<tr class="yin"><td class="lineno">354</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">355</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">356</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Now process the queue.</tt></td></tr>
+<tr class="yang"><td class="lineno">357</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(MemcachedNode qa : todo) {</tt></td></tr>
+<tr class="yin"><td class="lineno">358</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean readyForIO=false;</tt></td></tr>
+<tr class="yang"><td class="lineno">359</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.isActive()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">360</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getCurrentWriteOp() != null) {</tt></td></tr>
+<tr class="yang"><td class="lineno">361</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readyForIO=true;</tt></td></tr>
+<tr class="yin"><td class="lineno">362</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Handling queued write %s&quot;, qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">363</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">364</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yang"><td class="lineno">365</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toAdd.add(qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">366</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">367</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.copyInputQueue();</tt></td></tr>
+<tr class="yin"><td class="lineno">368</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(readyForIO) {</tt></td></tr>
+<tr class="yang"><td class="lineno">369</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yin"><td class="lineno">370</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getWbuf().hasRemaining()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">371</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleWrites(qa.getSk(), qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">372</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">373</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(IOException e) {</tt></td></tr>
+<tr class="yin"><td class="lineno">374</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Exception handling write&quot;, e);</tt></td></tr>
+<tr class="yang"><td class="lineno">375</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lostConnection(qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">376</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">377</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">378</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.fixupOps();</tt></td></tr>
+<tr class="yang"><td class="lineno">379</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">380</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedQueue.addAll(toAdd);</tt></td></tr>
+<tr class="yang"><td class="lineno">381</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">382</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">383</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">384</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">385</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Add a connection observer.</tt></td></tr>
+<tr class="yin"><td class="lineno">386</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yang"><td class="lineno">387</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @return whether the observer was successfully added</tt></td></tr>
+<tr class="yin"><td class="lineno">388</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">389</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public boolean addObserver(ConnectionObserver obs) {</tt></td></tr>
+<tr class="yin"><td class="lineno">390</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return connObservers.add(obs);</tt></td></tr>
+<tr class="yang"><td class="lineno">391</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">392</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">393</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">394</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Remove a connection observer.</tt></td></tr>
+<tr class="yang"><td class="lineno">395</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yin"><td class="lineno">396</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @return true if the observer existed and now doesn't</tt></td></tr>
+<tr class="yang"><td class="lineno">397</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">398</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public boolean removeObserver(ConnectionObserver obs) {</tt></td></tr>
+<tr class="yang"><td class="lineno">399</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return connObservers.remove(obs);</tt></td></tr>
+<tr class="yin"><td class="lineno">400</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">401</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">402</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void connected(MemcachedNode qa) {</tt></td></tr>
+<tr class="yang"><td class="lineno">403</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert qa.getChannel().isConnected() : &quot;Not connected.&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">404</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int rt = qa.getReconnectCount();</tt></td></tr>
+<tr class="yang"><td class="lineno">405</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.connected();</tt></td></tr>
+<tr class="yin"><td class="lineno">406</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(ConnectionObserver observer : connObservers) {</tt></td></tr>
+<tr class="yang"><td class="lineno">407</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;observer.connectionEstablished(qa.getSocketAddress(), rt);</tt></td></tr>
+<tr class="yin"><td class="lineno">408</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">409</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">410</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">411</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void lostConnection(MemcachedNode qa) {</tt></td></tr>
+<tr class="yin"><td class="lineno">412</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queueReconnect(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">413</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(ConnectionObserver observer : connObservers) {</tt></td></tr>
+<tr class="yin"><td class="lineno">414</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;observer.connectionLost(qa.getSocketAddress());</tt></td></tr>
+<tr class="yang"><td class="lineno">415</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">416</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">417</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">418</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// Handle IO for a specific selector.  Any IOException will cause a</tt></td></tr>
+<tr class="yang"><td class="lineno">419</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// reconnect</tt></td></tr>
+<tr class="yin"><td class="lineno">420</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void handleIO(SelectionKey sk) {</tt></td></tr>
+<tr class="yang"><td class="lineno">421</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode qa= (MemcachedNode)sk.attachment();</tt></td></tr>
+<tr class="yin"><td class="lineno">422</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yang"><td class="lineno">423</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(</tt></td></tr>
+<tr class="yin"><td class="lineno">424</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handling IO for:  %s (r=%s, w=%s, c=%s, op=%s)&quot;,</tt></td></tr>
+<tr class="yang"><td class="lineno">425</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sk, sk.isReadable(), sk.isWritable(),</tt></td></tr>
+<tr class="yin"><td class="lineno">426</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sk.isConnectable(), sk.attachment());</tt></td></tr>
+<tr class="yang"><td class="lineno">427</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(sk.isConnectable()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">428</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Connection state changed for %s&quot;, sk);</tt></td></tr>
+<tr class="yang"><td class="lineno">429</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final SocketChannel channel=qa.getChannel();</tt></td></tr>
+<tr class="yin"><td class="lineno">430</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(channel.finishConnect()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">431</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connected(qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">432</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedQueue.offer(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">433</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getWbuf().hasRemaining()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">434</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleWrites(sk, qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">435</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">436</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yang"><td class="lineno">437</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert !channel.isConnected() : &quot;connected&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">438</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">439</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">440</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(sk.isReadable()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">441</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleReads(sk, qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">442</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">443</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(sk.isWritable()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">444</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleWrites(sk, qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">445</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">446</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">447</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(ClosedChannelException e) {</tt></td></tr>
+<tr class="yin"><td class="lineno">448</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!shutDown) {</tt></td></tr>
+<tr class="yang"><td class="lineno">449</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Closed channel and not shutting down.  &quot;</tt></td></tr>
+<tr class="yin"><td class="lineno">450</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;Queueing reconnect on %s&quot;, qa, e);</tt></td></tr>
+<tr class="yang"><td class="lineno">451</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lostConnection(qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">452</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">453</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(ConnectException e) {</tt></td></tr>
+<tr class="yin"><td class="lineno">454</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Failures to establish a connection should attempt a reconnect</tt></td></tr>
+<tr class="yang"><td class="lineno">455</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// without signaling the observers.</tt></td></tr>
+<tr class="yin"><td class="lineno">456</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Reconnecting due to failure to connect to %s&quot;,</tt></td></tr>
+<tr class="yang"><td class="lineno">457</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa, e);</tt></td></tr>
+<tr class="yin"><td class="lineno">458</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queueReconnect(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">459</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(Exception e) {</tt></td></tr>
+<tr class="yin"><td class="lineno">460</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Various errors occur on Linux that wind up here.  However, any</tt></td></tr>
+<tr class="yang"><td class="lineno">461</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// particular error processing an item should simply cause us to</tt></td></tr>
+<tr class="yin"><td class="lineno">462</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// reconnect to the server.</tt></td></tr>
+<tr class="yang"><td class="lineno">463</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Reconnecting due to exception on %s&quot;, qa, e);</tt></td></tr>
+<tr class="yin"><td class="lineno">464</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lostConnection(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">465</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">466</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.fixupOps();</tt></td></tr>
+<tr class="yang"><td class="lineno">467</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">468</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">469</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void handleWrites(SelectionKey sk, MemcachedNode qa)</tt></td></tr>
+<tr class="yin"><td class="lineno">470</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws IOException {</tt></td></tr>
+<tr class="yang"><td class="lineno">471</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.fillWriteBuffer(shouldOptimize);</tt></td></tr>
+<tr class="yin"><td class="lineno">472</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean canWriteMore=qa.getBytesRemainingToWrite() &gt; 0;</tt></td></tr>
+<tr class="yang"><td class="lineno">473</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(canWriteMore) {</tt></td></tr>
+<tr class="yin"><td class="lineno">474</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int wrote=qa.writeSome();</tt></td></tr>
+<tr class="yang"><td class="lineno">475</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.fillWriteBuffer(shouldOptimize);</tt></td></tr>
+<tr class="yin"><td class="lineno">476</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canWriteMore = wrote &gt; 0 &amp;&amp; qa.getBytesRemainingToWrite() &gt; 0;</tt></td></tr>
+<tr class="yang"><td class="lineno">477</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">478</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">479</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">480</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void handleReads(SelectionKey sk, MemcachedNode qa)</tt></td></tr>
+<tr class="yang"><td class="lineno">481</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws IOException {</tt></td></tr>
+<tr class="yin"><td class="lineno">482</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation currentOp = qa.getCurrentReadOp();</tt></td></tr>
+<tr class="yang"><td class="lineno">483</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteBuffer rbuf=qa.getRbuf();</tt></td></tr>
+<tr class="yin"><td class="lineno">484</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final SocketChannel channel = qa.getChannel();</tt></td></tr>
+<tr class="yang"><td class="lineno">485</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int read=channel.read(rbuf);</tt></td></tr>
+<tr class="yin"><td class="lineno">486</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (read &lt; 0) {</tt></td></tr>
+<tr class="yang"><td class="lineno">487</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// GRUMBLE.</tt></td></tr>
+<tr class="yin"><td class="lineno">488</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new IOException(&quot;Disconnected&quot;);</tt></td></tr>
+<tr class="yang"><td class="lineno">489</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">490</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(read &gt; 0) {</tt></td></tr>
+<tr class="yang"><td class="lineno">491</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Read %d bytes&quot;, read);</tt></td></tr>
+<tr class="yin"><td class="lineno">492</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rbuf.flip();</tt></td></tr>
+<tr class="yang"><td class="lineno">493</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(rbuf.remaining() &gt; 0) {</tt></td></tr>
+<tr class="yin"><td class="lineno">494</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(currentOp == null) {</tt></td></tr>
+<tr class="yang"><td class="lineno">495</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new IllegalStateException(&quot;No read operation.&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">496</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">497</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentOp.readFromBuffer(rbuf);</tt></td></tr>
+<tr class="yin"><td class="lineno">498</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(currentOp.getState() == OperationState.COMPLETE) {</tt></td></tr>
+<tr class="yang"><td class="lineno">499</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(</tt></td></tr>
+<tr class="yin"><td class="lineno">500</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Completed read op: %s and giving the next %d bytes&quot;,</tt></td></tr>
+<tr class="yang"><td class="lineno">501</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentOp, rbuf.remaining());</tt></td></tr>
+<tr class="yin"><td class="lineno">502</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation op=qa.removeCurrentReadOp();</tt></td></tr>
+<tr class="yang"><td class="lineno">503</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert op == currentOp</tt></td></tr>
+<tr class="yin"><td class="lineno">504</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Expected to pop &quot; + currentOp + &quot; got &quot; + op;</tt></td></tr>
+<tr class="yang"><td class="lineno">505</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentOp=qa.getCurrentReadOp();</tt></td></tr>
+<tr class="yin"><td class="lineno">506</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">507</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">508</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rbuf.clear();</tt></td></tr>
+<tr class="yang"><td class="lineno">509</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read=channel.read(rbuf);</tt></td></tr>
+<tr class="yin"><td class="lineno">510</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">511</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">512</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">513</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// Make a debug string out of the given buffer's values</tt></td></tr>
+<tr class="yin"><td class="lineno">514</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;static String dbgBuffer(ByteBuffer b, int size) {</tt></td></tr>
+<tr class="yang"><td class="lineno">515</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringBuilder sb=new StringBuilder();</tt></td></tr>
+<tr class="yin"><td class="lineno">516</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[] bytes=b.array();</tt></td></tr>
+<tr class="yang"><td class="lineno">517</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int i=0; i&lt;size; i++) {</tt></td></tr>
+<tr class="yin"><td class="lineno">518</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;char ch=(char)bytes[i];</tt></td></tr>
+<tr class="yang"><td class="lineno">519</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(Character.isWhitespace(ch) || Character.isLetterOrDigit(ch)) {</tt></td></tr>
+<tr class="yin"><td class="lineno">520</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(ch);</tt></td></tr>
+<tr class="yang"><td class="lineno">521</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">522</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(&quot;\\x&quot;);</tt></td></tr>
+<tr class="yang"><td class="lineno">523</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(Integer.toHexString(bytes[i] &amp; 0xff));</tt></td></tr>
+<tr class="yin"><td class="lineno">524</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">525</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">526</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return sb.toString();</tt></td></tr>
+<tr class="yang"><td class="lineno">527</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">528</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">529</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void queueReconnect(MemcachedNode qa) {</tt></td></tr>
+<tr class="yin"><td class="lineno">530</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( ! nodeMap.containsValue(qa)) {</tt></td></tr>
+<tr class="yang"><td class="lineno">531</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// もはやリングの外のノード。再接続の必要なし</tt></td></tr>
+<tr class="yin"><td class="lineno">532</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return; // @@@インスタンス比較が非効率</tt></td></tr>
+<tr class="yang"><td class="lineno">533</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">534</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!shutDown) {</tt></td></tr>
+<tr class="yang"><td class="lineno">535</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Closing, and reopening %s, attempt %d.&quot;,</tt></td></tr>
+<tr class="yin"><td class="lineno">536</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa, qa.getReconnectCount());</tt></td></tr>
+<tr class="yang"><td class="lineno">537</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getSk() != null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">538</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.getSk().cancel();</tt></td></tr>
+<tr class="yang"><td class="lineno">539</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert !qa.getSk().isValid() : &quot;Cancelled selection key is valid&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">540</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">541</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.reconnecting();</tt></td></tr>
+<tr class="yin"><td class="lineno">542</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yang"><td class="lineno">543</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getChannel() != null &amp;&amp; qa.getChannel().socket() != null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">544</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.getChannel().socket().close();</tt></td></tr>
+<tr class="yang"><td class="lineno">545</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">546</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;The channel or socket was null for %s&quot;,</tt></td></tr>
+<tr class="yang"><td class="lineno">547</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">548</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">549</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(IOException e) {</tt></td></tr>
+<tr class="yin"><td class="lineno">550</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;IOException trying to close a socket&quot;, e);</tt></td></tr>
+<tr class="yang"><td class="lineno">551</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">552</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.setChannel(null);</tt></td></tr>
+<tr class="yang"><td class="lineno">553</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">554</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long delay = (long)Math.min(maxDelay,</tt></td></tr>
+<tr class="yang"><td class="lineno">555</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Math.pow(2, qa.getReconnectCount())) * 1000;</tt></td></tr>
+<tr class="yin"><td class="lineno">556</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long reconTime = System.currentTimeMillis() + delay;</tt></td></tr>
+<tr class="yang"><td class="lineno">557</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">558</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Avoid potential condition where two connections are scheduled</tt></td></tr>
+<tr class="yang"><td class="lineno">559</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// for reconnect at the exact same time.  This is expected to be</tt></td></tr>
+<tr class="yin"><td class="lineno">560</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// a rare situation.</tt></td></tr>
+<tr class="yang"><td class="lineno">561</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(reconnectQueue.containsKey(reconTime)) {</tt></td></tr>
+<tr class="yin"><td class="lineno">562</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconTime++;</tt></td></tr>
+<tr class="yang"><td class="lineno">563</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">564</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">565</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconnectQueue.put(reconTime, qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">566</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">567</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Need to do a little queue management.</tt></td></tr>
+<tr class="yin"><td class="lineno">568</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.setupResend();</tt></td></tr>
+<tr class="yang"><td class="lineno">569</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">570</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(failureMode == FailureMode.Redistribute) {</tt></td></tr>
+<tr class="yang"><td class="lineno">571</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;redistributeOperations(qa.destroyInputQueue());</tt></td></tr>
+<tr class="yin"><td class="lineno">572</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else if(failureMode == FailureMode.Cancel) {</tt></td></tr>
+<tr class="yang"><td class="lineno">573</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cancelOperations(qa.destroyInputQueue());</tt></td></tr>
+<tr class="yin"><td class="lineno">574</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">575</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">576</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">577</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">578</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void cancelOperations(Collection&lt;Operation&gt; ops) {</tt></td></tr>
+<tr class="yang"><td class="lineno">579</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Operation op : ops) {</tt></td></tr>
+<tr class="yin"><td class="lineno">580</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op.cancel();</tt></td></tr>
+<tr class="yang"><td class="lineno">581</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">582</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">583</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">584</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void redistributeOperations(Collection&lt;Operation&gt; ops) {</tt></td></tr>
+<tr class="yang"><td class="lineno">585</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Operation op : ops) {</tt></td></tr>
+<tr class="yin"><td class="lineno">586</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(op instanceof KeyedOperation) {</tt></td></tr>
+<tr class="yang"><td class="lineno">587</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyedOperation ko = (KeyedOperation)op;</tt></td></tr>
+<tr class="yin"><td class="lineno">588</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int added = 0;</tt></td></tr>
+<tr class="yang"><td class="lineno">589</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(String k : ko.getKeys()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">590</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Operation newop : opFact.clone(ko)) {</tt></td></tr>
+<tr class="yang"><td class="lineno">591</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addOperation(k, newop);</tt></td></tr>
+<tr class="yin"><td class="lineno">592</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;added++;</tt></td></tr>
+<tr class="yang"><td class="lineno">593</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">594</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">595</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert added &gt; 0</tt></td></tr>
+<tr class="yin"><td class="lineno">596</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Didn't add any new operations when redistributing&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">597</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">598</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Cancel things that don't have definite targets.</tt></td></tr>
+<tr class="yang"><td class="lineno">599</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op.cancel();</tt></td></tr>
+<tr class="yin"><td class="lineno">600</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">601</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">602</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">603</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">604</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private void attemptReconnects() throws IOException {</tt></td></tr>
+<tr class="yang"><td class="lineno">605</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final long now=System.currentTimeMillis();</tt></td></tr>
+<tr class="yin"><td class="lineno">606</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final Map&lt;MemcachedNode, Boolean&gt; seen=</tt></td></tr>
+<tr class="yang"><td class="lineno">607</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new IdentityHashMap&lt;MemcachedNode, Boolean&gt;();</tt></td></tr>
+<tr class="yin"><td class="lineno">608</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final List&lt;MemcachedNode&gt; rereQueue=new ArrayList&lt;MemcachedNode&gt;();</tt></td></tr>
+<tr class="yang"><td class="lineno">609</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Iterator&lt;MemcachedNode&gt; i=</tt></td></tr>
+<tr class="yin"><td class="lineno">610</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconnectQueue.headMap(now).values().iterator(); i.hasNext();) {</tt></td></tr>
+<tr class="yang"><td class="lineno">611</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final MemcachedNode qa=i.next();</tt></td></tr>
+<tr class="yin"><td class="lineno">612</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.remove();</tt></td></tr>
+<tr class="yang"><td class="lineno">613</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {</tt></td></tr>
+<tr class="yin"><td class="lineno">614</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!seen.containsKey(qa)) {</tt></td></tr>
+<tr class="yang"><td class="lineno">615</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seen.put(qa, Boolean.TRUE);</tt></td></tr>
+<tr class="yin"><td class="lineno">616</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Reconnecting %s&quot;, qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">617</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final SocketChannel ch=SocketChannel.open();</tt></td></tr>
+<tr class="yin"><td class="lineno">618</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch.configureBlocking(false);</tt></td></tr>
+<tr class="yang"><td class="lineno">619</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int ops=0;</tt></td></tr>
+<tr class="yin"><td class="lineno">620</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(ch.connect(qa.getSocketAddress())) {</tt></td></tr>
+<tr class="yang"><td class="lineno">621</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Immediately reconnected to %s&quot;, qa);</tt></td></tr>
+<tr class="yin"><td class="lineno">622</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert ch.isConnected();</tt></td></tr>
+<tr class="yang"><td class="lineno">623</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">624</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ops=SelectionKey.OP_CONNECT;</tt></td></tr>
+<tr class="yang"><td class="lineno">625</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">626</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.registerChannel(ch, ch.register(selector, ops, qa));</tt></td></tr>
+<tr class="yang"><td class="lineno">627</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert qa.getChannel() == ch : &quot;Channel was lost.&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">628</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yang"><td class="lineno">629</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(</tt></td></tr>
+<tr class="yin"><td class="lineno">630</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Skipping duplicate reconnect request for %s&quot;, qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">631</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">632</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch(SocketException e) {</tt></td></tr>
+<tr class="yang"><td class="lineno">633</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Error on reconnect&quot;, e);</tt></td></tr>
+<tr class="yin"><td class="lineno">634</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rereQueue.add(qa);</tt></td></tr>
+<tr class="yang"><td class="lineno">635</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">636</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">637</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Requeue any fast-failed connects.</tt></td></tr>
+<tr class="yin"><td class="lineno">638</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(MemcachedNode n : rereQueue) {</tt></td></tr>
+<tr class="yang"><td class="lineno">639</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queueReconnect(n);</tt></td></tr>
+<tr class="yin"><td class="lineno">640</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">641</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">642</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">643</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">644</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Get the node locator used by this connection.</tt></td></tr>
+<tr class="yang"><td class="lineno">645</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">646</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;NodeLocator getLocator() {</tt></td></tr>
+<tr class="yang"><td class="lineno">647</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return locator;</tt></td></tr>
+<tr class="yin"><td class="lineno">648</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">649</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">650</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void randOperation(final Operation o) {</tt></td></tr>
+<tr class="yang"><td class="lineno">651</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// @@@ random</tt></td></tr>
+<tr class="yin"><td class="lineno">652</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode placeIn=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">653</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection&lt;MemcachedNode&gt; all = locator.getAll();</tt></td></tr>
+<tr class="yin"><td class="lineno">654</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for ( MemcachedNode node : all ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">655</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// @@@ special mode </tt></td></tr>
+<tr class="yin"><td class="lineno">656</td><td class="hits">&nbsp;</td><td class="code"><tt>//            if ( placeIn == null &amp;&amp; failureMode == FailureMode.Retry){</tt></td></tr>
+<tr class="yang"><td class="lineno">657</td><td class="hits">&nbsp;</td><td class="code"><tt>//                placeIn = node;</tt></td></tr>
+<tr class="yin"><td class="lineno">658</td><td class="hits">&nbsp;</td><td class="code"><tt>//            }</tt></td></tr>
+<tr class="yang"><td class="lineno">659</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( placeIn == null ){</tt></td></tr>
+<tr class="yin"><td class="lineno">660</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeIn = node;</tt></td></tr>
+<tr class="yang"><td class="lineno">661</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">662</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(node.isActive()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">663</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(failureMode == FailureMode.Cancel) {</tt></td></tr>
+<tr class="yin"><td class="lineno">664</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.cancel();</tt></td></tr>
+<tr class="yang"><td class="lineno">665</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else {</tt></td></tr>
+<tr class="yin"><td class="lineno">666</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeIn = node;</tt></td></tr>
+<tr class="yang"><td class="lineno">667</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</tt></td></tr>
+<tr class="yin"><td class="lineno">668</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">669</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">670</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">671</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert o.isCancelled() || placeIn != null</tt></td></tr>
+<tr class="yin"><td class="lineno">672</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;No node found &quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">673</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(placeIn != null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">674</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addOperation(placeIn, o);</tt></td></tr>
+<tr class="yang"><td class="lineno">675</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">676</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert o.isCancelled() : &quot;No not found (and not immediately cancelled)&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">677</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">678</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">679</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">680</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yang"><td class="lineno">681</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Add an operation to the given connection.</tt></td></tr>
+<tr class="yin"><td class="lineno">682</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</tt></td></tr>
+<tr class="yang"><td class="lineno">683</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @param key the key the operation is operating upon</tt></td></tr>
+<tr class="yin"><td class="lineno">684</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @param o the operation</tt></td></tr>
+<tr class="yang"><td class="lineno">685</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">686</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void addOperation(final String key, final Operation o) {</tt></td></tr>
+<tr class="yang"><td class="lineno">687</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode placeIn=null;</tt></td></tr>
+<tr class="yin"><td class="lineno">688</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode primary = locator.getPrimary(key);</tt></td></tr>
+<tr class="yang"><td class="lineno">689</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(primary.isActive() || failureMode == FailureMode.Retry) {</tt></td></tr>
+<tr class="yin"><td class="lineno">690</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeIn=primary;</tt></td></tr>
+<tr class="yang"><td class="lineno">691</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else if(failureMode == FailureMode.Cancel) {</tt></td></tr>
+<tr class="yin"><td class="lineno">692</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.cancel();</tt></td></tr>
+<tr class="yang"><td class="lineno">693</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">694</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Look for another node in sequence that is ready.</tt></td></tr>
+<tr class="yang"><td class="lineno">695</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Iterator&lt;MemcachedNode&gt; i=locator.getSequence(key);</tt></td></tr>
+<tr class="yin"><td class="lineno">696</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeIn == null &amp;&amp; i.hasNext(); ) {</tt></td></tr>
+<tr class="yang"><td class="lineno">697</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode n=i.next();</tt></td></tr>
+<tr class="yin"><td class="lineno">698</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n.isActive()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">699</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeIn=n;</tt></td></tr>
+<tr class="yin"><td class="lineno">700</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">701</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">702</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// If we didn't find an active node, queue it in the primary node</tt></td></tr>
+<tr class="yang"><td class="lineno">703</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// and wait for it to come back online.</tt></td></tr>
+<tr class="yin"><td class="lineno">704</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(placeIn == null) {</tt></td></tr>
+<tr class="yang"><td class="lineno">705</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeIn = primary;</tt></td></tr>
+<tr class="yin"><td class="lineno">706</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">707</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">708</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">709</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert o.isCancelled() || placeIn != null</tt></td></tr>
+<tr class="yin"><td class="lineno">710</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;No node found for key &quot; + key;</tt></td></tr>
+<tr class="yang"><td class="lineno">711</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(placeIn != null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">712</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addOperation(placeIn, o);</tt></td></tr>
+<tr class="yang"><td class="lineno">713</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="yin"><td class="lineno">714</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert o.isCancelled() : &quot;No not found for &quot;</tt></td></tr>
+<tr class="yang"><td class="lineno">715</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ key + &quot; (and not immediately cancelled)&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">716</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">717</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">718</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">719</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void addOperation(final MemcachedNode n, final Operation o) {</tt></td></tr>
+<tr class="yin"><td class="lineno">720</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;OP:&quot;+n.toString());</tt></td></tr>
+<tr class="yang"><td class="lineno">721</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode node = (MemcachedNode)n;</tt></td></tr>
+<tr class="yin"><td class="lineno">722</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.setHandlingNode(node);</tt></td></tr>
+<tr class="yang"><td class="lineno">723</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.initialize();</tt></td></tr>
+<tr class="yin"><td class="lineno">724</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.addOp(o);</tt></td></tr>
+<tr class="yang"><td class="lineno">725</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedQueue.offer(node);</tt></td></tr>
+<tr class="yin"><td class="lineno">726</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selector s=selector.wakeup();</tt></td></tr>
+<tr class="yang"><td class="lineno">727</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert s == selector : &quot;Wakeup returned the wrong selector.&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">728</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Added %s to %s&quot;, o, node);</tt></td></tr>
+<tr class="yang"><td class="lineno">729</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">730</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">731</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void addOperations(final Map&lt;MemcachedNode, Operation&gt; ops) {</tt></td></tr>
+<tr class="yin"><td class="lineno">732</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">733</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(Map.Entry&lt;MemcachedNode, Operation&gt; me : ops.entrySet()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">734</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final MemcachedNode node=(MemcachedNode)me.getKey();</tt></td></tr>
+<tr class="yang"><td class="lineno">735</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation o=me.getValue();</tt></td></tr>
+<tr class="yin"><td class="lineno">736</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.setHandlingNode(node);</tt></td></tr>
+<tr class="yang"><td class="lineno">737</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.initialize();</tt></td></tr>
+<tr class="yin"><td class="lineno">738</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.addOp(o);</tt></td></tr>
+<tr class="yang"><td class="lineno">739</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedQueue.offer(node);</tt></td></tr>
+<tr class="yin"><td class="lineno">740</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">741</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selector s=selector.wakeup();</tt></td></tr>
+<tr class="yin"><td class="lineno">742</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert s == selector : &quot;Wakeup returned the wrong selector.&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">743</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">744</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">745</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">746</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Broadcast an operation to all nodes.</tt></td></tr>
+<tr class="yang"><td class="lineno">747</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">748</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public CountDownLatch broadcastOperation(final BroadcastOpFactory of) {</tt></td></tr>
+<tr class="yang"><td class="lineno">749</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final CountDownLatch latch=new CountDownLatch(locator.getAll().size());</tt></td></tr>
+<tr class="yin"><td class="lineno">750</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(MemcachedNode n : locator.getAll()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">751</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MemcachedNode node = (MemcachedNode)n;</tt></td></tr>
+<tr class="yin"><td class="lineno">752</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation op = of.newOp(node, latch);</tt></td></tr>
+<tr class="yang"><td class="lineno">753</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op.initialize();</tt></td></tr>
+<tr class="yin"><td class="lineno">754</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.addOp(op);</tt></td></tr>
+<tr class="yang"><td class="lineno">755</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op.setHandlingNode(node);</tt></td></tr>
+<tr class="yin"><td class="lineno">756</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedQueue.offer(node);</tt></td></tr>
+<tr class="yang"><td class="lineno">757</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">758</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selector s=selector.wakeup();</tt></td></tr>
+<tr class="yang"><td class="lineno">759</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert s == selector : &quot;Wakeup returned the wrong selector.&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">760</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return latch;</tt></td></tr>
+<tr class="yang"><td class="lineno">761</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">762</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">763</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/**</tt></td></tr>
+<tr class="yin"><td class="lineno">764</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Shut down all of the connections.</tt></td></tr>
+<tr class="yang"><td class="lineno">765</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">766</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public void shutdown() throws IOException {</tt></td></tr>
+<tr class="yang"><td class="lineno">767</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shutDown=true;</tt></td></tr>
+<tr class="yin"><td class="lineno">768</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selector s=selector.wakeup();</tt></td></tr>
+<tr class="yang"><td class="lineno">769</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert s == selector : &quot;Wakeup returned the wrong selector.&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">770</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(MemcachedNode qa : locator.getAll()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">771</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getChannel() != null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">772</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.getChannel().close();</tt></td></tr>
+<tr class="yang"><td class="lineno">773</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.setSk(null);</tt></td></tr>
+<tr class="yin"><td class="lineno">774</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(qa.getBytesRemainingToWrite() &gt; 0) {</tt></td></tr>
+<tr class="yang"><td class="lineno">775</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(</tt></td></tr>
+<tr class="yin"><td class="lineno">776</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Shut down with %d bytes remaining to write&quot;,</tt></td></tr>
+<tr class="yang"><td class="lineno">777</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qa.getBytesRemainingToWrite());</tt></td></tr>
+<tr class="yin"><td class="lineno">778</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">779</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Shut down channel %s&quot;, qa.getChannel());</tt></td></tr>
+<tr class="yin"><td class="lineno">780</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">781</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">782</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selector.close();</tt></td></tr>
+<tr class="yang"><td class="lineno">783</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Shut down selector %s&quot;, selector);</tt></td></tr>
+<tr class="yin"><td class="lineno">784</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">785</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">786</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;@Override</tt></td></tr>
+<tr class="yang"><td class="lineno">787</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public String toString() {</tt></td></tr>
+<tr class="yin"><td class="lineno">788</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringBuilder sb=new StringBuilder();</tt></td></tr>
+<tr class="yang"><td class="lineno">789</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(&quot;{MemcachedConnection to&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">790</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(MemcachedNode qa : locator.getAll()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">791</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(&quot; &quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">792</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(qa.getSocketAddress());</tt></td></tr>
+<tr class="yang"><td class="lineno">793</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">794</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(&quot;}&quot;);</tt></td></tr>
+<tr class="yang"><td class="lineno">795</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return sb.toString();</tt></td></tr>
+<tr class="yin"><td class="lineno">796</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">797</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">798</td><td class="hits">&nbsp;</td><td class="code"><tt>}</tt></td></tr>
+</table>
+<p>
+<p class="navbar"><b><a href="http://jcoverage.com">jcoverage</a></b> | <a href="index.html">summary</a> | <a href="jp.co.rakuten.roma.client.html">package</a> | file
+<p>
+<table width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td>
+<p class="legalleft">
+this report was generated by version @product.version@ of jcoverage.<br>
+visit <a href="http://www.jcoverage.com">www.jcoverage.com</a> for updates.<br>
+</td><td>
+<p class="legalright">
+copyright &copy; 2003, jcoverage ltd. all rights reserved.<br>
+Java is a trademark of Sun Microsystems, Inc. in the United States and other countries.<br>
+</td></tr></table>
+
+</body>
+
+</html>

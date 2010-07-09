@@ -1,0 +1,596 @@
+<html>
+<head>
+
+<title>jcoverage details for net.spy.memcached.protocol.TCPMemcachedNodeImpl</title><style>
+<!--
+body {
+background-color: white;
+}
+
+p {
+text-align: left;
+margin-top: 10pt;
+margin-bottom: 10pt;
+}
+
+p, h1, h2, h3, td, th, dt {
+font-family: verdana, arial, sans-serif;
+font-size: 10pt;
+line-height: 100%;
+margin-left: 0pt;
+}
+
+li {
+font-family: verdana, arial, sans-serif;
+font-size: 10pt;
+line-height: 100%;
+margin-left: 0pt;
+}
+
+h1 {
+font-size: 14pt;
+}
+
+h2 {
+font-size: 12pt;
+margin-top: 12pt;
+}
+
+pre {
+line-height: 100%;
+}
+
+tr.yin td {
+background: #f0f0f0;
+}
+
+tr.yin td {
+background: #f0f0f0;
+}
+
+tr.highlight td {
+background: #ffff44;
+}
+
+th {
+border-width: 1px 0px 1px 1px;
+border-color: black;
+border-style: solid;
+text-align: center;
+}
+
+th.remainder {
+border-width: 1px 1px 1px 1px;
+}
+
+td.lineno {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: right;
+}
+
+td.hits {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: right;
+}
+
+td.code {
+border-width: 0px 0px 0px 1px;
+border-color: black;
+border-style: solid;
+text-align: left;
+}
+
+td.coverage {
+text-align: right;
+}
+
+td.lines {
+text-align: right;
+}
+
+td.files {
+text-align: right;
+}
+
+.navbar {
+margin-top: 0pt;
+color: white;
+vertical-align: top;
+text-align: left;
+font-size: 10pt;
+margin-left: 0pt;
+background-color: green;
+padding: 2pt;
+padding-left: 4pt;
+line-height: 120%;
+}
+
+.navbar a {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:visited {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:link {
+color: white;
+text-decoration: none;
+}
+
+.navbar a:hover {
+color: white;
+text-decoration: none;
+}
+
+p.view a {
+color: #0000aa;
+text-decoration: none;
+}
+
+p.legalleft {
+font-size: 8pt;
+margin-top: 6pt;
+border-top: 1px solid black;
+color: #444444;
+text-align: left;
+}
+
+p.legalright {
+font-size: 8pt;
+margin-top: 6pt;
+border-top: 1px solid black;
+color: #444444;
+text-align: right;
+}
+
+a:link {
+color: #0000aa;
+text-decoration: none;
+}
+
+a:visited {
+color: #0000aa;
+text-decoration: none;
+}
+
+-->
+
+</style>
+
+</head>
+<body>
+<img src="http://jcoverage.com/images/shim@product.version@.gif" width="1" height="1">
+<p class="navbar"><b><a href="http://jcoverage.com">jcoverage</a></b> | <a href="index.html">summary</a> | <a href="net.spy.memcached.protocol.html">package</a> | file
+<p>
+<h1>Coverage details for net.spy.memcached.protocol.TCPMemcachedNodeImpl</h1><table border="0" cellpadding="2" cellspacing="0" width="85%">
+<tr><th>Line</th><th>Hits</th><th class="remainder">Source</th></tr>
+<tr class="yang"><td class="lineno">1</td><td class="hits">&nbsp;</td><td class="code"><tt>package net.spy.memcached.protocol;</tt></td></tr>
+<tr class="yin"><td class="lineno">2</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">3</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.io.IOException;</tt></td></tr>
+<tr class="yin"><td class="lineno">4</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.net.SocketAddress;</tt></td></tr>
+<tr class="yang"><td class="lineno">5</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.ByteBuffer;</tt></td></tr>
+<tr class="yin"><td class="lineno">6</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.channels.SelectionKey;</tt></td></tr>
+<tr class="yang"><td class="lineno">7</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.nio.channels.SocketChannel;</tt></td></tr>
+<tr class="yin"><td class="lineno">8</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.ArrayList;</tt></td></tr>
+<tr class="yang"><td class="lineno">9</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.Collection;</tt></td></tr>
+<tr class="yin"><td class="lineno">10</td><td class="hits">&nbsp;</td><td class="code"><tt>import java.util.concurrent.BlockingQueue;</tt></td></tr>
+<tr class="yang"><td class="lineno">11</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">12</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.MemcachedNode;</tt></td></tr>
+<tr class="yang"><td class="lineno">13</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.compat.SpyObject;</tt></td></tr>
+<tr class="yin"><td class="lineno">14</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ops.Operation;</tt></td></tr>
+<tr class="yang"><td class="lineno">15</td><td class="hits">&nbsp;</td><td class="code"><tt>import net.spy.memcached.ops.OperationState;</tt></td></tr>
+<tr class="yin"><td class="lineno">16</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">17</td><td class="hits">&nbsp;</td><td class="code"><tt>/**</tt></td></tr>
+<tr class="yin"><td class="lineno">18</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;* Represents a node with the memcached cluster, along with buffering and</tt></td></tr>
+<tr class="yang"><td class="lineno">19</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;* operation queues.</tt></td></tr>
+<tr class="yin"><td class="lineno">20</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">21</td><td class="hits">1</td><td class="code"><tt>public abstract class TCPMemcachedNodeImpl extends SpyObject</tt></td></tr>
+<tr class="yin"><td class="lineno">22</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;implements MemcachedNode {</tt></td></tr>
+<tr class="yang"><td class="lineno">23</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">24</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final SocketAddress socketAddress;</tt></td></tr>
+<tr class="yang"><td class="lineno">25</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final ByteBuffer rbuf;</tt></td></tr>
+<tr class="yin"><td class="lineno">26</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final ByteBuffer wbuf;</tt></td></tr>
+<tr class="yang"><td class="lineno">27</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected final BlockingQueue&lt;Operation&gt; writeQ;</tt></td></tr>
+<tr class="yin"><td class="lineno">28</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final BlockingQueue&lt;Operation&gt; readQ;</tt></td></tr>
+<tr class="yang"><td class="lineno">29</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private final BlockingQueue&lt;Operation&gt; inputQueue;</tt></td></tr>
+<tr class="yin"><td class="lineno">30</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// This has been declared volatile so it can be used as an availability</tt></td></tr>
+<tr class="yang"><td class="lineno">31</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// indicator.</tt></td></tr>
+<tr class="yin"><td class="lineno">32</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private volatile int reconnectAttempt=1;</tt></td></tr>
+<tr class="yang"><td class="lineno">33</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private SocketChannel channel;</tt></td></tr>
+<tr class="yin"><td class="lineno">34</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private int toWrite=0;</tt></td></tr>
+<tr class="yang"><td class="lineno">35</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected Operation optimizedOp=null;</tt></td></tr>
+<tr class="yin"><td class="lineno">36</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private volatile SelectionKey sk=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">37</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">38</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public TCPMemcachedNodeImpl(SocketAddress sa, SocketChannel c,</tt></td></tr>
+<tr class="yang"><td class="lineno">39</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int bufSize, BlockingQueue&lt;Operation&gt; rq,</tt></td></tr>
+<tr class="yin"><td class="lineno">40</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BlockingQueue&lt;Operation&gt; wq, BlockingQueue&lt;Operation&gt; iq) {</tt></td></tr>
+<tr class="yang"><td class="lineno">41</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super();</tt></td></tr>
+<tr class="yin"><td class="lineno">42</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert sa != null : &quot;No SocketAddress&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">43</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert c != null : &quot;No SocketChannel&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">44</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert bufSize &gt; 0 : &quot;Invalid buffer size: &quot; + bufSize;</tt></td></tr>
+<tr class="yang"><td class="lineno">45</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert rq != null : &quot;No operation read queue&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">46</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert wq != null : &quot;No operation write queue&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">47</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert iq != null : &quot;No input queue&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">48</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socketAddress=sa;</tt></td></tr>
+<tr class="yang"><td class="lineno">49</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setChannel(c);</tt></td></tr>
+<tr class="yin"><td class="lineno">50</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rbuf=ByteBuffer.allocate(bufSize);</tt></td></tr>
+<tr class="yang"><td class="lineno">51</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wbuf=ByteBuffer.allocate(bufSize);</tt></td></tr>
+<tr class="yin"><td class="lineno">52</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getWbuf().clear();</tt></td></tr>
+<tr class="yang"><td class="lineno">53</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readQ=rq;</tt></td></tr>
+<tr class="yin"><td class="lineno">54</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeQ=wq;</tt></td></tr>
+<tr class="yang"><td class="lineno">55</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputQueue=iq;</tt></td></tr>
+<tr class="yin"><td class="lineno">56</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">57</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">58</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">59</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#copyInputQueue()</tt></td></tr>
+<tr class="yin"><td class="lineno">60</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">61</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void copyInputQueue() {</tt></td></tr>
+<tr class="yin"><td class="lineno">62</td><td class="hits">2363</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection&lt;Operation&gt; tmp=new ArrayList&lt;Operation&gt;();</tt></td></tr>
+<tr class="yang"><td class="lineno">63</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">64</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// don't drain more than we have space to place</tt></td></tr>
+<tr class="yang"><td class="lineno">65</td><td class="hits">2363</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputQueue.drainTo(tmp, writeQ.remainingCapacity());</tt></td></tr>
+<tr class="yin"><td class="lineno">66</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">67</td><td class="hits">2363</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeQ.addAll(tmp);</tt></td></tr>
+<tr class="yin"><td class="lineno">68</td><td class="hits">2363</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">69</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">70</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">71</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#destroyInputQueue()</tt></td></tr>
+<tr class="yin"><td class="lineno">72</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">73</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public Collection&lt;Operation&gt; destroyInputQueue() {</tt></td></tr>
+<tr class="highlight"><td class="lineno">74</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection&lt;Operation&gt; rv=new ArrayList&lt;Operation&gt;();</tt></td></tr>
+<tr class="highlight"><td class="lineno">75</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputQueue.drainTo(rv);</tt></td></tr>
+<tr class="highlight"><td class="lineno">76</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">77</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">78</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">79</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">80</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#setupResend()</tt></td></tr>
+<tr class="yang"><td class="lineno">81</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">82</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void setupResend() {</tt></td></tr>
+<tr class="yang"><td class="lineno">83</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// First, reset the current write op.</tt></td></tr>
+<tr class="highlight"><td class="lineno">84</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation op=getCurrentWriteOp();</tt></td></tr>
+<tr class="highlight"><td class="lineno">85</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(op != null) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">86</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteBuffer buf=op.getBuffer();</tt></td></tr>
+<tr class="highlight"><td class="lineno">87</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(buf != null) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">88</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buf.reset();</tt></td></tr>
+<tr class="yang"><td class="lineno">89</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="highlight"><td class="lineno">90</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;No buffer for current write op, removing&quot;);</tt></td></tr>
+<tr class="highlight"><td class="lineno">91</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeCurrentWriteOp();</tt></td></tr>
+<tr class="yin"><td class="lineno">92</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">93</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">94</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Now cancel all the pending read operations.  Might be better to</tt></td></tr>
+<tr class="yang"><td class="lineno">95</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// to requeue them.</tt></td></tr>
+<tr class="highlight"><td class="lineno">96</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(hasReadOp()) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">97</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op=removeCurrentReadOp();</tt></td></tr>
+<tr class="highlight"><td class="lineno">98</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (op != getCurrentWriteOp()) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">99</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().warn(&quot;Discarding partially completed op: %s&quot;, op);</tt></td></tr>
+<tr class="highlight"><td class="lineno">100</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op.cancel();</tt></td></tr>
+<tr class="yang"><td class="lineno">101</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">102</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">103</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="highlight"><td class="lineno">104</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getWbuf().clear();</tt></td></tr>
+<tr class="highlight"><td class="lineno">105</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getRbuf().clear();</tt></td></tr>
+<tr class="highlight"><td class="lineno">106</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toWrite=0;</tt></td></tr>
+<tr class="highlight"><td class="lineno">107</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">108</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">109</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// Prepare the pending operations.  Return true if there are any pending</tt></td></tr>
+<tr class="yin"><td class="lineno">110</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;// ops</tt></td></tr>
+<tr class="yang"><td class="lineno">111</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;private boolean preparePending() {</tt></td></tr>
+<tr class="yin"><td class="lineno">112</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Copy the input queue into the write queue.</tt></td></tr>
+<tr class="yang"><td class="lineno">113</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copyInputQueue();</tt></td></tr>
+<tr class="yin"><td class="lineno">114</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">115</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Now check the ops</tt></td></tr>
+<tr class="yin"><td class="lineno">116</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation nextOp=getCurrentWriteOp();</tt></td></tr>
+<tr class="yang"><td class="lineno">117</td><td class="hits">2364</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(nextOp != null &amp;&amp; nextOp.isCancelled()) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">118</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().info(&quot;Removing cancelled operation: %s&quot;, nextOp);</tt></td></tr>
+<tr class="highlight"><td class="lineno">119</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeCurrentWriteOp();</tt></td></tr>
+<tr class="highlight"><td class="lineno">120</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nextOp=getCurrentWriteOp();</tt></td></tr>
+<tr class="yang"><td class="lineno">121</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">122</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return nextOp != null;</tt></td></tr>
+<tr class="yang"><td class="lineno">123</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">124</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">125</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">126</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#fillWriteBuffer(boolean)</tt></td></tr>
+<tr class="yang"><td class="lineno">127</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">128</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void fillWriteBuffer(boolean shouldOptimize) {</tt></td></tr>
+<tr class="yang"><td class="lineno">129</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(toWrite == 0 &amp;&amp; readQ.remainingCapacity() &gt; 0) {</tt></td></tr>
+<tr class="yin"><td class="lineno">130</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getWbuf().clear();</tt></td></tr>
+<tr class="yang"><td class="lineno">131</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation o=getCurrentWriteOp();</tt></td></tr>
+<tr class="yin"><td class="lineno">132</td><td class="hits">5898</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(o != null &amp;&amp; toWrite &lt; getWbuf().capacity()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">133</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert o.getState() == OperationState.WRITING;</tt></td></tr>
+<tr class="yin"><td class="lineno">134</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// This isn't the most optimal way to do this, but it hints</tt></td></tr>
+<tr class="yang"><td class="lineno">135</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// at a larger design problem that may need to be taken care</tt></td></tr>
+<tr class="yin"><td class="lineno">136</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// if in the bowels of the client.</tt></td></tr>
+<tr class="yang"><td class="lineno">137</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// In practice, readQ should be small, however.</tt></td></tr>
+<tr class="yin"><td class="lineno">138</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!readQ.contains(o)) {</tt></td></tr>
+<tr class="yang"><td class="lineno">139</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readQ.add(o);</tt></td></tr>
+<tr class="yin"><td class="lineno">140</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">141</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">142</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteBuffer obuf=o.getBuffer();</tt></td></tr>
+<tr class="yang"><td class="lineno">143</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert obuf != null : &quot;Didn't get a write buffer from &quot; + o;</tt></td></tr>
+<tr class="yin"><td class="lineno">144</td><td class="hits">2364</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int bytesToCopy=Math.min(getWbuf().remaining(),</tt></td></tr>
+<tr class="yang"><td class="lineno">145</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obuf.remaining());</tt></td></tr>
+<tr class="yin"><td class="lineno">146</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte b[]=new byte[bytesToCopy];</tt></td></tr>
+<tr class="yang"><td class="lineno">147</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obuf.get(b);</tt></td></tr>
+<tr class="yin"><td class="lineno">148</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getWbuf().put(b);</tt></td></tr>
+<tr class="yang"><td class="lineno">149</td><td class="hits">2364</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;After copying stuff from %s: %s&quot;,</tt></td></tr>
+<tr class="yin"><td class="lineno">150</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o, getWbuf());</tt></td></tr>
+<tr class="yang"><td class="lineno">151</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!o.getBuffer().hasRemaining()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">152</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.writeComplete();</tt></td></tr>
+<tr class="yang"><td class="lineno">153</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transitionWriteItem();</tt></td></tr>
+<tr class="yin"><td class="lineno">154</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">155</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preparePending();</tt></td></tr>
+<tr class="yin"><td class="lineno">156</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(shouldOptimize) {</tt></td></tr>
+<tr class="yang"><td class="lineno">157</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimize();</tt></td></tr>
+<tr class="yin"><td class="lineno">158</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">159</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">160</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o=getCurrentWriteOp();</tt></td></tr>
+<tr class="yang"><td class="lineno">161</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">162</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toWrite += bytesToCopy;</tt></td></tr>
+<tr class="yang"><td class="lineno">163</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">164</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getWbuf().flip();</tt></td></tr>
+<tr class="yang"><td class="lineno">165</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert toWrite &lt;= getWbuf().capacity()</tt></td></tr>
+<tr class="highlight"><td class="lineno">166</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;toWrite exceeded capacity: &quot; + this;</tt></td></tr>
+<tr class="yang"><td class="lineno">167</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert toWrite == getWbuf().remaining()</tt></td></tr>
+<tr class="highlight"><td class="lineno">168</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Expected &quot; + toWrite + &quot; remaining, got &quot;</tt></td></tr>
+<tr class="highlight"><td class="lineno">169</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ getWbuf().remaining();</tt></td></tr>
+<tr class="yin"><td class="lineno">170</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="highlight"><td class="lineno">171</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Buffer is full, skipping&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">172</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">173</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">174</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">175</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">176</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#transitionWriteItem()</tt></td></tr>
+<tr class="yang"><td class="lineno">177</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">178</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void transitionWriteItem() {</tt></td></tr>
+<tr class="yang"><td class="lineno">179</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation op=removeCurrentWriteOp();</tt></td></tr>
+<tr class="yin"><td class="lineno">180</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert op != null : &quot;There is no write item to transition&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">181</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Finished writing %s&quot;, op);</tt></td></tr>
+<tr class="yin"><td class="lineno">182</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">183</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">184</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">185</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#optimize()</tt></td></tr>
+<tr class="yin"><td class="lineno">186</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">187</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;protected abstract void optimize();</tt></td></tr>
+<tr class="yin"><td class="lineno">188</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">189</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">190</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getCurrentReadOp()</tt></td></tr>
+<tr class="yang"><td class="lineno">191</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">192</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final Operation getCurrentReadOp() {</tt></td></tr>
+<tr class="yang"><td class="lineno">193</td><td class="hits">4734</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return readQ.peek();</tt></td></tr>
+<tr class="yin"><td class="lineno">194</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">195</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">196</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">197</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#removeCurrentReadOp()</tt></td></tr>
+<tr class="yin"><td class="lineno">198</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">199</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final Operation removeCurrentReadOp() {</tt></td></tr>
+<tr class="yin"><td class="lineno">200</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return readQ.remove();</tt></td></tr>
+<tr class="yang"><td class="lineno">201</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">202</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">203</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">204</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getCurrentWriteOp()</tt></td></tr>
+<tr class="yang"><td class="lineno">205</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">206</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final Operation getCurrentWriteOp() {</tt></td></tr>
+<tr class="yang"><td class="lineno">207</td><td class="hits">8277</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return optimizedOp == null ? writeQ.peek() : optimizedOp;</tt></td></tr>
+<tr class="yin"><td class="lineno">208</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">209</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">210</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">211</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#removeCurrentWriteOp()</tt></td></tr>
+<tr class="yin"><td class="lineno">212</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">213</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final Operation removeCurrentWriteOp() {</tt></td></tr>
+<tr class="yin"><td class="lineno">214</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Operation rv=optimizedOp;</tt></td></tr>
+<tr class="yang"><td class="lineno">215</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(rv == null) {</tt></td></tr>
+<tr class="yin"><td class="lineno">216</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv=writeQ.remove();</tt></td></tr>
+<tr class="yang"><td class="lineno">217</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="highlight"><td class="lineno">218</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;optimizedOp=null;</tt></td></tr>
+<tr class="yang"><td class="lineno">219</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">220</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">221</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">222</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">223</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">224</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#hasReadOp()</tt></td></tr>
+<tr class="yang"><td class="lineno">225</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">226</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final boolean hasReadOp() {</tt></td></tr>
+<tr class="yang"><td class="lineno">227</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return !readQ.isEmpty();</tt></td></tr>
+<tr class="yin"><td class="lineno">228</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">229</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">230</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">231</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#hasWriteOp()</tt></td></tr>
+<tr class="yin"><td class="lineno">232</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">233</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final boolean hasWriteOp() {</tt></td></tr>
+<tr class="yin"><td class="lineno">234</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return !(optimizedOp == null &amp;&amp; writeQ.isEmpty());</tt></td></tr>
+<tr class="yang"><td class="lineno">235</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">236</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">237</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">238</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#addOp(net.spy.memcached.ops.Operation)</tt></td></tr>
+<tr class="yang"><td class="lineno">239</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">240</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void addOp(Operation op) {</tt></td></tr>
+<tr class="yang"><td class="lineno">241</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean added=inputQueue.add(op);</tt></td></tr>
+<tr class="yin"><td class="lineno">242</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert added; // documented to throw an IllegalStateException</tt></td></tr>
+<tr class="yang"><td class="lineno">243</td><td class="hits">1182</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">244</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">245</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">246</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getSelectionOps()</tt></td></tr>
+<tr class="yang"><td class="lineno">247</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">248</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final int getSelectionOps() {</tt></td></tr>
+<tr class="yang"><td class="lineno">249</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int rv=0;</tt></td></tr>
+<tr class="yin"><td class="lineno">250</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(getChannel().isConnected()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">251</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(hasReadOp()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">252</td><td class="hits">1187</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv |= SelectionKey.OP_READ;</tt></td></tr>
+<tr class="yang"><td class="lineno">253</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">254</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(toWrite &gt; 0 || hasWriteOp()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">255</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv |= SelectionKey.OP_WRITE;</tt></td></tr>
+<tr class="yin"><td class="lineno">256</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">257</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="highlight"><td class="lineno">258</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv = SelectionKey.OP_CONNECT;</tt></td></tr>
+<tr class="yang"><td class="lineno">259</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">260</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rv;</tt></td></tr>
+<tr class="yang"><td class="lineno">261</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">262</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">263</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">264</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getRbuf()</tt></td></tr>
+<tr class="yang"><td class="lineno">265</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">266</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final ByteBuffer getRbuf() {</tt></td></tr>
+<tr class="yang"><td class="lineno">267</td><td class="hits">1178</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return rbuf;</tt></td></tr>
+<tr class="yin"><td class="lineno">268</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">269</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">270</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">271</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getWbuf()</tt></td></tr>
+<tr class="yin"><td class="lineno">272</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">273</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final ByteBuffer getWbuf() {</tt></td></tr>
+<tr class="yin"><td class="lineno">274</td><td class="hits">9448</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return wbuf;</tt></td></tr>
+<tr class="yang"><td class="lineno">275</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">276</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">277</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">278</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getSocketAddress()</tt></td></tr>
+<tr class="yang"><td class="lineno">279</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">280</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final SocketAddress getSocketAddress() {</tt></td></tr>
+<tr class="yang"><td class="lineno">281</td><td class="hits">2378</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return socketAddress;</tt></td></tr>
+<tr class="yin"><td class="lineno">282</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">283</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">284</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">285</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#isActive()</tt></td></tr>
+<tr class="yin"><td class="lineno">286</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">287</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final boolean isActive() {</tt></td></tr>
+<tr class="yin"><td class="lineno">288</td><td class="hits">2381</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return reconnectAttempt == 0</tt></td></tr>
+<tr class="yang"><td class="lineno">289</td><td class="hits">2381</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; getChannel() != null &amp;&amp; getChannel().isConnected();</tt></td></tr>
+<tr class="yin"><td class="lineno">290</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">291</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">292</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">293</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#reconnecting()</tt></td></tr>
+<tr class="yin"><td class="lineno">294</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">295</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void reconnecting() {</tt></td></tr>
+<tr class="highlight"><td class="lineno">296</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconnectAttempt++;</tt></td></tr>
+<tr class="highlight"><td class="lineno">297</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">298</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">299</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">300</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#connected()</tt></td></tr>
+<tr class="yang"><td class="lineno">301</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">302</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void connected() {</tt></td></tr>
+<tr class="yang"><td class="lineno">303</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconnectAttempt=0;</tt></td></tr>
+<tr class="yin"><td class="lineno">304</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">305</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">306</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">307</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getReconnectCount()</tt></td></tr>
+<tr class="yin"><td class="lineno">308</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">309</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final int getReconnectCount() {</tt></td></tr>
+<tr class="yin"><td class="lineno">310</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return reconnectAttempt;</tt></td></tr>
+<tr class="yang"><td class="lineno">311</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">312</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">313</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">314</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#toString()</tt></td></tr>
+<tr class="yang"><td class="lineno">315</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">316</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;@Override</tt></td></tr>
+<tr class="yang"><td class="lineno">317</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final String toString() {</tt></td></tr>
+<tr class="yin"><td class="lineno">318</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int sops=0;</tt></td></tr>
+<tr class="yang"><td class="lineno">319</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(getSk()!= null &amp;&amp; getSk().isValid()) {</tt></td></tr>
+<tr class="yin"><td class="lineno">320</td><td class="hits">2370</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sops=getSk().interestOps();</tt></td></tr>
+<tr class="yang"><td class="lineno">321</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">322</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int rsize=readQ.size() + (optimizedOp == null ? 0 : 1);</tt></td></tr>
+<tr class="yang"><td class="lineno">323</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int wsize=writeQ.size();</tt></td></tr>
+<tr class="yin"><td class="lineno">324</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int isize=inputQueue.size();</tt></td></tr>
+<tr class="yang"><td class="lineno">325</td><td class="hits">4748</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return &quot;{QA sa=&quot; + getSocketAddress() + &quot;, #Rops=&quot; + rsize</tt></td></tr>
+<tr class="yin"><td class="lineno">326</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;, #Wops=&quot; + wsize</tt></td></tr>
+<tr class="yang"><td class="lineno">327</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;, #iq=&quot; + isize</tt></td></tr>
+<tr class="yin"><td class="lineno">328</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;, topRop=&quot; + getCurrentReadOp()</tt></td></tr>
+<tr class="yang"><td class="lineno">329</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;, topWop=&quot; + getCurrentWriteOp()</tt></td></tr>
+<tr class="yin"><td class="lineno">330</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;, toWrite=&quot; + toWrite</tt></td></tr>
+<tr class="yang"><td class="lineno">331</td><td class="hits">2374</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot;, interested=&quot; + sops + &quot;}&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">332</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">333</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">334</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">335</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#registerChannel(java.nio.channels.SocketChannel, java.nio.channels.SelectionKey)</tt></td></tr>
+<tr class="yin"><td class="lineno">336</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">337</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void registerChannel(SocketChannel ch, SelectionKey skey) {</tt></td></tr>
+<tr class="highlight"><td class="lineno">338</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setChannel(ch);</tt></td></tr>
+<tr class="highlight"><td class="lineno">339</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setSk(skey);</tt></td></tr>
+<tr class="highlight"><td class="lineno">340</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">341</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">342</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">343</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#setChannel(java.nio.channels.SocketChannel)</tt></td></tr>
+<tr class="yin"><td class="lineno">344</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">345</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void setChannel(SocketChannel to) {</tt></td></tr>
+<tr class="yin"><td class="lineno">346</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert channel == null || !channel.isOpen()</tt></td></tr>
+<tr class="highlight"><td class="lineno">347</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;Attempting to overwrite channel&quot;;</tt></td></tr>
+<tr class="yin"><td class="lineno">348</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;channel = to;</tt></td></tr>
+<tr class="yang"><td class="lineno">349</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">350</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">351</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">352</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getChannel()</tt></td></tr>
+<tr class="yang"><td class="lineno">353</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">354</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final SocketChannel getChannel() {</tt></td></tr>
+<tr class="yang"><td class="lineno">355</td><td class="hits">9473</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return channel;</tt></td></tr>
+<tr class="yin"><td class="lineno">356</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">357</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">358</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">359</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#setSk(java.nio.channels.SelectionKey)</tt></td></tr>
+<tr class="yin"><td class="lineno">360</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">361</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void setSk(SelectionKey to) {</tt></td></tr>
+<tr class="yin"><td class="lineno">362</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sk = to;</tt></td></tr>
+<tr class="yang"><td class="lineno">363</td><td class="hits">4</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">364</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">365</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">366</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getSk()</tt></td></tr>
+<tr class="yang"><td class="lineno">367</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">368</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final SelectionKey getSk() {</tt></td></tr>
+<tr class="yang"><td class="lineno">369</td><td class="hits">7114</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return sk;</tt></td></tr>
+<tr class="yin"><td class="lineno">370</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">371</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">372</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yang"><td class="lineno">373</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#getBytesRemainingInBuffer()</tt></td></tr>
+<tr class="yin"><td class="lineno">374</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yang"><td class="lineno">375</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final int getBytesRemainingToWrite() {</tt></td></tr>
+<tr class="yin"><td class="lineno">376</td><td class="hits">2358</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return toWrite;</tt></td></tr>
+<tr class="yang"><td class="lineno">377</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">378</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">379</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;/* (non-Javadoc)</tt></td></tr>
+<tr class="yin"><td class="lineno">380</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @see net.spy.memcached.MemcachedNode#writeSome()</tt></td></tr>
+<tr class="yang"><td class="lineno">381</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</tt></td></tr>
+<tr class="yin"><td class="lineno">382</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final int writeSome() throws IOException {</tt></td></tr>
+<tr class="yang"><td class="lineno">383</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int wrote=channel.write(wbuf);</tt></td></tr>
+<tr class="yin"><td class="lineno">384</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert wrote &gt;= 0 : &quot;Wrote negative bytes?&quot;;</tt></td></tr>
+<tr class="yang"><td class="lineno">385</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toWrite -= wrote;</tt></td></tr>
+<tr class="yin"><td class="lineno">386</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert toWrite &gt;= 0</tt></td></tr>
+<tr class="highlight"><td class="lineno">387</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &quot;toWrite went negative after writing &quot; + wrote</tt></td></tr>
+<tr class="highlight"><td class="lineno">388</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ &quot; bytes for &quot; + this;</tt></td></tr>
+<tr class="yang"><td class="lineno">389</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Wrote %d bytes&quot;, wrote);</tt></td></tr>
+<tr class="yin"><td class="lineno">390</td><td class="hits">1179</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return wrote;</tt></td></tr>
+<tr class="yang"><td class="lineno">391</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">392</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yang"><td class="lineno">393</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;</tt></td></tr>
+<tr class="yin"><td class="lineno">394</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;public final void fixupOps() {</tt></td></tr>
+<tr class="yang"><td class="lineno">395</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// As the selection key can be changed at any point due to node</tt></td></tr>
+<tr class="yin"><td class="lineno">396</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// failure, we'll grab the current volatile value and configure it.</tt></td></tr>
+<tr class="yang"><td class="lineno">397</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SelectionKey s = sk;</tt></td></tr>
+<tr class="yin"><td class="lineno">398</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(s != null &amp;&amp; s.isValid()) {</tt></td></tr>
+<tr class="yang"><td class="lineno">399</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int iops=getSelectionOps();</tt></td></tr>
+<tr class="yin"><td class="lineno">400</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Setting interested opts to %d&quot;, iops);</tt></td></tr>
+<tr class="yang"><td class="lineno">401</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.interestOps(iops);</tt></td></tr>
+<tr class="yin"><td class="lineno">402</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</tt></td></tr>
+<tr class="highlight"><td class="lineno">403</td><td class="hits">0</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getLogger().debug(&quot;Selection key is not valid.&quot;);</tt></td></tr>
+<tr class="yin"><td class="lineno">404</td><td class="hits">&nbsp;</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yang"><td class="lineno">405</td><td class="hits">3533</td><td class="code"><tt>&nbsp;&nbsp;&nbsp;&nbsp;}</tt></td></tr>
+<tr class="yin"><td class="lineno">406</td><td class="hits">&nbsp;</td><td class="code"><tt>}</tt></td></tr>
+</table>
+<p>
+<p class="navbar"><b><a href="http://jcoverage.com">jcoverage</a></b> | <a href="index.html">summary</a> | <a href="net.spy.memcached.protocol.html">package</a> | file
+<p>
+<table width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td>
+<p class="legalleft">
+this report was generated by version @product.version@ of jcoverage.<br>
+visit <a href="http://www.jcoverage.com">www.jcoverage.com</a> for updates.<br>
+</td><td>
+<p class="legalright">
+copyright &copy; 2003, jcoverage ltd. all rights reserved.<br>
+Java is a trademark of Sun Microsystems, Inc. in the United States and other countries.<br>
+</td></tr></table>
+
+</body>
+
+</html>

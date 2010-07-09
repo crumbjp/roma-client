@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: jp.co.rakuten.roma.spybased_client.AlistTest
+-------------------------------------------------------------------------------
+Tests run: 33, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 6.032 sec <<< FAILURE!
+testInsertOrMoveToLastExpiredLimit2(jp.co.rakuten.roma.spybased_client.AlistTest)  Time elapsed: 0.024 sec  <<< FAILURE!
+junit.framework.ComparisonFailure: expected:<...1> but was:<...0>
+	at junit.framework.Assert.assertEquals(Assert.java:81)
+	at junit.framework.Assert.assertEquals(Assert.java:87)
+	at jp.co.rakuten.roma.spybased_client.AlistTest.testInsertOrMoveToLastExpiredLimit2(AlistTest.java:372)
+

@@ -44,6 +44,12 @@ namespace rakuten {
        */
       void init(routing_mode_t routing_mode);
       /**
+       * @brief Get the number of valid connection. 
+       *
+       * @return Returns the number of valid connection. 
+       */
+      int num_valid_connection() const;
+      /**
        * @brief Try to disconnect to the all-nodes.
        *
        * @param routing_mode ROUTING_MODE_USE meams using routingdump.

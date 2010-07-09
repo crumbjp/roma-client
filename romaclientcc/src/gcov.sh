@@ -18,8 +18,8 @@ do
 	build)
 	    echo '###############'
 	    echo '# BUILD'
-	    export LD_LIBRARY_PATY=`pwd`/lib:$LD_LIBRARY_PATH
-	    make clean bin/rmcc_test DEBUG=1 GCOV=1 ;
+	    export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH
+	    make rmcc bin/rmcc_test DEBUG=1 GCOV=1 ;
 	    ./bin/rmcc_testdc
 	    ;;
 	gen)
@@ -31,6 +31,7 @@ do
 	    for cc in `find .. -name '*.cc' ` ; do ln -sf $cc . ; done
 	    #for gcno in `find .. -name '*.gcno' ` ; do  gcov -b -c -f -u -o `echo $gcno |  sed -e 's/\/[^\/]*$//'` $gcno > /dev/null  ; done
 	    for gcno in `find .. -name '*.gcno' ` ; do  gcov -f -o `echo $gcno |  sed -e 's/\/[^\/]*$//'` $gcno > /dev/null  ; done
+	    for gcno in `find .. -name '*.gcno' ` ; do  lcov -c -d `echo $gcno |  sed -e 's/\/[^\/]*$//'` -o `echo $gcno |  sed -e 's/.*\/\([^\/]*\)$/\1/'`.info ; genhtml -o . `echo $gcno |  sed -e 's/.*\/\([^\/]*\)$/\1/'`.info ; done
 	    for gcov in `find . -name '*.gcov' ` ; do mv $gcov $gcov.txt ; done
 	    ;;
 	*)

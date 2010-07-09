@@ -19,7 +19,7 @@ CMD_LINKS_FLAGS :=
 
 ifdef M64
 DEF_CMPL_FLGS := -m64
-LDFLAGS += -m64
+LDFLAGS += -m64 
 else
 DEF_CMPL_FLGS := -m32
 LDFLAGS += -m32

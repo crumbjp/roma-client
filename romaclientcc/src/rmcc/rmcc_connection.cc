@@ -160,8 +160,11 @@ namespace rakuten {
       memset(mklhash,0,sizeof(mklhash));
       memset(&tv_last_mklhash,0,sizeof(tv_last_mklhash));
     }
+    int RomaConnection::num_valid() const {
+      return this->nodelist.size();
+    }
     void RomaConnection::init(const node_info_list_t &nl,routing_mode_t routing_mode){
-      if ( ! this->nodelist.size() ) {
+      if ( ! this->num_valid() ) {
         INFO_LOG("Init nodes (%d)",routing_mode);
         this->routing_mode = routing_mode;
         this->mklhash_threshold = 10000; // @@@
@@ -342,10 +345,10 @@ namespace rakuten {
         }
       }catch( const Exception & ex ) {
         // TODO: Maybe to strict when the node returns "SERVER_ERROR".
-        ERR_LOG("Command faireu from [%s] : %s",node.node_info.c_str(),ex.get_msg());
+        ERR_LOG("Command failure from [%s] : %s",node.node_info.c_str(),ex.get_msg());
         node.disconnect();
         this->nodelist.erase(node.node_info);
-        throw ex;
+        throw;
       }
     }
     void RomaConnection::term(){

@@ -65,6 +65,7 @@ namespace rakuten {
       typedef std::vector<const char*> node_info_list_t;
       RomaConnection();
       void init(const node_info_list_t &info_list,routing_mode_t routing_mode);
+      int  num_valid()const;
       void command(Command & cmd);
       void term();
       ~RomaConnection();

@@ -94,11 +94,21 @@ public:
     }catch(const Exception & ex){
     }
   }
+  void testStoreError() {
+    cerr << __PRETTY_FUNCTION__ << endl;
+    try{
+      rmc_ret_t ret = client.cmd_store("FOO",RomaValue("bbb",3),100);
+      (void)ret;
+      CPPUNIT_FAIL("Should throw !");
+    }catch(const Exception & ex){
+    }
+  }
   static CppUnit::TestSuite * getSuite(){
     CppUnit::TestSuite *suite = new CppUnit::TestSuite();
     suite->addTest(new CppUnit::TestCaller<RomaClientTest>("testGet",&RomaClientTest::testGet));
     suite->addTest(new CppUnit::TestCaller<RomaClientTest>("testSizedInsert",&RomaClientTest::testSizedInsert));
     suite->addTest(new CppUnit::TestCaller<RomaClientTest>("testSizedInsertError",&RomaClientTest::testSizedInsertError));
+    suite->addTest(new CppUnit::TestCaller<RomaClientTest>("testStoreError",&RomaClientTest::testStoreError));
     return suite;
   }
 };

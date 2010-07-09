@@ -63,6 +63,17 @@ public class AlistTest extends TestCase {
     	//c.shutdown(); c=null;
 		super.tearDown();
 	}    
+	public void testBin() throws InterruptedException{
+		RomaAlist<byte[]> alistbin = new RomaAlistImpl<byte[]>("ABIN",c.getTranscoder());
+		c.extension(alistbin.append("aabbcc".getBytes()));
+		c.extension(alistbin.append("ddeeff".getBytes()));
+		List<byte[]> l = (List<byte[]>)c.extension(alistbin.getAll());
+		for ( Object o : l ) {
+			System.err.println(o.getClass());
+//			System.err.println("**** " + new String(b)+"\n");
+		}
+	}
+
     public void testAppendLimit1(){
 		assertEquals(Boolean.TRUE,(Boolean)c.extension(alist.append("---",21)));
 		vlist.add("---");

@@ -15,6 +15,9 @@ namespace rakuten{
     const char * RomaClient::get_lasterror()const {
       return this->lasterr.str().c_str();
     }
+    int RomaClient::num_valid_connection() const {
+      return this->conn.num_valid();
+    }
     void RomaClient::init(routing_mode_t routing_mode){
       try {
         this->conn.init(this->node_info_list,routing_mode);
@@ -36,7 +39,7 @@ namespace rakuten{
         CmdSet cmd(key,0,exptime,value.data,value.length);
         conn.command(cmd);
         return cmd.roma_ret;
-      }catch(const Exception & ex ) {
+      }catch(const rakuten::Exception & ex ) {
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;
       }
@@ -58,12 +61,12 @@ namespace rakuten{
         return cmd.roma_ret;
       }catch(const Exception & ex ) {
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
-        throw ex;
+        throw;
       }
     }
     RomaValue RomaClient::cmd_alist_join(const char *key,const char * sep){
       try {
-        CmdAlistJoin cmd(key,",");
+        CmdAlistJoin cmd(key,sep);
         this->conn.command(cmd);
         return cmd.value;
       }catch(const Exception & ex ) {

@@ -1,10 +1,10 @@
 #include "rakuten/exception.h"
-int loglv = LOGLV_WARN;
+#include <stdio.h>
 namespace rakuten {
   Exception::Exception(int k, const char *pf, const char *f, int pl, const char *m)
     : kind(k), pref_func(pf), pref_file(f),pref_line(pl),msg(m)
   {
-    WARN_LOG(m);
+    LOG(LOGLV_WARN,pf,f,pl,m);
   }
   Exception::~Exception(){
   }
@@ -33,4 +33,24 @@ namespace rakuten {
     va_end(vl1);
     throw Exception(k,pref_func , pref_file,pref_line , m);
   }
+
+  int loglv = LOGLV_WARN;
+  FILE *logfp  = stderr;
+  void set_loglv(int lv) {
+    loglv = lv;
+  }
+  void set_logfp(FILE *fp) {
+    logfp = fp;
+  }
+  void log(int lv,const char * pf,const char * f,const int l,const char * fmt,...) {
+    if ( lv >= loglv ){
+      fprintf(logfp,"[%s:%u] ",f,l);
+      va_list vl;
+      va_start(vl,fmt);
+      vfprintf(logfp,fmt,vl);
+      va_end(vl);
+      fprintf(logfp,"\n");
+    }
+  }
+  
 }

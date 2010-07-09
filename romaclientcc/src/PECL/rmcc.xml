@@ -51,6 +51,21 @@
   </code>
  </function>
 
+ <function name="rmc_log">
+  <proto>int rmc_log(int lv,int type)</proto>
+  <code>
+  <![CDATA[
+     rakuten::set_loglv(lv);
+     if ( type == 0 ) {
+       rakuten::set_logfp(stdout);
+     } else if ( type == 1 ) {
+       rakuten::set_logfp(stderr);
+     }
+     RETURN_LONG(0);
+  ]]>
+  </code>
+ </function>
+
  <function name="rmc_init">
   <proto>string rmc_init(array nl,int routing)</proto>
   <code>
@@ -102,13 +117,63 @@
      }
      ob_start("callback");
      echo "## rmc_init() ##";
+     rmc_log(100,0);
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     echo rmc_init($nl,0);
+     echo rmc_init($nl,1);
      ob_end_flush();
    </code>
    <result>## rmc_init() ##localhost_11211localhost_11212</result>
+  </test>
+ </function>
+
+ <function name="rmc_num_connection">
+  <proto>int rmc_num_connection(string client_id)</proto>
+  <code>
+  <![CDATA[
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       RETURN_LONG(it->second->num_valid_connection());
+     }
+     RETURN_LONG(0);
+  ]]>
+  </code>
+  <test>
+   <code>
+     function callback($buffer)
+     {
+       $fp = fopen("/tmp/test.txt","a+");
+       fwrite($fp,$buffer);
+       fwrite($fp,"\n");
+       fclose($fp);
+       return ($buffer);
+     }
+     ob_start("callback");
+     echo "## rmc_num_connection() ##";
+     rmc_log(100,0);
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $nl[] = "localhost_11212";
+     $cid = rmc_init($nl,1);
+     echo $cid;
+     echo rmc_num_connection($cid);
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $cid = rmc_init($nl,1);
+     echo $cid;
+     echo rmc_num_connection($cid);
+     $nl = array();
+     $nl[] = "-d";
+     $nl[] = "localhost_11211";
+     $cid = rmc_init($nl,0);
+     echo $cid;
+     echo rmc_num_connection($cid);
+     ob_end_flush();
+   </code>
+   <result>## rmc_num_connection() ##localhost_11211localhost_112122localhost_112112-dlocalhost_112111</result>
   </test>
  </function>
 
@@ -140,10 +205,11 @@
      }
      ob_start("callback");
      echo "## rmc_term() ##";
+     rmc_log(100,0);
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     $cid = rmc_init($nl,0);
+     $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_term($cid);
      ob_end_flush();
@@ -161,6 +227,7 @@
      client_map_t::iterator it = client_map->find(client_id);
      if ( it != client_map->end() ) {
        try {
+         int i = it->second->cmd_store(key,rakuten::rmcc::RomaValue(value,value_len),exptime);
          RETURN_LONG(
            it->second->cmd_store(key,rakuten::rmcc::RomaValue(value,value_len),exptime);
          );
@@ -183,10 +250,11 @@
      }
      ob_start("callback");
      echo "## rmc_set() ##";
+     rmc_log(100,0);
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     $cid = rmc_init($nl,0);
+     $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_set($cid,"foobar","FOOBAR",100);
      ob_end_flush();
@@ -232,10 +300,11 @@
      }
      ob_start("callback");
      echo "## rmc_get() ##";
+     rmc_log(100,0);
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     $cid = rmc_init($nl,0);
+     $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_set($cid,"foobar","FOOBAR",100);
      $ret = rmc_get($cid,"foobar");
@@ -288,10 +357,11 @@
      }
      ob_start("callback");
      echo "## rmc_alist_sized_insert() ##";
+     rmc_log(100,0);
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     $cid = rmc_init($nl,0);
+     $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
      echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
@@ -340,10 +410,11 @@
      }
      ob_start("callback");
      echo "## rmc_alist_join() ##";
+     rmc_log(100,0);
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
-     $cid = rmc_init($nl,0);
+     $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");
      echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR");

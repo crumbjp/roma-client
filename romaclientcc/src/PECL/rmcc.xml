@@ -154,17 +154,20 @@
      ob_start("callback");
      echo "## rmc_num_connection() ##";
      rmc_log(100,0);
+     // Connect 2 & routing
      $nl = array();
      $nl[] = "localhost_11211";
      $nl[] = "localhost_11212";
      $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_num_connection($cid);
+     // Connect 1 & routing
      $nl = array();
      $nl[] = "localhost_11211";
      $cid = rmc_init($nl,1);
      echo $cid;
      echo rmc_num_connection($cid);
+     // Connect 1 & no-routing
      $nl = array();
      $nl[] = "-d";
      $nl[] = "localhost_11211";

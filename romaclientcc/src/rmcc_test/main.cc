@@ -22,6 +22,7 @@ class RomaClientTest : public CppUnit::TestFixture {
 public:
   RomaClient client;
   virtual void setUp() {
+    set_loglv(0);
     char localhost1[] = "localhost_11211";
     char localhost2[] = "localhost_11212";
     client.get_nodelist().push_back(localhost1);
@@ -118,6 +119,7 @@ class RomaClientTestLoop0 : public CppUnit::TestFixture {
 public:
   RomaClient client;
   virtual void setUp() {
+    set_loglv(0);
     char localhost1[] = "localhost_11211";
     char localhost2[] = "localhost_11212";
     client.get_nodelist().push_back(localhost1);
@@ -170,6 +172,7 @@ public:
   virtual void setUp() {
     char localhost1[] = "localhost_11211";
     char localhost2[] = "localhost_11212";
+    set_loglv(0);
     client.get_nodelist().push_back(localhost1);
     client.init(1);
   }

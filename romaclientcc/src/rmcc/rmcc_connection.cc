@@ -13,6 +13,7 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/time.h>
+#include <arpa/inet.h>
 #include <errno.h>
 
 #include <sstream>
@@ -278,6 +279,7 @@ namespace rakuten {
       SHA1(reinterpret_cast<const unsigned char*>(t),l,buf);
       hash_t ret;
       memcpy(&ret,buf+SHA_DIGEST_LENGTH-sizeof(hash_t),sizeof(hash_t));
+      ret = ntohl(ret);
       ret = ret >> (this->dgst_bits-this->div_bits);
       ret = ret << (this->dgst_bits-this->div_bits);
       return ret;
@@ -286,6 +288,7 @@ namespace rakuten {
     std::vector<std::string> &  RomaConnection::get_node_key(const char * key){
       this->routing_table();
       hash_t hash = calc_hash(key,strlen(key));
+      TRACE_LOG("HASH:%lu KEY:%s",hash,key);
       routing_t::iterator it = this->routing.find(hash);
       if ( it != this->routing.end() ) {
         return it->second;

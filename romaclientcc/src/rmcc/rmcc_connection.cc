@@ -194,6 +194,13 @@ namespace rakuten {
           ERR_LOG("Cannot connect [%s]",node_info);
           return 0;
         }
+      }else{
+        try {
+          it->second.connect();
+        }catch(const Exception & ex){
+          ERR_LOG("Cannot connect [%s]",node_info);
+          return 0;
+        }
       }
       return &it->second;
     }
@@ -286,7 +293,10 @@ namespace rakuten {
     }
 
     std::vector<std::string> &  RomaConnection::get_node_key(const char * key){
-      this->routing_table();
+      int num_node = this->nodelist.size();
+      if ( num_node ) {
+        this->routing_table();
+      }
       hash_t hash = calc_hash(key,strlen(key));
       TRACE_LOG("HASH:%lu KEY:%s",hash,key);
       routing_t::iterator it = this->routing.find(hash);

@@ -179,7 +179,7 @@ public:
   virtual void tearDown() {
     client.term();
   }
-  void testLoop() {
+  void testLoop1() {
     cerr << __PRETTY_FUNCTION__ << endl;
     client.cmd_store("AAAA",RomaValue("aaaa",4),0);
     client.cmd_store("BBBB",RomaValue("bbbb",4),0);
@@ -212,7 +212,54 @@ public:
   }
   static CppUnit::TestSuite * getSuite(){
     CppUnit::TestSuite *suite = new CppUnit::TestSuite();
-    suite->addTest(new CppUnit::TestCaller<RomaClientTestLoop1>("testLoop",&RomaClientTestLoop1::testLoop));
+    suite->addTest(new CppUnit::TestCaller<RomaClientTestLoop1>("testLoop1",&RomaClientTestLoop1::testLoop1));
+    return suite;
+  }
+};
+
+
+class RomaClientTestLoop2 : public CppUnit::TestFixture {
+public:
+  RomaClient client;
+  virtual void setUp() {
+    char localhost1[] = "localhost_11211";
+    char localhost2[] = "localhost_11212";
+    set_loglv(0);
+    client.get_nodelist().push_back(localhost1);
+    client.init(1);
+  }
+  virtual void tearDown() {
+    client.term();
+  }
+  void testLoop2() {
+    cerr << __PRETTY_FUNCTION__ << endl;
+    for (int i=0 ;i<1000000;i++ ) {
+      try {
+        client.cmd_store("AAAA",RomaValue("aaaa",4),0);
+        client.cmd_store("BBBB",RomaValue("bbbb",4),0);
+        client.cmd_store("CCCC",RomaValue("cccc",4),0);
+        client.cmd_store("DDDD",RomaValue("dddd",4),0);
+        client.cmd_store("EEEE",RomaValue("eeee",4),0);
+        {
+          RomaValue v = client.cmd_get("AAAA");
+        }
+        {
+          RomaValue v = client.cmd_get("BBBB");
+        }
+        {
+          RomaValue v = client.cmd_get("CCCC");
+        }
+        {
+          RomaValue v = client.cmd_get("DDDD");
+        }
+      }catch(const Exception & ex){
+        cerr << "****************************************" << endl;
+      }
+    }
+  }
+  static CppUnit::TestSuite * getSuite(){
+    CppUnit::TestSuite *suite = new CppUnit::TestSuite();
+    suite->addTest(new CppUnit::TestCaller<RomaClientTestLoop2>("testLoop2",&RomaClientTestLoop2::testLoop2));
     return suite;
   }
 };
@@ -224,21 +271,21 @@ public:
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
 
-int main ( int argc , char * argv[]  ){
-  CppUnit::TestResultCollector collector;
-  CppUnit::TestResult result;
-  result.addListener(&collector);
-  CppUnit::TestSuite suite;
-  suite.addTest(RomaClientTest::getSuite());
-  // suite.addTest(RomaClientTestLoop0::getSuite());
-  // suite.addTest(RomaClientTestLoop1::getSuite());
-  suite.run(&result);
-  CppUnit::CompilerOutputter outputter(&collector, CppUnit::stdCOut());
-  outputter.write();
-  return collector.wasSuccessful() ? 0 : 1;
-}
 // int main ( int argc , char * argv[]  ){
-//   RomaClientTest test;
-//   test.setUp();
-//   test.testSizedInsert();
+//   CppUnit::TestResultCollector collector;
+//   CppUnit::TestResult result;
+//   result.addListener(&collector);
+//   CppUnit::TestSuite suite;
+//   // suite.addTest(RomaClientTest::getSuite());
+//   //suite.addTest(RomaClientTestLoop0::getSuite());
+//   suite.addTest(RomaClientTestLoop1::getSuite());
+//   suite.run(&result);
+//   CppUnit::CompilerOutputter outputter(&collector, CppUnit::stdCOut());
+//   outputter.write();
+//   return collector.wasSuccessful() ? 0 : 1;
 // }
+int main ( int argc , char * argv[]  ){
+  RomaClientTestLoop2 test;
+  test.setUp();
+  test.testLoop2();
+}

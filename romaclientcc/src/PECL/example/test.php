@@ -6,6 +6,7 @@ if ( !$no_conn ) {
 }
 $without_route = RomaClient::getInstance(array("-d","localhost_11211","localhost_11212"));
 if ( $without_route ) {
+  $without_route->set_default_timeout(10000);
   $res =  $without_route->set("rc","*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*",100);
   for ( $i = 0 ; $i < 10 ; $i++ ) {
     $val = $without_route->get("rc");
@@ -35,6 +36,4 @@ if ( $use_route ) {
     print "SUCCESS\n";
   }
 }
-
-
 ?>

@@ -14,48 +14,7 @@
 
 class RomaClient {
     private $client_id = "";
-
-    /**
-     * @deprecated 
-     */
-    // const SERVER_ERROR = -1;
-    /**
-     * @deprecated 
-     */
-    // const NOT_STORED   = -2;
-    /**
-     * @deprecated 
-     */
-    // const NOT_FOUND    = -3;
-    /**
-     * @deprecated 
-     */
-    // const NOT_CLEARED  = -4;
-    /**
-     * @deprecated 
-     */
-    // const ALIST_NULL   = -5;
-    /**
-     * @deprecated 
-     */
-    // const STORED       =  1;
-    /**
-     * @deprecated 
-     */
-    // const DELETED      =  2;
-    /**
-     * @deprecated 
-     */
-    // const CLEARED      =  3;
-    /**
-     * @deprecated 
-     */
-    // const ALIST_TRUE   =  5;
-    /**
-     * @deprecated 
-     */
-    // const ALIST_FALSE  =  6;
-    
+    private $default_timeout = 2000;
     const RMC_RET_ERROR = 1;
     /**
      * @brief Constructor 
@@ -94,12 +53,19 @@ class RomaClient {
     }
     
     /**
+     * @brief Set command timeout (msec)
+     * @param timeout
+     */
+    public function set_default_timeout($timeout) {
+      $this->default_timeout = $timeout;
+    }
+    /**
      * @brief Get value.(Issue 'get' command).
      * @param key 
      * @return value 
      */
     public function get($key) {
-      $result = rmc_get($this->client_id, $key);
+      $result = rmc_get($this->client_id, $key,$this->default_timeout);
       if ( $result == RomaClient::RMC_RET_ERROR ) {
         throw new Exception("rmc_get() failure");
       }
@@ -117,7 +83,7 @@ class RomaClient {
      * @return Returns True if success.
      */
     public function set($key, $value, $exptime) {
-      $result = rmc_set($this->client_id,$key, $value, $exptime);
+      $result = rmc_set($this->client_id,$key, $value, $exptime,$this->default_timeout);
       if ( $result == RomaClient::RMC_RET_ERROR ) {
         throw new Exception("rmc_set() failure");
       }
@@ -141,7 +107,7 @@ class RomaClient {
      * @return Returns True if success.
      */
     public function alist_sized_insert($key, $size, $value) {
-      $result = rmc_alist_sized_insert($this->client_id,$key, $size, $value);
+      $result = rmc_alist_sized_insert($this->client_id,$key, $size, $value,$this->default_timeout);
       if ( $result == RomaClient::RMC_RET_ERROR ) {
         throw new Exception("rmc_alist_sized_insert() failure");
       }
@@ -156,7 +122,7 @@ class RomaClient {
      */
     public function alist_join($key, $separator) {
       // @@@ Todo: Should use alist_gets
-      $result = rmc_alist_join($this->client_id,$key, $separator);
+      $result = rmc_alist_join($this->client_id,$key, $separator,$this->default_timeout);
       if ( $result == RomaClient::RMC_RET_ERROR ) {
         throw new Exception("rmc_alist_join() failure");
       }

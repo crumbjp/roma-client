@@ -48,7 +48,7 @@ namespace rakuten {
     public:
       char * mklhash;
     public:
-      CmdMklHash();
+      CmdMklHash(long timeout);
       virtual const char * get_key()const;
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
@@ -61,7 +61,7 @@ namespace rakuten {
       std::vector<const char*>    nl;
       std::map<char*,std::vector<char*> > ht;
     public:
-      CmdRoutingDump();
+      CmdRoutingDump(long timeout);
       virtual const char * get_key()const;
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
@@ -79,7 +79,7 @@ namespace rakuten {
     class CmdSet: public CmdKeyed {
       string_vbuffer sbuf;
     public:
-      CmdSet(const char * key,int flags, long exp, const char *data, long length);
+      CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout);
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -95,7 +95,7 @@ namespace rakuten {
       string_vbuffer sbuf;
     public:
       RomaValue value;
-      CmdGet(const char * key);
+      CmdGet(const char * key,long timeout);
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -104,7 +104,7 @@ namespace rakuten {
     class CmdAlistSizedInsert: public CmdKeyed {
       string_vbuffer sbuf;
     public:
-      CmdAlistSizedInsert(const char * key,long size,const char *data, long length);
+      CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout);
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -115,7 +115,7 @@ namespace rakuten {
     public:
       RomaValue value;
       int count;
-      CmdAlistJoin(const char * key,const char *sep);
+      CmdAlistJoin(const char * key,const char *sep,long timeout);
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);

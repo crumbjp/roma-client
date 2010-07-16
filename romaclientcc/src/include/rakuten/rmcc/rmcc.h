@@ -67,7 +67,7 @@ namespace rakuten {
        * @return On success RMC_RET_OK returnd.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
        */
-      rmc_ret_t cmd_store(const char *key, RomaValue value, long exptime);
+      rmc_ret_t cmd_store(const char *key, RomaValue value, long exptime,long timeout);
       /**
        * @brief Issue GET command.
        *
@@ -76,7 +76,7 @@ namespace rakuten {
        * @return Returns value-structure. This buffer is temporary. It'll be cleared when the next command is issued.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
        */
-      RomaValue cmd_get(const char *key);
+      RomaValue cmd_get(const char *key,long timeout);
       /**
        * @brief Issue ALIST_SIZED_INSERT command.
        *
@@ -87,7 +87,7 @@ namespace rakuten {
        * @return On success RMC_RET_OK returnd, On error, RMC_RET_ERROR returnd, and call rmc_geterr() to get message.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
        */
-      rmc_ret_t cmd_alist_sized_insert(const char *key, long size, RomaValue value);
+      rmc_ret_t cmd_alist_sized_insert(const char *key, long size, RomaValue value,long timeout);
       /**
        * @brief Issue ALIST_JOIN command.
        *
@@ -97,7 +97,7 @@ namespace rakuten {
        * @return Returns value-structure. This buffer is temporary. It'll be cleared when the next command is issued.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
        */
-      RomaValue cmd_alist_join(const char *key,const char * sep);
+      RomaValue cmd_alist_join(const char *key,const char * sep,long timeout);
     };
   }
 }

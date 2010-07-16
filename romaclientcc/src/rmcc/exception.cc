@@ -1,5 +1,8 @@
 #include "rakuten/exception.h"
 #include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 namespace rakuten {
   Exception::Exception(int k, const char *pf, const char *f, int pl, const char *m)
     : kind(k), pref_func(pf), pref_file(f),pref_line(pl),msg(m)
@@ -42,9 +45,13 @@ namespace rakuten {
   void set_logfp(FILE *fp) {
     logfp = fp;
   }
+  static pid_t pid = 0;
   void log(int lv,const char * pf,const char * f,const int l,const char * fmt,...) {
+    if ( ! pid ) {
+      pid = getpid();
+    }
     if ( lv >= loglv ){
-      fprintf(logfp,"[%s:%u] ",f,l);
+      fprintf(logfp,"[%s:%u](%d) ",f,l,pid);
       va_list vl;
       va_start(vl,fmt);
       vfprintf(logfp,fmt,vl);

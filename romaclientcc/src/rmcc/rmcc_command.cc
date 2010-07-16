@@ -51,8 +51,8 @@ namespace rakuten {
       return 0;
     }
     string_vbuffer CmdMklHash::sbuf("mklhash 0\r\n");
-    CmdMklHash::CmdMklHash()
-      :Command(Command::RANDOM,42,1000),mklhash(0){
+    CmdMklHash::CmdMklHash(long timeout)
+      :Command(Command::RANDOM,42,timeout),mklhash(0){
       parse_mode = BIN_MODE;
     }
     string_vbuffer & CmdMklHash::send_callback(){
@@ -76,8 +76,8 @@ namespace rakuten {
       return 0;
     }
     string_vbuffer CmdRoutingDump::sbuf("routingdump json\r\n");
-    CmdRoutingDump::CmdRoutingDump()
-      :Command(Command::RANDOM,32768,1000)
+    CmdRoutingDump::CmdRoutingDump(long timeout)
+      :Command(Command::RANDOM,32768,timeout)
     {
       parse_mode = BIN_MODE;
     }
@@ -199,14 +199,14 @@ namespace rakuten {
     }
 
     CmdKeyed::CmdKeyed(size_t nrcv,long timeout,const char * key)
-      :Command(Command::KEYED,32768,2000), key(key) {
+      :Command(Command::KEYED,32768,timeout), key(key) {
     }
     const char * CmdKeyed::get_key()const {
       return this->key;
     }
 
-    CmdSet::CmdSet(const char * key,int flags, long exp, const char *data, long length  )
-      :CmdKeyed(32768,2000,key){
+    CmdSet::CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout)
+      :CmdKeyed(32768,timeout,key){
       sbuf.append_sprintf("set %s %d %ld %ld\r\n",key,flags,exp,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
@@ -255,8 +255,8 @@ namespace rakuten {
       return ret;
     }
 
-    CmdGet::CmdGet(const char * key)
-      :CmdBaseGet(32768,5000,key)
+    CmdGet::CmdGet(const char * key,long timeout)
+      :CmdBaseGet(32768,timeout,key)
     {
       sbuf.append_sprintf("get %s\r\n",key);
     }
@@ -277,8 +277,8 @@ namespace rakuten {
       return RECV_MORE;
     }
 
-    CmdAlistSizedInsert::CmdAlistSizedInsert(const char * key,long size,const char *data, long length)
-      :CmdKeyed(32768,2000,key){
+    CmdAlistSizedInsert::CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout)
+      :CmdKeyed(32768,timeout,key){
       sbuf.append_sprintf("alist_sized_insert %s %ld %ld\r\n",key,size,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
@@ -299,8 +299,8 @@ namespace rakuten {
       return RECV_OVER;
     }
 
-    CmdAlistJoin::CmdAlistJoin(const char * key,const char *sep)
-      :CmdBaseGet(32768,5000,key),count(0)
+    CmdAlistJoin::CmdAlistJoin(const char * key,const char *sep,long timeout)
+      :CmdBaseGet(32768,timeout,key),count(0)
     {
       sbuf.append_sprintf("alist_join %s %d\r\n%s\r\n",key,strlen(sep),sep);
     }

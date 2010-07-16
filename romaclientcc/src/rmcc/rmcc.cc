@@ -34,9 +34,9 @@ namespace rakuten{
         throw ex;
       }
     }
-    rmc_ret_t RomaClient::cmd_store(const char *key, RomaValue value, long exptime){
+    rmc_ret_t RomaClient::cmd_store(const char *key, RomaValue value, long exptime,long timeout){
       try {
-        CmdSet cmd(key,0,exptime,value.data,value.length);
+        CmdSet cmd(key,0,exptime,value.data,value.length,timeout);
         conn.command(cmd);
         return cmd.roma_ret;
       }catch(const rakuten::Exception & ex ) {
@@ -44,9 +44,9 @@ namespace rakuten{
         throw ex;
       }
     }
-    RomaValue RomaClient::cmd_get(const char *key){
+    RomaValue RomaClient::cmd_get(const char *key,long timeout){
       try {
-        CmdGet cmd(key);
+        CmdGet cmd(key,timeout);
         this->conn.command(cmd);
         return cmd.value;
       }catch(const Exception & ex ) {
@@ -54,9 +54,9 @@ namespace rakuten{
         throw ex;
       }
     }
-    rmc_ret_t RomaClient::cmd_alist_sized_insert(const char *key, long size, RomaValue value){
+    rmc_ret_t RomaClient::cmd_alist_sized_insert(const char *key, long size, RomaValue value,long timeout){
       try {
-        CmdAlistSizedInsert cmd(key,size,value.data,value.length);
+        CmdAlistSizedInsert cmd(key,size,value.data,value.length,timeout);
         conn.command(cmd);
         return cmd.roma_ret;
       }catch(const Exception & ex ) {
@@ -64,9 +64,9 @@ namespace rakuten{
         throw;
       }
     }
-    RomaValue RomaClient::cmd_alist_join(const char *key,const char * sep){
+    RomaValue RomaClient::cmd_alist_join(const char *key,const char * sep,long timeout){
       try {
-        CmdAlistJoin cmd(key,sep);
+        CmdAlistJoin cmd(key,sep,timeout);
         this->conn.command(cmd);
         return cmd.value;
       }catch(const Exception & ex ) {

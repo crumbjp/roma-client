@@ -26,6 +26,7 @@
 
 namespace rakuten {
   namespace rmcc {
+
     unsigned long sum_timeval(struct timeval &start ,struct timeval &end){
       long msec = (end.tv_sec - start.tv_sec) * 1000;
       long usec = end.tv_usec - start.tv_usec;
@@ -205,6 +206,8 @@ namespace rakuten {
       return &it->second;
     }
 
+    static const long MKLHASH_TIMEOUT = 2000;
+    static const long ROUTINGDUMP_TIMEOUT = 5000;
     void RomaConnection::routing_table(){
       if (this->routing_mode == ROUTING_MODE_USE ) {
         timeval tv_now;
@@ -215,7 +218,7 @@ namespace rakuten {
           INFO_LOG("Try to get new mklhash (msec:%ld)",diff_mklhash);
           Node & node = *this->get_node_random();
           try {
-            CmdMklHash cmdmklhash;
+            CmdMklHash cmdmklhash(MKLHASH_TIMEOUT);
             this->command(cmdmklhash,node);
             gettimeofday(&tv_last_mklhash,0);
             if ( memcmp(mklhash,cmdmklhash.mklhash,sizeof(mklhash)) ) {
@@ -227,7 +230,7 @@ namespace rakuten {
               this->div_bits  = 0;
               this->rn        = 0;
               this->routing.clear();
-              CmdRoutingDump cmdroutingdump;
+              CmdRoutingDump cmdroutingdump(ROUTINGDUMP_TIMEOUT);
               this->command(cmdroutingdump,node);
               for ( std::map<char*,char*>::iterator it(cmdroutingdump.cap.begin()),itend(cmdroutingdump.cap.end());
                     it!=itend;

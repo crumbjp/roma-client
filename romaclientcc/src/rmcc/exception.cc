@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 namespace rakuten {
   Exception::Exception(int k, const char *pf, const char *f, int pl, const char *m)
@@ -46,11 +47,19 @@ namespace rakuten {
     logfp = fp;
   }
   static pid_t pid = 0;
+  const static char LVC[] = "TIWEF";
   void log(int lv,const char * pf,const char * f,const int l,const char * fmt,...) {
     if ( ! pid ) {
       pid = getpid();
     }
     if ( lv >= loglv ){
+      struct timeval tv;
+      gettimeofday(&tv, 0);
+      struct tm      tm;
+      localtime_r(&tv.tv_sec,&tm);
+      char tbuf[32]; // 'YYYY-mm-dd HH:MM:DD,' (24)
+      strftime(tbuf,sizeof(tbuf),"%F %T,",&tm);
+      fprintf(logfp,"%s%03ld,%c,",tbuf,(tv.tv_usec/1000),((lv>=0&&lv<=4)?LVC[lv]:'N'));
       fprintf(logfp,"[%s:%u](%d) ",f,l,pid);
       va_list vl;
       va_start(vl,fmt);

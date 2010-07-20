@@ -18,26 +18,25 @@
 using namespace std;
 using namespace rakuten;
 using namespace rmcc;
+static const long TIMEOUT = 1000;
 class RomaClientTest : public CppUnit::TestFixture {
 public:
   RomaClient client;
   virtual void setUp() {
     set_loglv(0);
-    char localhost1[] = "localhost_11211";
-    char localhost2[] = "localhost_11212";
-    client.get_nodelist().push_back(localhost1);
-//    client.get_nodelist().push_back(localhost2);
+    client.get_nodelist().push_back("localhost_11211");
+    // client.get_nodelist().push_back("localhost_11212");
     client.init(ROUTING_MODE_USE);
     client.init(0);
     client.init(0);
-    client.cmd_store("foo4",RomaValue("aaaa",4),100);
-    client.cmd_store("foo3",RomaValue("aaa",3),100);
-    client.cmd_store("bar4",RomaValue("bbbb",4),100);
-    client.cmd_store("bar3",RomaValue("bbb",3),100);
-    client.cmd_alist_sized_insert("FOO",1,RomaValue("aaa",3));
-    client.cmd_alist_sized_insert("FOO",2,RomaValue("AAA",3));
-    client.cmd_alist_sized_insert("BAR",1,RomaValue("bbb",3));
-    client.cmd_alist_sized_insert("BAR",2,RomaValue("BBB",3));
+    client.cmd_store("foo4",RomaValue("aaaa",4),100,TIMEOUT);
+    client.cmd_store("foo3",RomaValue("aaa",3),100,TIMEOUT);
+    client.cmd_store("bar4",RomaValue("bbbb",4),100,TIMEOUT);
+    client.cmd_store("bar3",RomaValue("bbb",3),100,TIMEOUT);
+    client.cmd_alist_sized_insert("FOO",1,RomaValue("aaa",3),TIMEOUT);
+    client.cmd_alist_sized_insert("FOO",2,RomaValue("AAA",3),TIMEOUT);
+    client.cmd_alist_sized_insert("BAR",1,RomaValue("bbb",3),TIMEOUT);
+    client.cmd_alist_sized_insert("BAR",2,RomaValue("BBB",3),TIMEOUT);
   }
   virtual void tearDown() {
     client.term();
@@ -45,22 +44,22 @@ public:
   void testGet() {
     cerr << __PRETTY_FUNCTION__ << endl;
     {
-      RomaValue v = client.cmd_get("foo4");
+      RomaValue v = client.cmd_get("foo4",TIMEOUT);
       CPPUNIT_ASSERT_EQUAL((long)4,v.length);
       CPPUNIT_ASSERT_EQUAL(string("aaaa"),string(v.data));
     }
     {
-      RomaValue v = client.cmd_get("foo3");
+      RomaValue v = client.cmd_get("foo3",TIMEOUT);
       CPPUNIT_ASSERT_EQUAL((long)3,v.length);
       CPPUNIT_ASSERT_EQUAL(string("aaa"),string(v.data));
     }
     {
-      RomaValue v = client.cmd_get("bar4");
+      RomaValue v = client.cmd_get("bar4",TIMEOUT);
       CPPUNIT_ASSERT_EQUAL((long)4,v.length);
       CPPUNIT_ASSERT_EQUAL(string("bbbb"),string(v.data));
     }
     {
-      RomaValue v = client.cmd_get("bar3");
+      RomaValue v = client.cmd_get("bar3",TIMEOUT);
       CPPUNIT_ASSERT_EQUAL((long)3,v.length);
       CPPUNIT_ASSERT_EQUAL(string("bbb"),string(v.data));
     }
@@ -70,15 +69,15 @@ public:
     cerr << __PRETTY_FUNCTION__ << endl;
     try{
     {
-      rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3));
+      rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3),TIMEOUT);
       CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
     }
     {
-      rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3));
+      rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3),TIMEOUT);
       CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
     }
     {
-      RomaValue v = client.cmd_alist_join("FOO",",");
+      RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
       cerr << v.length << endl;
       CPPUNIT_ASSERT_EQUAL(string("###,###,AAA"),string(v.data));
     }
@@ -89,7 +88,7 @@ public:
   void testSizedInsertError() {
     cerr << __PRETTY_FUNCTION__ << endl;
     try{
-      rmc_ret_t ret = client.cmd_alist_sized_insert("foo3",3,RomaValue("###",3));
+      rmc_ret_t ret = client.cmd_alist_sized_insert("foo3",3,RomaValue("###",3),TIMEOUT);
       (void)ret;
       CPPUNIT_FAIL("Should throw !");
     }catch(const Exception & ex){
@@ -98,7 +97,7 @@ public:
   void testStoreError() {
     cerr << __PRETTY_FUNCTION__ << endl;
     try{
-      rmc_ret_t ret = client.cmd_store("FOO",RomaValue("bbb",3),100);
+      rmc_ret_t ret = client.cmd_store("FOO",RomaValue("bbb",3),100,TIMEOUT);
       (void)ret;
       CPPUNIT_FAIL("Should throw !");
     }catch(const Exception & ex){
@@ -120,9 +119,7 @@ public:
   RomaClient client;
   virtual void setUp() {
     set_loglv(0);
-    char localhost1[] = "localhost_11211";
-    char localhost2[] = "localhost_11212";
-    client.get_nodelist().push_back(localhost1);
+    client.get_nodelist().push_back("localhost_11211");
     client.init(0);
   }
   virtual void tearDown() {
@@ -130,29 +127,29 @@ public:
   }
   void testLoop() {
     cerr << __PRETTY_FUNCTION__ << endl;
-    client.cmd_store("AAAA",RomaValue("aaaa",4),0);
-    client.cmd_store("BBBB",RomaValue("bbbb",4),0);
-    client.cmd_store("CCCC",RomaValue("cccc",4),0);
-    client.cmd_store("DDDD",RomaValue("dddd",4),0);
-    client.cmd_store("EEEE",RomaValue("eeee",4),0);
+    client.cmd_store("AAAA",RomaValue("aaaa",4),0,TIMEOUT);
+    client.cmd_store("BBBB",RomaValue("bbbb",4),0,TIMEOUT);
+    client.cmd_store("CCCC",RomaValue("cccc",4),0,TIMEOUT);
+    client.cmd_store("DDDD",RomaValue("dddd",4),0,TIMEOUT);
+    client.cmd_store("EEEE",RomaValue("eeee",4),0,TIMEOUT);
     for (int i=0 ;i<180;i++ ) {
       {
-        RomaValue v = client.cmd_get("AAAAa");
+        RomaValue v = client.cmd_get("AAAA",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("aaaa"),string(v.data));
       }
       {
-        RomaValue v = client.cmd_get("BBBB");
+        RomaValue v = client.cmd_get("BBBB",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("bbbb"),string(v.data));
       }
       {
-        RomaValue v = client.cmd_get("CCCC");
+        RomaValue v = client.cmd_get("CCCC",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("cccc"),string(v.data));
       }
       {
-        RomaValue v = client.cmd_get("DDDD");
+        RomaValue v = client.cmd_get("DDDD",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("dddd"),string(v.data));
       }
@@ -170,10 +167,8 @@ class RomaClientTestLoop1 : public CppUnit::TestFixture {
 public:
   RomaClient client;
   virtual void setUp() {
-    char localhost1[] = "localhost_11211";
-    char localhost2[] = "localhost_11212";
     set_loglv(0);
-    client.get_nodelist().push_back(localhost1);
+    client.get_nodelist().push_back("localhost_11211");
     client.init(1);
   }
   virtual void tearDown() {
@@ -181,29 +176,29 @@ public:
   }
   void testLoop1() {
     cerr << __PRETTY_FUNCTION__ << endl;
-    client.cmd_store("AAAA",RomaValue("aaaa",4),0);
-    client.cmd_store("BBBB",RomaValue("bbbb",4),0);
-    client.cmd_store("CCCC",RomaValue("cccc",4),0);
-    client.cmd_store("DDDD",RomaValue("dddd",4),0);
-    client.cmd_store("EEEE",RomaValue("eeee",4),0);
+    client.cmd_store("AAAA",RomaValue("aaaa",4),0,TIMEOUT);
+    client.cmd_store("BBBB",RomaValue("bbbb",4),0,TIMEOUT);
+    client.cmd_store("CCCC",RomaValue("cccc",4),0,TIMEOUT);
+    client.cmd_store("DDDD",RomaValue("dddd",4),0,TIMEOUT);
+    client.cmd_store("EEEE",RomaValue("eeee",4),0,TIMEOUT);
     for (int i=0 ;i<180;i++ ) {
       {
-        RomaValue v = client.cmd_get("AAAA");
+        RomaValue v = client.cmd_get("AAAA",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("aaaa"),string(v.data));
       }
       {
-        RomaValue v = client.cmd_get("BBBB");
+        RomaValue v = client.cmd_get("BBBB",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("bbbb"),string(v.data));
       }
       {
-        RomaValue v = client.cmd_get("CCCC");
+        RomaValue v = client.cmd_get("CCCC",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("cccc"),string(v.data));
       }
       {
-        RomaValue v = client.cmd_get("DDDD");
+        RomaValue v = client.cmd_get("DDDD",TIMEOUT);
         CPPUNIT_ASSERT_EQUAL((long)4,v.length);
         CPPUNIT_ASSERT_EQUAL(string("dddd"),string(v.data));
       }
@@ -222,35 +217,37 @@ class RomaClientTestLoop2 : public CppUnit::TestFixture {
 public:
   RomaClient client;
   virtual void setUp() {
-    char localhost1[] = "localhost_11211";
-    char localhost2[] = "localhost_11212";
     set_loglv(0);
-    client.get_nodelist().push_back(localhost1);
-    client.init(1);
+    client.get_nodelist().push_back("localhost_11211");
   }
   virtual void tearDown() {
     client.term();
   }
   void testLoop2() {
     cerr << __PRETTY_FUNCTION__ << endl;
-    for (int i=0 ;i<1000000;i++ ) {
+    for (int i=0 ;i<100;i++ ) {
       try {
-        client.cmd_store("AAAA",RomaValue("aaaa",4),0);
-        client.cmd_store("BBBB",RomaValue("bbbb",4),0);
-        client.cmd_store("CCCC",RomaValue("cccc",4),0);
-        client.cmd_store("DDDD",RomaValue("dddd",4),0);
-        client.cmd_store("EEEE",RomaValue("eeee",4),0);
+        char host1[] = "localhost_11211";
+        char host2[] = "localhost_11212";
+        client.get_nodelist().push_back(host1);
+        client.get_nodelist().push_back(host2);
+        client.init(1);
+        client.cmd_store("AAAA",RomaValue("aaaa",4),0,TIMEOUT);
+        client.cmd_store("BBBB",RomaValue("bbbb",4),0,TIMEOUT);
+        client.cmd_store("CCCC",RomaValue("cccc",4),0,TIMEOUT);
+        client.cmd_store("DDDD",RomaValue("dddd",4),0,TIMEOUT);
+        client.cmd_store("EEEE",RomaValue("eeee",4),0,TIMEOUT);
         {
-          RomaValue v = client.cmd_get("AAAA");
+          RomaValue v = client.cmd_get("AAAA",TIMEOUT);
         }
         {
-          RomaValue v = client.cmd_get("BBBB");
+          RomaValue v = client.cmd_get("BBBB",TIMEOUT);
         }
         {
-          RomaValue v = client.cmd_get("CCCC");
+          RomaValue v = client.cmd_get("CCCC",TIMEOUT);
         }
         {
-          RomaValue v = client.cmd_get("DDDD");
+          RomaValue v = client.cmd_get("DDDD",TIMEOUT);
         }
       }catch(const Exception & ex){
         cerr << "****************************************" << endl;

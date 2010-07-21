@@ -1,10 +1,25 @@
+*************************
 * ROMA C++ client library
   * How to build ? (librmcc.so)
     $ ./build.sh
      It'll create file. 'lib/librmcc.so'
   * REFERENCE
      View doc-html/index.html
+  * How to run test ? (librmccd.so)
+    $ WITH_TEST=1 ./build.sh 
 
+    * How to contorol romad cluster on the test ?
+     - You can use 'roma.bash'
+       - For example.(ALL node start) [11211,11212,11213,11214]
+       $ ./roma.bash start
+       - For example.(The node 1 stop) [11212,11213,11214]
+       $ ./roma.bash stop1
+       - For example.(The node 1 start) [11211,11212,11213,11214]
+       $ ./roma.bash start1
+       - Other ...  please see the 'roma.bash'
+
+
+*************************
 * ROMA PHP client library (PHP-extension)
    It require librmcc.so.
   * How to build ? (phprmcc.so)
@@ -12,6 +27,7 @@
     $ WITH_CONFIGURE=1 ./build.sh
      It'll create file. 'PECL/phprmcc/modules/librmcc.so'
 
+*************************
 * ROMA PHP client class (RomaClient.php)
    It need setting the php enviroment.
   * php.ini

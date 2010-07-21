@@ -1,6 +1,9 @@
 #TARGET_NAME = test
 
 SRC = \
+	nomal_test.cc \
+	loop_test.cc  \
+	loop_monkey_test.cc  \
 	main.cc 
 
 HEADERS = 

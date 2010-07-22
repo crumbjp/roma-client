@@ -129,6 +129,24 @@ namespace rakuten {
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
     };
 
+    class CmdAlistDelete: public CmdKeyedOne {
+      string_vbuffer sbuf;
+    public:
+      CmdAlistDelete(const char * key,const char *data, long length,long timeout);
+      virtual string_vbuffer & send_callback();
+      virtual callback_ret_t recv_callback_line(char *line);
+      virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
+    };
+
+    class CmdAlistDeleteAt: public CmdKeyedOne {
+      string_vbuffer sbuf;
+    public:
+      CmdAlistDeleteAt(const char * key,int pos,long timeout);
+      virtual string_vbuffer & send_callback();
+      virtual callback_ret_t recv_callback_line(char *line);
+      virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
+    };
+
   }
 }
 

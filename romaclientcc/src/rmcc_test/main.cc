@@ -32,7 +32,7 @@ int main ( int argc , char * argv[]  ){
   CppUnit::TestResult result;
   result.addListener(&collector);
   CppUnit::TestSuite suite;
-#ifdef WITH_NOMAL_TEST
+#ifdef WITH_NORMAL_TEST
   suite.addTest(NomalTest::getSuite());
 #endif
 #ifdef WITH_PROTOCOL_TEST

@@ -22,6 +22,7 @@ namespace rakuten{
       try {
         this->conn.init(this->node_info_list,routing_mode);
       }catch(const Exception & ex ) {
+        ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;
       }
@@ -30,6 +31,7 @@ namespace rakuten{
       try {
         this->conn.term();
       }catch(const Exception & ex ) {
+        ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;
       }
@@ -40,6 +42,7 @@ namespace rakuten{
         conn.command(cmd);
         return cmd.roma_ret;
       }catch(const rakuten::Exception & ex ) {
+        ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;
       }
@@ -60,6 +63,7 @@ namespace rakuten{
         conn.command(cmd);
         return cmd.roma_ret;
       }catch(const Exception & ex ) {
+        ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw;
       }
@@ -70,6 +74,7 @@ namespace rakuten{
         this->conn.command(cmd);
         return cmd.value;
       }catch(const Exception & ex ) {
+        ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;
       }

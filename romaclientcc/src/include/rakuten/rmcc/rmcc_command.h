@@ -27,6 +27,7 @@ namespace rakuten {
     public:
       typedef enum operation{
         RANDOM,
+        KEYEDONE,
         KEYED,
       }op_t;
       const op_t op;
@@ -75,8 +76,15 @@ namespace rakuten {
       CmdKeyed(size_t nrcv,long timeout,const char *key);
       virtual const char * get_key()const;
     };
+    class CmdKeyedOne: public Command {
+    protected:
+      const char * key;
+    public:
+      CmdKeyedOne(size_t nrcv,long timeout,const char *key);
+      virtual const char * get_key()const;
+    };
 
-    class CmdSet: public CmdKeyed {
+    class CmdSet: public CmdKeyedOne {
       string_vbuffer sbuf;
     public:
       CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout);
@@ -101,7 +109,7 @@ namespace rakuten {
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
     };
 
-    class CmdAlistSizedInsert: public CmdKeyed {
+    class CmdAlistSizedInsert: public CmdKeyedOne {
       string_vbuffer sbuf;
     public:
       CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout);

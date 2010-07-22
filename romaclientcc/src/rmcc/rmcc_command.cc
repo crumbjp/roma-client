@@ -204,9 +204,15 @@ namespace rakuten {
     const char * CmdKeyed::get_key()const {
       return this->key;
     }
+    CmdKeyedOne::CmdKeyedOne(size_t nrcv,long timeout,const char * key)
+      :Command(Command::KEYEDONE,32768,timeout), key(key) {
+    }
+    const char * CmdKeyedOne::get_key()const {
+      return this->key;
+    }
 
     CmdSet::CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout)
-      :CmdKeyed(32768,timeout,key){
+      :CmdKeyedOne(32768,timeout,key){
       sbuf.append_sprintf("set %s %d %ld %ld\r\n",key,flags,exp,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
@@ -278,7 +284,7 @@ namespace rakuten {
     }
 
     CmdAlistSizedInsert::CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout)
-      :CmdKeyed(32768,timeout,key){
+      :CmdKeyedOne(32768,timeout,key){
       sbuf.append_sprintf("alist_sized_insert %s %ld %ld\r\n",key,size,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);

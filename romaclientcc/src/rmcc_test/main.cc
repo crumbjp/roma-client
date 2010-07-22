@@ -16,6 +16,7 @@
 #include "nomal_test.h"
 #include "loop_test.h"
 #include "loop_monkey_test.h"
+#include "protocol_test.h"
 
 using namespace std;
 
@@ -31,9 +32,10 @@ int main ( int argc , char * argv[]  ){
   CppUnit::TestResult result;
   result.addListener(&collector);
   CppUnit::TestSuite suite;
-  suite.addTest(NomalTest::getSuite());
+  //suite.addTest(NomalTest::getSuite());
+  //suite.addTest(ProtocolTest::getSuite());
   suite.addTest(LoopTest::getSuite());
-  suite.addTest(LoopMonkeyTest::getSuite());
+  //suite.addTest(LoopMonkeyTest::getSuite());
   suite.run(&result);
   CppUnit::CompilerOutputter outputter(&collector, CppUnit::stdCOut());
   outputter.write();

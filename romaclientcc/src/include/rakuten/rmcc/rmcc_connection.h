@@ -13,6 +13,7 @@
 
 #include "rakuten/vbuffer.h"
 #include <netinet/in.h>
+#include <bits/byteswap.h>
 
 #include <vector>
 #include <map>
@@ -21,8 +22,14 @@
 namespace rakuten {
   namespace rmcc {
     static const int INVALID_FD = -1;
-    typedef uint32_t hash_t;
-
+    //typedef uint32_t hash_t;
+    typedef uint64_t hash_t;
+#define HASH_FMT "ll"
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+# define hash_bswap __bswap_64
+#else
+# define hash_bswap(x) x
+#endif
     long sum_timeval(struct timeval *start ,struct timeval *end);
 
     class Node {
@@ -75,7 +82,7 @@ namespace rakuten {
       Node * get_node_random();
       std::vector<std::string> & get_node_key(const char * key);
       hash_t calc_hash(const char * t , long l );
-      void routing_table();
+      bool routing_table(bool force = false);
       void command(Command & cmd,Node &node);
     };
   }

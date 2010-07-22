@@ -18,6 +18,8 @@
        $ ./roma.bash start1
        - Other ...  please see the 'roma.bash'
 
+    * How to get coverege ? 
+       $ ./gcov.sh 
 
 *************************
 * ROMA PHP client library (PHP-extension)

@@ -4,6 +4,7 @@ SRC = \
 	nomal_test.cc \
 	loop_test.cc  \
 	loop_monkey_test.cc  \
+	protocol_test.cc  \
 	main.cc 
 
 HEADERS = 

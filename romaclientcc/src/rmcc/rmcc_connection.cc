@@ -9,7 +9,7 @@
 
 #include <sys/socket.h>
 #include <netdb.h>
-#include <arpa/inet.h>
+//#include <arpa/inet.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/time.h>
@@ -208,13 +208,13 @@ namespace rakuten {
 
     static const long MKLHASH_TIMEOUT = 2000;
     static const long ROUTINGDUMP_TIMEOUT = 5000;
-    void RomaConnection::routing_table(){
+    bool RomaConnection::routing_table(bool force){
       if (this->routing_mode == ROUTING_MODE_USE ) {
         timeval tv_now;
         gettimeofday(&tv_now,0);
         unsigned long diff_mklhash = sum_timeval(this->tv_last_mklhash,tv_now);
         TRACE_LOG("The %lu msec passed from the last mklhash : %lu",diff_mklhash,mklhash_threshold);
-        if ( diff_mklhash > this->mklhash_threshold ) {
+        if ( force || diff_mklhash > this->mklhash_threshold ) {
           INFO_LOG("Try to get new mklhash (msec:%ld)",diff_mklhash);
           Node & node = *this->get_node_random();
           try {
@@ -254,14 +254,15 @@ namespace rakuten {
                 }
               }
               this->prepare_nodes(cmdroutingdump.nl);
+              return true;
             }
-            return;
           }catch(const Exception & ex ) {
             ERR_LOG("New RoutingTable error [%s]",node.node_info.c_str());
-            routing_table();
+            return routing_table();
           }
         }
       }
+      return false;
     }
 
     Node * RomaConnection::get_node_random(){
@@ -289,9 +290,12 @@ namespace rakuten {
       SHA1(reinterpret_cast<const unsigned char*>(t),l,buf);
       hash_t ret;
       memcpy(&ret,buf+SHA_DIGEST_LENGTH-sizeof(hash_t),sizeof(hash_t));
-      ret = ntohl(ret);
-      ret = ret >> (this->dgst_bits-this->div_bits);
-      ret = ret << (this->dgst_bits-this->div_bits);
+      ret = hash_bswap(ret);
+      //ret = ntohl(ret);
+      ret = ret << (sizeof(hash_t)*8 - this->dgst_bits);
+      ret = ret >> (sizeof(hash_t)*8 - this->div_bits);
+      ret = ret << (this->dgst_bits  - this->div_bits);
+      // fprintf(stderr,"%s:%016llx\n",t,ret);
       return ret;
     }
 
@@ -301,7 +305,7 @@ namespace rakuten {
         this->routing_table();
       }
       hash_t hash = calc_hash(key,strlen(key));
-      TRACE_LOG("HASH:%lu KEY:%s",hash,key);
+      TRACE_LOG("HASH:%" HASH_FMT "u KEY:%s",hash,key);
       routing_t::iterator it = this->routing.find(hash);
       if ( it != this->routing.end() ) {
         return it->second;
@@ -322,6 +326,19 @@ namespace rakuten {
           if ( node ) 
             break;
         }
+      } else if( cmd.get_op() == Command::KEYEDONE ){
+        std::vector<std::string> & nodes = this->get_node_key(cmd.get_key());
+        std::vector<std::string>::iterator it = nodes.begin();
+        if ( it != nodes.end() ) {
+          node = prepare_node((*it).c_str());
+          if ( ! node ) {
+            WARN_LOG("Primary node down ! So try to get new routing %s",typeid(cmd).name());
+            if ( routing_table(true) ) {
+              return this->command(cmd);
+            }
+            Exception::throw_exception(0, EXP_PRE_MSG,"Command failure(No-P-nodes) %s",typeid(cmd).name());
+          }
+        }
       }
       // char cmdname[BUFSIZ];
       // size_t cmdname_len = sizeof(cmdname);
@@ -332,7 +349,7 @@ namespace rakuten {
         INFO_LOG("Command to [%s] %s",node->node_info.c_str(),typeid(cmd).name());
         this->command(cmd,*node);
       }else {
-        ERR_LOG("Command failure(No-nodes) %s",typeid(cmd).name());
+        Exception::throw_exception(0, EXP_PRE_MSG,"Command failure(No-nodes) %s",typeid(cmd).name());
       }
     }
     void RomaConnection::command(Command & cmd,Node & node){

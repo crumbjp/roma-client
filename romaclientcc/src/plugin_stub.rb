@@ -98,7 +98,10 @@ module Roma
 
       def stub(s,rets);
         key,hname = s[1].split("\e")
-        o,r = key.split("_")
+        key =~ /^([^_]+)_(.*)/
+        o = $1
+        r = $2
+        # o,r = key.split("_")
         if ( o == 'CMD' ) 
           if ( rets[r] == nil )
             send_data(rets['_'])
@@ -117,6 +120,9 @@ module Roma
           else
             send_data(rets['SERVER_ERROR'])
           end
+        elsif ( o == 'TO' ) 
+          sleep(r.to_i)
+          send_data(rets['_'])
         end
       end
       def set(s)
@@ -137,6 +143,7 @@ module Roma
         key,hname = s[1].split("\e")
         stub(s,{
                'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
+               'ERROR'        => "ERROR\r\n",
                'VALUE'        => "VALUE #{key} 0 6\r\nFOOBAR\r\nEND\r\n",
                '_'            => "END\r\n"
              })

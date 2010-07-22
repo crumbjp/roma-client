@@ -19,19 +19,20 @@ static const long TIMEOUT = 1000;
 void LoopTest::setUp() {
   set_loglv(0);
   client.get_nodelist().push_back("localhost_11211");
-  client.init(0);
+  client.get_nodelist().push_back("localhost_11212");
+  client.init(ROUTING_MODE_USE);
 }
 void LoopTest::tearDown() {
   client.term();
 }
 void LoopTest::testLoop() {
   cerr << __PRETTY_FUNCTION__ << endl;
-  client.cmd_store("AAAA",RomaValue("aaaa",4),0,TIMEOUT);
-  client.cmd_store("BBBB",RomaValue("bbbb",4),0,TIMEOUT);
-  client.cmd_store("CCCC",RomaValue("cccc",4),0,TIMEOUT);
-  client.cmd_store("DDDD",RomaValue("dddd",4),0,TIMEOUT);
-  client.cmd_store("EEEE",RomaValue("eeee",4),0,TIMEOUT);
   for (int i=0 ;i<180;i++ ) {
+    client.cmd_store("AAAA",RomaValue("aaaa",4),0,TIMEOUT);
+    client.cmd_store("BBBB",RomaValue("bbbb",4),0,TIMEOUT);
+    client.cmd_store("CCCC",RomaValue("cccc",4),0,TIMEOUT);
+    client.cmd_store("DDDD",RomaValue("dddd",4),0,TIMEOUT);
+    client.cmd_store("EEEE",RomaValue("eeee",4),0,TIMEOUT);
     {
       RomaValue v = client.cmd_get("AAAA",TIMEOUT);
       CPPUNIT_ASSERT_EQUAL((long)4,v.length);

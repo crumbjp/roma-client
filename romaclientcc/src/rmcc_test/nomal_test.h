@@ -21,6 +21,7 @@ public:
   RomaClient client;
   virtual void setUp();
   virtual void tearDown();
+  void testConnectionRefused();
   void testGet();
   void testSizedInsert();
   void testSizedInsertError();

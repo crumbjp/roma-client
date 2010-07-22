@@ -20,6 +20,7 @@ void NomalTest::setUp() {
   set_loglv(0);
   client.get_nodelist().push_back("localhost_11211");
   // client.get_nodelist().push_back("localhost_11212");
+  client.num_valid_connection();
   client.init(ROUTING_MODE_USE);
   client.init(0);
   client.init(0);
@@ -34,6 +35,18 @@ void NomalTest::setUp() {
 }
 void NomalTest::tearDown() {
   client.term();
+}
+void NomalTest::testConnectionRefused() {
+  RomaClient c;
+
+  c.get_nodelist().push_back("unknownhost_11211");
+  c.init(0);
+  try{
+    RomaValue v = c.cmd_alist_join("FOO",",",TIMEOUT);
+    c.term();
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+  }
 }
 void NomalTest::testGet() {
   cerr << __PRETTY_FUNCTION__ << endl;
@@ -99,6 +112,7 @@ void NomalTest::testStoreError() {
 }
 CppUnit::TestSuite * NomalTest::getSuite(){
   CppUnit::TestSuite *suite = new CppUnit::TestSuite();
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testConnectionRefused",&NomalTest::testConnectionRefused));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testGet",&NomalTest::testGet));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsert",&NomalTest::testSizedInsert));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsertError",&NomalTest::testSizedInsertError));

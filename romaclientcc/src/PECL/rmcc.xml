@@ -443,5 +443,122 @@
   </result>
   </test>
  </function>
+ <function name="rmc_alist_delete">
+  <proto>int rmc_alist_delete(string client_id, string key,string value,int timeout)</proto>
+  <code>
+  <![CDATA[
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       try {
+         RETURN_LONG(
+           it->second->cmd_alist_delete(key,rakuten::rmcc::RomaValue(value,value_len),timeout);
+         );
+       }catch(const rakuten::Exception & ex ) {
+         // @@@ log...
+       }
+     }
+     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+  ]]>
+  </code>
+  <test>
+   <code>
+     function callback($buffer)
+     {
+       $fp = fopen("/tmp/test.txt","a+");
+       fwrite($fp,$buffer);
+       fwrite($fp,"\n");
+       fclose($fp);
+       return ($buffer);
+     }
+     ob_start("callback");
+     echo "## rmc_alist_delete() ##";
+     rmc_log(100,0);
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $nl[] = "localhost_11212";
+     $cid = rmc_init($nl,1);
+     echo $cid;
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR",1000);
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"BARFOO",1000);
+     echo rmc_alist_delete($cid,"FOOBAR","BARFOO",1000);
+     $ret = rmc_alist_join($cid,"FOOBAR",",",1000);
+     var_dump($ret);
+     ob_end_flush();
+   </code>
+   <result>
+<![CDATA[
+## rmc_alist_delete() ##localhost_11211localhost_11212000array(3) {
+  [0]=>
+  string(6) "FOOBAR"
+  [1]=>
+  int(6)
+  [2]=>
+  int(-1)
+}
+]]>
+   </result>
+  </test>
+ </function>
+ <function name="rmc_alist_delete_at">
+  <proto>int rmc_alist_delete_at(string client_id, string key,int pos,int timeout)</proto>
+  <code>
+  <![CDATA[
+     typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
+     client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
+     client_map_t::iterator it = client_map->find(client_id);
+     if ( it != client_map->end() ) {
+       try {
+         RETURN_LONG(
+           it->second->cmd_alist_delete_at(key,pos,timeout);
+         );
+       }catch(const rakuten::Exception & ex ) {
+         // @@@ log...
+       }
+     }
+     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+  ]]>
+  </code>
+  <test>
+   <code>
+     function callback($buffer)
+     {
+       $fp = fopen("/tmp/test.txt","a+");
+       fwrite($fp,$buffer);
+       fwrite($fp,"\n");
+       fclose($fp);
+       return ($buffer);
+     }
+     ob_start("callback");
+     echo "## rmc_alist_delete_at() ##";
+     rmc_log(100,0);
+     $nl = array();
+     $nl[] = "localhost_11211";
+     $nl[] = "localhost_11212";
+     $cid = rmc_init($nl,1);
+     echo $cid;
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"FOOBAR",1000);
+     echo rmc_alist_sized_insert($cid,"FOOBAR",2,"BARFOO",1000);
+     echo rmc_alist_delete_at($cid,"FOOBAR",0,1000);
+     $ret = rmc_alist_join($cid,"FOOBAR",",",1000);
+     var_dump($ret);
+     ob_end_flush();
+   </code>
+   <result>
+<![CDATA[
+## rmc_alist_delete_at() ##localhost_11211localhost_11212000array(3) {
+  [0]=>
+  string(6) "FOOBAR"
+  [1]=>
+  int(6)
+  [2]=>
+  int(-1)
+}
+]]>
+   </result>
+  </test>
+ </function>
+
 </extension>
 

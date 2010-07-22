@@ -137,7 +137,32 @@ class RomaClient {
       }
       return $array;
     }
-
+    /**
+     * @brief ALIST operation. (Issue 'alist_delete' command)
+     * @param key
+     * @param value
+     * @return Returns True if success.
+     */
+    public function alist_delete($key, $value) {
+      $result = rmc_alist_delete($this->client_id,$key, $value,$this->default_timeout);
+      if ( $result == RomaClient::RMC_RET_ERROR ) {
+        throw new Exception("rmc_alist_delete() failure");
+      }
+      return True;
+    }
+    /**
+     * @brief ALIST operation. (Issue 'alist_delete_at' command)
+     * @param key
+     * @param pos
+     * @return Returns True if success.
+     */
+    public function alist_delete_at($key, $pos) {
+      $result = rmc_alist_delete_at($this->client_id,$key, $pos,$this->default_timeout);
+      if ( $result == RomaClient::RMC_RET_ERROR ) {
+        throw new Exception("rmc_alist_delete_at() failure");
+      }
+      return True;
+    }
 }
 
     /**
@@ -227,29 +252,6 @@ class RomaClient {
     /*   throw new Exception("Not implements !"); */
     /* } */
 
-    /**
-     * alist delete.
-     * @param key   (string)
-     * @param value (string)
-     * @return status
-     */
-    /* public function alist_delete($key, $value) { */
-    /*     /\* $result = rmc_alist_delete($key, $value); *\/ */
-    /*     /\* return ($result == RomaClient::DELETED ? True : False); *\/ */
-    /*   throw new Exception("Not implements !"); */
-    /* } */
-
-    /**
-     * alist delete at.
-     * @param key   (string)
-     * @param index (int)
-     * @return status
-     */
-    /* public function alist_delete_at($key, $index) { */
-    /*     /\* $result = rmc_alist_delete_at($key, $index); *\/ */
-    /*     /\* return ($result == RomaClient::DELETED ? True : False); *\/ */
-    /*   throw new Exception("Not implements !"); */
-    /* } */
 
     /**
      * alist empty ?

@@ -19,7 +19,7 @@ do
 	    echo '###############'
 	    echo '# BUILD'
 	    export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH
-	    make rmcc bin/rmcc_test DEBUG=1 GCOV=1 ;
+	    make clean rmcc bin/rmcc_test DEBUG=1 GCOV=1 CXXFLAGS='-DWITH_NORMAL_TEST';
 	    ./bin/rmcc_testdc
 	    ;;
 	gen)

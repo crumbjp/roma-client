@@ -63,6 +63,7 @@ namespace rakuten {
        * @param key Specify the key.
        * @param value Specify the value structure.
        * @param exptime Specify the expires. 0 means infinity.
+       * @param timeout Specify the timeout(msec).
        *
        * @return On success RMC_RET_OK returnd.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
@@ -72,6 +73,7 @@ namespace rakuten {
        * @brief Issue GET command.
        *
        * @param key Specify the key.
+       * @param timeout Specify the timeout(msec).
        *
        * @return Returns value-structure. This buffer is temporary. It'll be cleared when the next command is issued.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
@@ -83,6 +85,7 @@ namespace rakuten {
        * @param key Specify the key.
        * @param size Specify the limit size of the ALIST.
        * @param value Specify the value in the ALIST.
+       * @param timeout Specify the timeout(msec).
        *
        * @return On success RMC_RET_OK returnd, On error, RMC_RET_ERROR returnd, and call rmc_geterr() to get message.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
@@ -93,11 +96,34 @@ namespace rakuten {
        *
        * @param key Specify the key.
        * @param sep Specify the delimeter.
+       * @param timeout Specify the timeout(msec).
        *
        * @return Returns value-structure. This buffer is temporary. It'll be cleared when the next command is issued.
        * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
        */
       RomaValue cmd_alist_join(const char *key,const char * sep,long timeout);
+      /**
+       * @brief Issue ALIST_DELETE command.
+       *
+       * @param key Specify the key.
+       * @param value Specify the value in the ALIST.
+       * @param timeout Specify the timeout(msec).
+       *
+       * @return On success RMC_RET_OK returnd, On error, RMC_RET_ERROR returnd, and call rmc_geterr() to get message.
+       * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
+       */
+      rmc_ret_t cmd_alist_delete(const char *key, RomaValue value,long timeout);
+      /**
+       * @brief Issue ALIST_DELETE_AT command.
+       *
+       * @param key Specify the key.
+       * @param pos Specify the target position.
+       * @param timeout Specify the timeout(msec).
+       *
+       * @return On success RMC_RET_OK returnd, On error, RMC_RET_ERROR returnd, and call rmc_geterr() to get message.
+       * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
+       */
+      rmc_ret_t cmd_alist_delete_at(const char *key,int pos,long timeout);
     };
   }
 }

@@ -60,7 +60,7 @@ namespace rakuten{
     rmc_ret_t RomaClient::cmd_alist_sized_insert(const char *key, long size, RomaValue value,long timeout){
       try {
         CmdAlistSizedInsert cmd(key,size,value.data,value.length,timeout);
-        conn.command(cmd);
+        this->conn.command(cmd);
         return cmd.roma_ret;
       }catch(const Exception & ex ) {
         ERR_LOG(ex.get_msg());
@@ -77,6 +77,28 @@ namespace rakuten{
         ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;
+      }
+    }
+    rmc_ret_t RomaClient::cmd_alist_delete(const char *key,RomaValue value,long timeout){
+      try {
+        CmdAlistDelete cmd(key,value.data,value.length,timeout);
+        this->conn.command(cmd);
+        return cmd.roma_ret;
+      }catch(const Exception & ex ) {
+        ERR_LOG(ex.get_msg());
+        this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
+        throw;
+      }
+    }
+    rmc_ret_t RomaClient::cmd_alist_delete_at(const char *key,int pos,long timeout){
+      try {
+        CmdAlistDeleteAt cmd(key,pos,timeout);
+        this->conn.command(cmd);
+        return cmd.roma_ret;
+      }catch(const Exception & ex ) {
+        ERR_LOG(ex.get_msg());
+        this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
+        throw;
       }
     }
   }

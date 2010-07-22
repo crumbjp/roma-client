@@ -330,5 +330,50 @@ namespace rakuten {
       this->value = this->parse_value_line(line);
       return RECV_MORE;
     }
+
+    CmdAlistDelete::CmdAlistDelete(const char * key,const char *data, long length,long timeout)
+      :CmdKeyedOne(32768,timeout,key){
+      sbuf.append_sprintf("alist_delete %s %ld\r\n",key,length);
+      sbuf.append(data,length);
+      sbuf.append("\r\n",2);
+    }
+
+    string_vbuffer & CmdAlistDelete::send_callback(){
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
+      return sbuf;
+    }
+    callback_ret_t CmdAlistDelete::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
+    callback_ret_t CmdAlistDelete::recv_callback_line(char * line) {
+      if ( strcmp("DELETED",line) == 0 ) {
+        this->roma_ret = RMC_RET_OK;
+      }else if ( strcmp("NOT_DELETED",line) == 0 ) {
+      }else if ( strcmp("NOT_FOUND",line) == 0 ) {
+      }else {
+        Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
+      }
+      return RECV_OVER;
+    }
+
+    CmdAlistDeleteAt::CmdAlistDeleteAt(const char * key,int pos,long timeout)
+      :CmdKeyedOne(32768,timeout,key){
+      sbuf.append_sprintf("alist_delete_at %s %d\r\n",key,pos);
+    }
+
+    string_vbuffer & CmdAlistDeleteAt::send_callback(){
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
+      return sbuf;
+    }
+    callback_ret_t CmdAlistDeleteAt::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
+    callback_ret_t CmdAlistDeleteAt::recv_callback_line(char * line) {
+      if ( strcmp("DELETED",line) == 0 ) {
+        this->roma_ret = RMC_RET_OK;
+      }else if ( strcmp("NOT_DELETED",line) == 0 ) {
+      }else if ( strcmp("NOT_FOUND",line) == 0 ) {
+      }else {
+        Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
+      }
+      return RECV_OVER;
+    }
+
   }
 }

@@ -88,6 +88,22 @@ void NomalTest::testSizedInsertError() {
   }catch(const Exception & ex){
   }
 }
+void NomalTest::testDelete() {
+  cerr << __PRETTY_FUNCTION__ << endl;
+  rmc_ret_t ret = client.cmd_alist_delete("FOO",RomaValue("AAA",3),TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
+  RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+  cerr << v.length << endl;
+  CPPUNIT_ASSERT_EQUAL(string("aaa"),string(v.data));
+}
+void NomalTest::testDeleteAt() {
+  cerr << __PRETTY_FUNCTION__ << endl;
+  rmc_ret_t ret = client.cmd_alist_delete_at("FOO",1,TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
+  RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+  cerr << v.length << endl;
+  CPPUNIT_ASSERT_EQUAL(string("AAA"),string(v.data));
+}
 void NomalTest::testStoreError() {
   // cerr << __PRETTY_FUNCTION__ << endl;
   // try{
@@ -103,5 +119,7 @@ CppUnit::TestSuite * NomalTest::getSuite(){
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsert",&NomalTest::testSizedInsert));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsertError",&NomalTest::testSizedInsertError));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testStoreError",&NomalTest::testStoreError));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testDelete",&NomalTest::testDelete));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testDeleteAt",&NomalTest::testDeleteAt));
   return suite;
 }

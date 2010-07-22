@@ -25,6 +25,8 @@ public:
   void testSizedInsert();
   void testSizedInsertError();
   void testStoreError();
+  void testDelete();
+  void testDeleteAt();
   static CppUnit::TestSuite * getSuite();
 };
 

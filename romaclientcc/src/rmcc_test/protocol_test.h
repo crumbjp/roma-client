@@ -21,6 +21,8 @@ public:
   RomaClient client;
   virtual void setUp();
   virtual void tearDown();
+  void testSetServerError();
+  void testSetNotStored();
   void testGetNull();
   void testGetValue();
   void testGetServerError();

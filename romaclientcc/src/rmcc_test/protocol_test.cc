@@ -18,11 +18,23 @@ static const long TIMEOUT = 1000;
 
 void ProtocolTest::setUp() {
   set_loglv(0);
-  client.get_nodelist().push_back("localhost_11211");
+  client.get_nodelist().push_back("localhost_11219");
   client.init(ROUTING_MODE_USE);
 }
 void ProtocolTest::tearDown() {
   client.term();
+}
+void ProtocolTest::testSetServerError() {
+  try{
+    rmc_ret_t ret = client.cmd_store("CMD_SERVER_ERROR",RomaValue("bbb",3),100,TIMEOUT);
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+    CPPUNIT_ASSERT(client.get_lasterror() != NULL);
+  }
+}
+void ProtocolTest::testSetNotStored() {
+  rmc_ret_t ret = client.cmd_store("CMD_NOT_STORED",RomaValue("bbb",3),100,TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(1,ret);
 }
 void ProtocolTest::testGetNull() {
   RomaValue v = client.cmd_get("CMD_NULL",TIMEOUT);
@@ -54,6 +66,8 @@ void ProtocolTest::testGetTimeout() {
 }
 CppUnit::TestSuite * ProtocolTest::getSuite(){
   CppUnit::TestSuite *suite = new CppUnit::TestSuite();
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testSetServerError",&ProtocolTest::testSetServerError));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testSetNotStored",&ProtocolTest::testSetNotStored));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetNull",&ProtocolTest::testGetNull));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValue",&ProtocolTest::testGetValue));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetServerError",&ProtocolTest::testGetServerError));

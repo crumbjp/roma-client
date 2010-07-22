@@ -123,6 +123,8 @@ module Roma
         elsif ( o == 'TO' ) 
           sleep(r.to_i)
           send_data(rets['_'])
+        elsif ( o == 'CLOSE' )
+          close_connection
         end
       end
       def set(s)

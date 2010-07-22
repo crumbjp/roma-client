@@ -32,10 +32,18 @@ int main ( int argc , char * argv[]  ){
   CppUnit::TestResult result;
   result.addListener(&collector);
   CppUnit::TestSuite suite;
-  //suite.addTest(NomalTest::getSuite());
-  //suite.addTest(ProtocolTest::getSuite());
+#ifdef WITH_NOMAL_TEST
+  suite.addTest(NomalTest::getSuite());
+#endif
+#ifdef WITH_PROTOCOL_TEST
+  suite.addTest(ProtocolTest::getSuite());
+#endif
+#ifdef WITH_LOOP_TEST
   suite.addTest(LoopTest::getSuite());
-  //suite.addTest(LoopMonkeyTest::getSuite());
+#endif
+#ifdef WITH_LOOP_MONKEY_TEST
+  suite.addTest(LoopMonkeyTest::getSuite());
+#endif
   suite.run(&result);
   CppUnit::CompilerOutputter outputter(&collector, CppUnit::stdCOut());
   outputter.write();

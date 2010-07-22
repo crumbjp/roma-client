@@ -201,7 +201,7 @@ endif
 
 #----------------------------------------------------------
 # Make objects.(compile)
-CXXFLAGS = $(DEF_CMPL_FLGS) $(OPT_CMPL_FLGS)
+override CXXFLAGS += $(DEF_CMPL_FLGS) $(OPT_CMPL_FLGS)
 ifdef LOCAL_CONF
   override CXXFLAGS += -DLOCAL_CONF
 endif

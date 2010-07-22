@@ -4,7 +4,7 @@
 export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH
 make clean
 if [ $WITH_TEST == "1" ];then
-    make bin/rmcc_test DEBUG=1
+    make bin/rmcc_test DEBUG=1 CXXFLAGS='-DWITH_NOMAL_TEST -DWITH_LOOP_TEST'
     ./bin/rmcc_testd
 fi
 # Build

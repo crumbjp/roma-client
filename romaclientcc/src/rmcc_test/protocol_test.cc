@@ -19,19 +19,27 @@ static const long TIMEOUT = 1000;
 void ProtocolTest::setUp() {
   set_loglv(0);
   client.get_nodelist().push_back("localhost_11219");
+#ifdef NO_ROUTING_TEST
+  client.init(0);
+#else
   client.init(ROUTING_MODE_USE);
+#endif
 }
+
 void ProtocolTest::tearDown() {
   client.term();
 }
+
 void ProtocolTest::testNumValidConnection() {
   int n = client.num_valid_connection();
   CPPUNIT_ASSERT_EQUAL(1,n);
 }
+
 void ProtocolTest::testSetStored() {
   rmc_ret_t ret = client.cmd_store("CMD_STORED",RomaValue("bbb",3),100,TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testSetStoredVal() {
   rmc_ret_t ret = client.cmd_store("CMPV_bbbBBbb",RomaValue("bbbBBbb",7),100,TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
@@ -53,6 +61,7 @@ void ProtocolTest::testSetServerError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testSetError() {
   try{
     rmc_ret_t ret = client.cmd_store("CMD_ERROR",RomaValue("bbb",3),100,TIMEOUT);
@@ -62,6 +71,7 @@ void ProtocolTest::testSetError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testSetTimeout() {
   try {
     rmc_ret_t ret = client.cmd_store("TO_10",RomaValue("bbb",3),100,TIMEOUT);
@@ -70,6 +80,7 @@ void ProtocolTest::testSetTimeout() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testSetClose() {
   try{
     rmc_ret_t ret = client.cmd_store("CLOSE_",RomaValue("bbb",3),100,TIMEOUT);
@@ -80,15 +91,18 @@ void ProtocolTest::testSetClose() {
   }
 }
 
+
 void ProtocolTest::testGetNull() {
   RomaValue v = client.cmd_get("CMD_NULL",TIMEOUT);
   CPPUNIT_ASSERT_EQUAL((const char *)0,v.data);
   CPPUNIT_ASSERT_EQUAL((long)-1,v.length);
 }
+
 void ProtocolTest::testGetValue() {
   RomaValue v = client.cmd_get("CMD_VALUE",TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(string("FOOBAR"),string(v.data));
 }
+
 void ProtocolTest::testGetServerError() {
   try {
     RomaValue v = client.cmd_get("CMD_SERVER_ERROR",TIMEOUT);
@@ -96,6 +110,7 @@ void ProtocolTest::testGetServerError() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testGetError() {
   try {
     RomaValue v = client.cmd_get("CMD_ERROR",TIMEOUT);
@@ -103,6 +118,7 @@ void ProtocolTest::testGetError() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testGetTimeout() {
   try {
     RomaValue v = client.cmd_get("TO_10",TIMEOUT);
@@ -110,6 +126,7 @@ void ProtocolTest::testGetTimeout() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testGetClose() {
   try {
     RomaValue v = client.cmd_get("CLOSE_",TIMEOUT);
@@ -118,22 +135,27 @@ void ProtocolTest::testGetClose() {
   }
 }
 
+
 void ProtocolTest::testAlistSizedInsertStored() {
   rmc_ret_t ret = client.cmd_alist_sized_insert("CMD_STORED",2,RomaValue("bbb",3),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistSizedInsertStoredVal() {
   rmc_ret_t ret = client.cmd_alist_sized_insert("CMPV_bbbBBbb",2,RomaValue("bbbBBbb",7),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistSizedInsertStoredSize() {
   rmc_ret_t ret = client.cmd_alist_sized_insert("CMP2_99",99,RomaValue("bbb",3),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistSizedInsertNotStored() {
   rmc_ret_t ret = client.cmd_alist_sized_insert("CMD_NOT_STORED",2,RomaValue("bbb",3),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(1,ret);
 }
+
 void ProtocolTest::testAlistSizedInsertServerError() {
   try{
     rmc_ret_t ret = client.cmd_alist_sized_insert("CMD_SERVER_ERROR",2,RomaValue("bbb",3),TIMEOUT);
@@ -143,6 +165,7 @@ void ProtocolTest::testAlistSizedInsertServerError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testAlistSizedInsertError() {
   try{
     rmc_ret_t ret = client.cmd_alist_sized_insert("CMD_ERROR",2,RomaValue("bbb",3),TIMEOUT);
@@ -152,6 +175,7 @@ void ProtocolTest::testAlistSizedInsertError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testAlistSizedInsertTimeout() {
   try {
     rmc_ret_t ret = client.cmd_alist_sized_insert("TO_10",2,RomaValue("bbb",3),TIMEOUT);
@@ -160,6 +184,7 @@ void ProtocolTest::testAlistSizedInsertTimeout() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testAlistSizedInsertClose() {
   try{
     rmc_ret_t ret = client.cmd_alist_sized_insert("CLOSE_",2,RomaValue("bbb",3),TIMEOUT);
@@ -170,20 +195,24 @@ void ProtocolTest::testAlistSizedInsertClose() {
   }
 }
 
+
 void ProtocolTest::testAlistJoinNull() {
   RomaValue v = client.cmd_alist_join("CMD_NULL",",",TIMEOUT);
   CPPUNIT_ASSERT_EQUAL((const char *)0,v.data);
   CPPUNIT_ASSERT_EQUAL((long)-1,v.length);
 }
+
 void ProtocolTest::testAlistJoinSep() {
   RomaValue v = client.cmd_alist_join("CMPV_X","X",TIMEOUT);
   CPPUNIT_ASSERT_EQUAL((const char *)0,v.data);
   CPPUNIT_ASSERT_EQUAL((long)-1,v.length);
 }
+
 void ProtocolTest::testAlistJoinValue() {
   RomaValue v = client.cmd_alist_join("CMD_VALUE",",",TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(string("FOO,BAR,BAZ"),string(v.data));
 }
+
 void ProtocolTest::testAlistJoinServerError() {
   try {
     RomaValue v = client.cmd_alist_join("CMD_SERVER_ERROR",",",TIMEOUT);
@@ -191,6 +220,7 @@ void ProtocolTest::testAlistJoinServerError() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testAlistJoinError() {
   try {
     RomaValue v = client.cmd_alist_join("CMD_ERROR",",",TIMEOUT);
@@ -198,6 +228,7 @@ void ProtocolTest::testAlistJoinError() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testAlistJoinTimeout() {
   try {
     RomaValue v = client.cmd_alist_join("TO_10",",",TIMEOUT);
@@ -205,6 +236,7 @@ void ProtocolTest::testAlistJoinTimeout() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testAlistJoinClose() {
   try {
     RomaValue v = client.cmd_alist_join("CLOSE_",",",TIMEOUT);
@@ -213,22 +245,27 @@ void ProtocolTest::testAlistJoinClose() {
   }
 }
 
+
 void ProtocolTest::testAlistDeleteVal() {
   rmc_ret_t ret = client.cmd_alist_delete("CMPV_bbbBBbb",RomaValue("bbbBBbb",7),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistDeleteDeleted() {
   rmc_ret_t ret = client.cmd_alist_delete("CMD_DELETED",RomaValue("bbb",3),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistDeleteNotDeleted() {
   rmc_ret_t ret = client.cmd_alist_delete("CMD_NOT_DELETED",RomaValue("bbb",3),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(1,ret);
 }
+
 void ProtocolTest::testAlistDeleteNotFound() {
   rmc_ret_t ret = client.cmd_alist_delete("CMD_NOT_FOUND",RomaValue("bbb",3),TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(1,ret);
 }
+
 void ProtocolTest::testAlistDeleteServerError() {
   try{
     rmc_ret_t ret = client.cmd_alist_delete("CMD_SERVER_ERROR",RomaValue("bbb",3),TIMEOUT);
@@ -238,6 +275,7 @@ void ProtocolTest::testAlistDeleteServerError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testAlistDeleteError() {
   try{
     rmc_ret_t ret = client.cmd_alist_delete("CMD_ERROR",RomaValue("bbb",3),TIMEOUT);
@@ -247,6 +285,7 @@ void ProtocolTest::testAlistDeleteError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testAlistDeleteTimeout() {
   try {
     rmc_ret_t ret = client.cmd_alist_delete("TO_10",RomaValue("bbb",3),TIMEOUT);
@@ -255,6 +294,7 @@ void ProtocolTest::testAlistDeleteTimeout() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testAlistDeleteClose() {
   try{
     rmc_ret_t ret = client.cmd_alist_delete("CLOSE_",RomaValue("bbb",3),TIMEOUT);
@@ -265,22 +305,27 @@ void ProtocolTest::testAlistDeleteClose() {
   }
 }
 
+
 void ProtocolTest::testAlistDeleteAtPos() {
   rmc_ret_t ret = client.cmd_alist_delete_at("CMP2_3",3,TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistDeleteAtDeleted() {
   rmc_ret_t ret = client.cmd_alist_delete_at("CMD_DELETED",1,TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(0,ret);
 }
+
 void ProtocolTest::testAlistDeleteAtNotDeleted() {
   rmc_ret_t ret = client.cmd_alist_delete_at("CMD_NOT_DELETED",1,TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(1,ret);
 }
+
 void ProtocolTest::testAlistDeleteAtNotFound() {
   rmc_ret_t ret = client.cmd_alist_delete_at("CMD_NOT_FOUND",1,TIMEOUT);
   CPPUNIT_ASSERT_EQUAL(1,ret);
 }
+
 void ProtocolTest::testAlistDeleteAtServerError() {
   try{
     rmc_ret_t ret = client.cmd_alist_delete_at("CMD_SERVER_ERROR",1,TIMEOUT);
@@ -290,6 +335,7 @@ void ProtocolTest::testAlistDeleteAtServerError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testAlistDeleteAtError() {
   try{
     rmc_ret_t ret = client.cmd_alist_delete_at("CMD_ERROR",1,TIMEOUT);
@@ -299,6 +345,7 @@ void ProtocolTest::testAlistDeleteAtError() {
     CPPUNIT_ASSERT(client.get_lasterror() != NULL);
   }
 }
+
 void ProtocolTest::testAlistDeleteAtTimeout() {
   try {
     rmc_ret_t ret = client.cmd_alist_delete_at("TO_10",1,TIMEOUT);
@@ -307,6 +354,7 @@ void ProtocolTest::testAlistDeleteAtTimeout() {
   }catch(const Exception & ex){
   }
 }
+
 void ProtocolTest::testAlistDeleteAtClose() {
   try{
     rmc_ret_t ret = client.cmd_alist_delete_at("CLOSE_",1,TIMEOUT);

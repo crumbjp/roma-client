@@ -200,12 +200,18 @@ namespace rakuten {
 
     CmdKeyed::CmdKeyed(size_t nrcv,long timeout,const char * key)
       :Command(Command::KEYED,32768,timeout), key(key) {
+      if( key == NULL || key[0] == '\0' ){
+	Exception::throw_exception(0, EXP_PRE_MSG,"invalid key");
+      }
     }
     const char * CmdKeyed::get_key()const {
       return this->key;
     }
     CmdKeyedOne::CmdKeyedOne(size_t nrcv,long timeout,const char * key)
       :Command(Command::KEYEDONE,32768,timeout), key(key) {
+      if( key == NULL || key[0] == '\0' ){
+	Exception::throw_exception(0, EXP_PRE_MSG,"invalid key");
+      }
     }
     const char * CmdKeyedOne::get_key()const {
       return this->key;
@@ -216,6 +222,7 @@ namespace rakuten {
       sbuf.append_sprintf("set %s %d %ld %ld\r\n",key,flags,exp,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
+      cout << sbuf.pointer() << endl;
     }
     string_vbuffer & CmdSet::send_callback(){
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
@@ -246,6 +253,7 @@ namespace rakuten {
 	   strcmp("NOT_FOUND",line) == 0 ){
 	this->roma_ret = RMC_RET_OK;
       }else if( strcmp("NOT_DELETED",line) == 0){
+	CommandFailedException::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }else{
 	Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }
@@ -368,7 +376,9 @@ namespace rakuten {
       if ( strcmp("DELETED",line) == 0 ) {
         this->roma_ret = RMC_RET_OK;
       }else if ( strcmp("NOT_DELETED",line) == 0 ) {
+	CommandFailedException::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }else if ( strcmp("NOT_FOUND",line) == 0 ) {
+	CommandFailedException::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }else {
         Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }

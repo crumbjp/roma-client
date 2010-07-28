@@ -22,12 +22,15 @@ public:
   virtual void setUp();
   virtual void tearDown();
   void testConnectionRefused();
+  void testSet();
+  void testDelete();
   void testGet();
   void testSizedInsert();
+  void testJoin();
   void testSizedInsertError();
   void testStoreError();
-  void testDelete();
-  void testDeleteAt();
+  void testAlistDelete();
+  void testAlistDeleteAt();
   static CppUnit::TestSuite * getSuite();
 };
 

@@ -35,7 +35,6 @@ module Roma
       # rdelete <key> <clock>
       def ev_rdelete(s)
         stub(s,{
-               'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
                'NOT_FOUND'    => "NOT_FOUND\r\n",
                'DELETED'      => "DELETED\r\n",
                '_'            => "DELETED\r\n"
@@ -94,66 +93,127 @@ module Roma
         # Todo: what ?
       end
 
+
+      def ev_alist_sized_insert(s)
+        if ( s.length < 3 )
+          send_data("SERVER_ERROR Parameters not enough !\r\n")
+          return
+        end
+        v = read_bytes(s[3].to_i)
+        read_bytes(2)
+        stub(s,{
+               'NOT_STORED'   => "NOT_STORED\r\n",
+               'STORED'       => "STORED\r\n",
+               '_'            => "STORED\r\n"
+             },v)
+      end
+
+
+      def ev_alist_join(s)
+        key,hname = s[1].split("\e")
+        if ( s.length < 2 )
+          send_data("SERVER_ERROR Parameters not enough !\r\n")
+          return
+        end
+        v = read_bytes(s[2].to_i)
+        read_bytes(2)
+        stub(s,{
+               'VALUE'        => "VALUE #{key} 0 11\r\nFOO,BAR,BAZ\r\nEND\r\n",
+               'NULL'         => "END\r\n",
+               '_'            => "END\r\n"
+             },v)
+      end
+
+      def ev_alist_delete(s)
+        if ( s.length < 2 )
+          send_data("SERVER_ERROR Parameters not enough !\r\n")
+          return
+        end
+        v = read_bytes(s[2].to_i)
+        read_bytes(2)
+        stub(s,{
+               'NOT_FOUND'    => "NOT_FOUND\r\n",
+               'NOT_DELETED'  => "NOT_DELETED\r\n",
+               'DELETED'      => "DELETED\r\n",
+               '_'            => "DELETED\r\n"
+             },v)
+      end
+
+      def ev_alist_delete_at(s)
+        stub(s,{
+               'NOT_FOUND'    => "NOT_FOUND\r\n",
+               'NOT_DELETED'  => "NOT_DELETED\r\n",
+               'DELETED'      => "DELETED\r\n",
+               '_'            => "DELETED\r\n"
+             })
+      end
+
       private
 
-      def stub(s,rets);
+      def stub(s,rets,v="");
         key,hname = s[1].split("\e")
-        key =~ /^([^_]+)_(.*)/
+        key =~ /^([^_]+)_(.*)$/
         o = $1
         r = $2
         # o,r = key.split("_")
+        rets['SERVER_ERROR'] = "SERVER_ERROR Some error occurred.\r\n"
+        rets['ERROR'] = "ERROR\r\n"
         if ( o == 'CMD' ) 
           if ( rets[r] == nil )
             send_data(rets['_'])
           else
             send_data(rets[r])
           end
-        elsif ( o == 'EXP99' ) 
-          if ( s[3].to_i == 99 )
+        elsif ( o == 'CMP2' ) 
+          if ( s[2] == r )
             send_data(rets['_'])
           else
             send_data(rets['SERVER_ERROR'])
           end
-        elsif ( o == 'EXP0' ) 
-          if ( s[3].to_i == 0 )
+        elsif ( o == 'CMP3' ) 
+          if ( s[3] == r )
+            send_data(rets['_'])
+          else
+            send_data(rets['SERVER_ERROR'])
+          end
+        elsif ( o == 'CMPV' )
+          @log.error("***** #{v} #{r}")
+          if ( v == r )
             send_data(rets['_'])
           else
             send_data(rets['SERVER_ERROR'])
           end
         elsif ( o == 'TO' ) 
-          sleep(r.to_i)
-          send_data(rets['_'])
+          #sleep(r.to_i)
+          #send_data(rets['_'])
         elsif ( o == 'CLOSE' )
           close_connection
         end
       end
       def set(s)
         if ( s.length < 4 )
-          send_data("END\r\n")
+          send_data("SERVER_ERROR Parameters not enough !\r\n")
           return
         end
         v = read_bytes(s[4].to_i)
         read_bytes(2)
         stub(s,{
-               'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
                'NOT_STORED'   => "NOT_STORED\r\n",
                'STORED'       => "STORED\r\n",
                '_'            => "STORED\r\n"
-             })
+             },v)
       end
       def get(s)
         key,hname = s[1].split("\e")
         stub(s,{
-               'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
-               'ERROR'        => "ERROR\r\n",
                'VALUE'        => "VALUE #{key} 0 6\r\nFOOBAR\r\nEND\r\n",
+               'NULL'         => "END\r\n",
                '_'            => "END\r\n"
              })
       end
 
       def delete(s)
         stub(s,{
-               'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
                'NOT_DELETED'  => "NOT_DELETED\r\n",
                'NOT_FOUND'    => "NOT_FOUND\r\n",
                'DELETED'      => "DELETED\r\n",
@@ -162,7 +222,6 @@ module Roma
       end
       def cas(s)
         stub(s,{
-               'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
                'NOT_STORED'   => "NOT_STORED\r\n",
                'NOT_FOUND'    => "NOT_FOUND\r\n",
                'EXISTS'       => "EXISTS\r\n",
@@ -172,7 +231,6 @@ module Roma
       end
       def incdec(s)
         stub(s,{
-               'SERVER_ERROR' => "SERVER_ERROR Some error occurred.\r\n",
                'NOT_FOUND'    => "NOT_FOUND\r\n",
                '_'            => "10\r\n"
              })

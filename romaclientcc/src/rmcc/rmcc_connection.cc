@@ -30,10 +30,6 @@ namespace rakuten {
     unsigned long sum_timeval(struct timeval &start ,struct timeval &end){
       long msec = (end.tv_sec - start.tv_sec) * 1000;
       long usec = end.tv_usec - start.tv_usec;
-      if(usec < 0){
-        usec *= -1;
-        msec -= 1;
-      }
       return  msec + usec/1000;
     }
 
@@ -368,7 +364,7 @@ namespace rakuten {
           gettimeofday(&tv_now,0);
           timeout -= sum_timeval(tv_start,tv_now);
           tv_start = tv_now;
-          if ( timeout < 0 ) {
+          if ( timeout < 0 ) { // Hashed recv(). But very rare. It'll always be detected as recv() timeout.
             Exception::throw_exception(0, EXP_PRE_MSG,"Command timeout ." );
           }
           node.recv(rbuf,cmd.nrcv,timeout);

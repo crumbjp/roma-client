@@ -23,7 +23,6 @@ void NomalTest::setUp() {
   client.num_valid_connection();
   client.init(ROUTING_MODE_USE);
   client.init(0);
-  client.init(0);
   client.cmd_store("foo4",RomaValue("aaaa",4),100,TIMEOUT);
   client.cmd_store("foo3",RomaValue("aaa",3),100,TIMEOUT);
   client.cmd_store("bar4",RomaValue("bbbb",4),100,TIMEOUT);

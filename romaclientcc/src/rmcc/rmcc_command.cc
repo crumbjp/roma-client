@@ -232,6 +232,23 @@ namespace rakuten {
       return RECV_OVER;
     }
 
+    CmdDelete::CmdDelete(const char *key,long timeout)
+      :CmdKeyedOne(32768,timeout,key){
+      sbuf.append_sprintf("delete %s\r\n",key);
+    }
+    callback_ret_t CmdDelete::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
+    callback_ret_t CmdDelete::recv_callback_line(char * line) {
+      if ( strcmp("DELETED",line) == 0 ||
+	   strcmp("NOT_FOUND",line) == 0 ){
+	this->roma_ret = RMC_RET_OK;
+      }else if( strcmp("NOT_DELETED",line) == 0){
+      }else{
+	Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
+      }
+      return RECV_OVER;
+    }
+    
+
     CmdBaseGet::CmdBaseGet(size_t nrcv,long timeout,const char *key):CmdKeyed(nrcv,timeout,key){}
     RomaValue CmdBaseGet::parse_value_line(char * line){
       RomaValue ret;

@@ -93,6 +93,15 @@ namespace rakuten {
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
     };
 
+    class CmdDelete: public CmdKeyedOne {
+      string_vbuffer sbuf;
+    public:
+      CmdDelete(const char * key,long timeout);
+      virtual string_vbuffer & send_callback();
+      virtual callback_ret_t recv_callback_line(char *line);
+      virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
+    };
+
     class CmdBaseGet: public CmdKeyed {
     public:
       CmdBaseGet(size_t nrcv,long timeout,const char * key);

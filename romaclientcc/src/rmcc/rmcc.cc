@@ -47,6 +47,19 @@ namespace rakuten{
         throw ex;
       }
     }
+
+    rmc_ret_t RomaClient::cmd_delete(const char *key,long timeout){
+      try {
+        CmdDelete cmd(key,timeout);
+        conn.command(cmd);
+        return cmd.roma_ret;
+      }catch(const rakuten::Exception & ex ) {
+        ERR_LOG(ex.get_msg());
+        this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
+        throw ex;
+      }
+    }
+    
     RomaValue RomaClient::cmd_get(const char *key,long timeout){
       try {
         CmdGet cmd(key,timeout);

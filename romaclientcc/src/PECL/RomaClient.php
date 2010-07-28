@@ -16,6 +16,7 @@ class RomaClient {
     private $client_id = "";
     private $default_timeout = 2000;
     const RMC_RET_ERROR = 1;
+    const RMC_RET_FALSE = 2;
     /**
      * @brief Constructor 
      * 
@@ -91,6 +92,16 @@ class RomaClient {
     }
     
 
+    public function delete($key, $exptime) {
+      $result = rmc_delete($this->client_id, $key, $this->default_timeout);
+      if ( $result == RomaClient::RMC_RET_ERROR ) {
+        throw new Exception("rmc_delete() failure");
+      }elseif(  $result == RomaClient::RMC_RET_FALSE ) {
+	return False;
+      }
+      return True;
+    }
+
     /**
      * destructor.
      * 
@@ -147,6 +158,8 @@ class RomaClient {
       $result = rmc_alist_delete($this->client_id,$key, $value,$this->default_timeout);
       if ( $result == RomaClient::RMC_RET_ERROR ) {
         throw new Exception("rmc_alist_delete() failure");
+      }elseif(  $result == RomaClient::RMC_RET_FALSE ) {
+	return False;
       }
       return True;
     }

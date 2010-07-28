@@ -70,6 +70,16 @@ namespace rakuten {
        */
       rmc_ret_t cmd_store(const char *key, RomaValue value, long exptime,long timeout);
       /**
+       * @brief Issue DELETE command.
+       *
+       * @param key Specify the key.
+       * @param timeout Specify the timeout(msec).
+       *
+       * @return On success RMC_RET_OK returnd.
+       * @throws Exception Around network error or SERVER_ERROR returns. It'll be set the error message.
+       */
+      rmc_ret_t cmd_delete(const char *key,long timeout);
+      /**
        * @brief Issue GET command.
        *
        * @param key Specify the key.

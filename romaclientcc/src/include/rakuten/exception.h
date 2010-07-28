@@ -27,6 +27,14 @@ namespace rakuten {
     int  get_line() const;
     static void throw_exception(int k,const char *pref_func,const char *pref_file,int pref_line,const char *fmt_str,...) __attribute__((noreturn));
   };
+  
+  class CommandFailedException : public Exception {
+  protected:
+    CommandFailedException(int k, const char *pf,const char *f, int pl, const char *m);
+  public:
+    static void throw_exception(int k,const char *pref_func,const char *pref_file,int pref_line,const char *fmt_str,...) __attribute__((noreturn));
+  };
+
   static const int LOGLV_TRACE = 0;
   static const int LOGLV_INFO  = 1;
   static const int LOGLV_WARN  = 2;

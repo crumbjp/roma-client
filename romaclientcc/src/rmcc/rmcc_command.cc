@@ -236,6 +236,10 @@ namespace rakuten {
       :CmdKeyedOne(32768,timeout,key){
       sbuf.append_sprintf("delete %s\r\n",key);
     }
+    string_vbuffer & CmdDelete::send_callback(){
+      TRACE_LOG("%s",__PRETTY_FUNCTION__);
+      return sbuf;
+    }
     callback_ret_t CmdDelete::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdDelete::recv_callback_line(char * line) {
       if ( strcmp("DELETED",line) == 0 ||

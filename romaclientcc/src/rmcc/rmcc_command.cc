@@ -15,7 +15,7 @@ namespace rakuten {
         if ( this->parse_mode == LINE_MODE ) {
           char * line = rbuf.get_to_token("\r\n");
           if ( ! line ) {
-            return RECV_OVER;
+            return RECV_MORE;
           }
           if (strcmp("END",line) == 0 ) {
             return RECV_OVER;

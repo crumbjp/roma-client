@@ -38,28 +38,6 @@ namespace rakuten {
     throw Exception(k,pref_func , pref_file,pref_line , m);
   }
 
-  CommandFailedException::CommandFailedException(int k, const char *pf, const char *f, int pl, const char *m)
-    : Exception(k,pf,f,pl,m)
-  {
-  }
-
-  void CommandFailedException::throw_exception( 
-    int k,
-    const char *pref_func,
-    const char *pref_file,
-    int pref_line,
-    const char *fmt_str,...)
-  {
-    va_list vl1,vl2;
-    va_start(vl1,fmt_str);
-    va_start(vl2,fmt_str);
-    string_vbuffer m;
-    m.append_vsprintf(fmt_str,vl1,vl2);
-    va_end(vl2);
-    va_end(vl1);
-    throw CommandFailedException(k,pref_func , pref_file,pref_line , m);
-  }
-
   int loglv = LOGLV_WARN;
   FILE *logfp  = stderr;
   void set_loglv(int lv) {

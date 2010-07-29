@@ -21,16 +21,52 @@ public:
   RomaClient client;
   virtual void setUp();
   virtual void tearDown();
-  void testConnectionRefused();
+  void testUnknownServer();
+  void testConnectFailed();
+
   void testSet();
+  void testSetLargeKey();
+  void testSetLargeVal();
+  void testSetInvKey();
+  void testSetEmpKey();
+  void testSetEmpValue();
+
   void testDelete();
+  void testDeleteInvKey();
+  void testDeleteEmpKey();
+
   void testGet();
+  void testGetNotfound();
+  void testGetInvKey();
+  void testGetEmpKey();
+
   void testSizedInsert();
-  void testJoin();
+  void testSizedInsertNegasize();
+  void testSizedInsertZerosize();
   void testSizedInsertError();
-  void testStoreError();
+  void testSizedInsertInvKey();
+  void testSizedInsertEmpKey();
+  void testSizedInsertEmpVal();
+
+  void testJoin();
+  void testJoinNotfound();
+  void testJoinInvKey();
+  void testJoinEmpKey();
+  void testJoinEmpSep();
+
   void testAlistDelete();
+  void testAlistDeleteNotfoundError();
+  void testAlistDeleteValNotfoundError();
+  void testAlistDeleteInvKey();
+  void testAlistDeleteEmpKey();
+  void testAlistDeleteEmpVal();
+
   void testAlistDeleteAt();
+  void testAlistDeleteAtNegapos();
+  void testAlistDeleteAtOutrangeError();
+  void testAlistDeleteAtNotfoundError();
+  void testAlistDeleteAtInvKey();
+  void testAlistDeleteAtEmpKey();
   static CppUnit::TestSuite * getSuite();
 };
 

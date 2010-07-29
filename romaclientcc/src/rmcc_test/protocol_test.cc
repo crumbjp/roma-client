@@ -21,7 +21,9 @@ void ProtocolTest::setUp() {
   client.get_nodelist().push_back("localhost_11219");
 #ifdef NO_ROUTING_TEST
   client.init(0);
+  client.init(0);
 #else
+  client.init(ROUTING_MODE_USE);
   client.init(ROUTING_MODE_USE);
 #endif
 }
@@ -219,6 +221,12 @@ void ProtocolTest::testAlistJoinValue() {
   CPPUNIT_ASSERT_EQUAL(string("FOO,BAR,BAZ"),string(v.data));
 }
 
+void ProtocolTest::testAlistJoinLarge() {
+  RomaValue v = client.cmd_alist_join("CMD_LARGE",",",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL((long)100000,v.length);
+  CPPUNIT_ASSERT_EQUAL((size_t)100000,strlen(v.data));
+}
+
 void ProtocolTest::testAlistJoinServerError() {
   try {
     RomaValue v = client.cmd_alist_join("CMD_SERVER_ERROR",",",TIMEOUT);
@@ -387,6 +395,7 @@ CppUnit::TestSuite * ProtocolTest::getSuite(){
 
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetNull",&ProtocolTest::testGetNull));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValue",&ProtocolTest::testGetValue));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetLarge",&ProtocolTest::testGetLarge));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetServerError",&ProtocolTest::testGetServerError));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetError",&ProtocolTest::testGetError));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetTimeout",&ProtocolTest::testGetTimeout));
@@ -404,6 +413,7 @@ CppUnit::TestSuite * ProtocolTest::getSuite(){
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinNull",&ProtocolTest::testAlistJoinNull));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinSep",&ProtocolTest::testAlistJoinSep));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinValue",&ProtocolTest::testAlistJoinValue));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinLarge",&ProtocolTest::testAlistJoinLarge));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinServerError",&ProtocolTest::testAlistJoinServerError));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinError",&ProtocolTest::testAlistJoinError));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistJoinTimeout",&ProtocolTest::testAlistJoinTimeout));

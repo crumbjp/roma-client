@@ -52,6 +52,7 @@ public:
   void testAlistJoinNull();
   void testAlistJoinSep();
   void testAlistJoinValue();
+  void testAlistJoinLarge();
   void testAlistJoinServerError();
   void testAlistJoinError();
   void testAlistJoinTimeout();

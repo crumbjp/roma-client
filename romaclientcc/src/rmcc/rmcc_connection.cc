@@ -215,6 +215,7 @@ namespace rakuten {
           Node & node = *this->get_node_random();
           try {
             CmdMklHash cmdmklhash(MKLHASH_TIMEOUT);
+            cmdmklhash.prepare();
             this->command(cmdmklhash,node);
             gettimeofday(&tv_last_mklhash,0);
             if ( memcmp(mklhash,cmdmklhash.mklhash,sizeof(mklhash)) ) {
@@ -227,6 +228,7 @@ namespace rakuten {
               this->rn        = 0;
               this->routing.clear();
               CmdRoutingDump cmdroutingdump(ROUTINGDUMP_TIMEOUT);
+              cmdroutingdump.prepare();
               this->command(cmdroutingdump,node);
               for ( std::map<char*,char*>::iterator it(cmdroutingdump.cap.begin()),itend(cmdroutingdump.cap.end());
                     it!=itend;

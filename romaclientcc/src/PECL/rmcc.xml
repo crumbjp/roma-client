@@ -102,7 +102,7 @@
        it->second->init(routing);
      }catch(const rakuten::Exception & ex ) {
        // @@@ log...
-       RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+       RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      }
      RETURN_STRING((char*)client_id.c_str(),1);
   ]]>
@@ -197,7 +197,7 @@
        client_map->erase(it);
        RETURN_LONG(rakuten::rmcc::RMC_RET_OK);
      }
-     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
   ]]>
   </code>
   <test>
@@ -241,7 +241,7 @@
          // @@@ log...
        }
      }
-     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
   ]]>
   </code>
   <test>
@@ -284,7 +284,7 @@
          // @@@ log...
        }
      }
-     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
   ]]>
   </code>
   <test>
@@ -330,10 +330,10 @@
          add_index_long(return_value,2,v.cas);
        }catch(const rakuten::Exception & ex ) {
             // @@@ log...
-         RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+         RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
        }
      } else {
-       RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+       RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      }
   ]]>
   </code>
@@ -391,7 +391,7 @@
          // @@@ log...
        }
      }
-     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
   ]]>
   </code>
   <test>
@@ -439,10 +439,10 @@
          add_index_long(return_value,2,v.cas);
        }catch(const rakuten::Exception & ex ) {
 	  // @@@ log...
-         RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+         RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
        }
      }else {
-       RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+       RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      }
 
   ]]>
@@ -502,7 +502,7 @@
          // @@@ log...
        }
      }
-     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
   ]]>
   </code>
   <test>
@@ -560,7 +560,7 @@
          // @@@ log...
        }
      }
-     RETURN_LONG(rakuten::rmcc::RMC_RET_ERROR);
+     RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
   ]]>
   </code>
   <test>

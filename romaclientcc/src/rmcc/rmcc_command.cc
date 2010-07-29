@@ -253,7 +253,7 @@ namespace rakuten {
 	   strcmp("NOT_FOUND",line) == 0 ){
 	this->roma_ret = RMC_RET_OK;
       }else if( strcmp("NOT_DELETED",line) == 0){
-	CommandFailedException::throw_exception(0, EXP_PRE_MSG,"%s",line);
+	this->roma_ret = RMC_RET_ERROR;
       }else{
 	Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }
@@ -376,9 +376,9 @@ namespace rakuten {
       if ( strcmp("DELETED",line) == 0 ) {
         this->roma_ret = RMC_RET_OK;
       }else if ( strcmp("NOT_DELETED",line) == 0 ) {
-	CommandFailedException::throw_exception(0, EXP_PRE_MSG,"%s",line);
+	this->roma_ret = RMC_RET_ERROR;
       }else if ( strcmp("NOT_FOUND",line) == 0 ) {
-	CommandFailedException::throw_exception(0, EXP_PRE_MSG,"%s",line);
+	this->roma_ret = RMC_RET_ERROR;
       }else {
         Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }

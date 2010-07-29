@@ -16,7 +16,7 @@ class RomaClient {
     private $client_id = "";
     private $default_timeout = 2000;
     const RMC_RET_ERROR = 1;
-    const RMC_RET_FALSE = 2;
+    const RMC_RET_EXCEPTION = 2;
     /**
      * @brief Constructor 
      * 
@@ -43,7 +43,7 @@ class RomaClient {
         }
       }
       $client_id = rmc_init($hosts,$ROUTING_MODE);
-      if ( $client_id == RomaClient::RMC_RET_ERROR ) {
+      if ( $client_id == RomaClient::RMC_RET_EXCEPTION ) {
         return False;
       }
       $client = new RomaClient($client_id);
@@ -67,8 +67,10 @@ class RomaClient {
      */
     public function get($key) {
       $result = rmc_get($this->client_id, $key,$this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_get() failure");
+      }else if ( $result == RomaClient::RMC_RET_ERROR ) {
+	return False;
       }
       if ( $result[1] < 0 ) {
         return null;
@@ -85,8 +87,10 @@ class RomaClient {
      */
     public function set($key, $value, $exptime) {
       $result = rmc_set($this->client_id,$key, $value, $exptime,$this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_set() failure");
+      }else if ( $result == RomaClient::RMC_RET_ERROR ) {
+	return False;
       }
       return True;
     }
@@ -94,11 +98,12 @@ class RomaClient {
 
     public function delete($key, $exptime) {
       $result = rmc_delete($this->client_id, $key, $this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_delete() failure");
-      }elseif(  $result == RomaClient::RMC_RET_FALSE ) {
+      }else if ( $result == RomaClient::RMC_RET_ERROR ) {
 	return False;
       }
+
       return True;
     }
 
@@ -119,9 +124,12 @@ class RomaClient {
      */
     public function alist_sized_insert($key, $size, $value) {
       $result = rmc_alist_sized_insert($this->client_id,$key, $size, $value,$this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_alist_sized_insert() failure");
+      }else if ( $result == RomaClient::RMC_RET_ERROR ) {
+	return False;
       }
+
       return True;
     }
 
@@ -134,9 +142,12 @@ class RomaClient {
     public function alist_join($key, $separator) {
       // @@@ Todo: Should use alist_gets
       $result = rmc_alist_join($this->client_id,$key, $separator,$this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_alist_join() failure");
+      }else if ( $result == RomaClient::RMC_RET_ERROR ) {
+	return False;
       }
+
       if ( $result[1] < 0 ) {
         return null;
       }
@@ -156,9 +167,9 @@ class RomaClient {
      */
     public function alist_delete($key, $value) {
       $result = rmc_alist_delete($this->client_id,$key, $value,$this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_alist_delete() failure");
-      }elseif(  $result == RomaClient::RMC_RET_FALSE ) {
+      }else if(  $result == RomaClient::RMC_RET_ERROR ) {
 	return False;
       }
       return True;
@@ -171,9 +182,12 @@ class RomaClient {
      */
     public function alist_delete_at($key, $pos) {
       $result = rmc_alist_delete_at($this->client_id,$key, $pos,$this->default_timeout);
-      if ( $result == RomaClient::RMC_RET_ERROR ) {
+      if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_alist_delete_at() failure");
+      }else if ( $result == RomaClient::RMC_RET_ERROR ) {
+	return False;
       }
+
       return True;
     }
 }

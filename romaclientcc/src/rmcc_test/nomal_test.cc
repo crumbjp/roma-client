@@ -126,32 +126,46 @@ void NomalTest::testGet() {
 void NomalTest::testSizedInsert() {
   cerr << __PRETTY_FUNCTION__ << endl;
   {
-    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3),TIMEOUT);
+    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("##1",3),TIMEOUT);
     CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
   }
   {
-    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3),TIMEOUT);
+    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("##2",3),TIMEOUT);
     CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
   }
   {
     RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
     cerr << v.length << endl;
-    CPPUNIT_ASSERT_EQUAL(string("###,###,AAA"),string(v.data));
+    CPPUNIT_ASSERT_EQUAL(string("##2,##1,AAA"),string(v.data));
   }
+  {
+    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue(NULL,0),TIMEOUT);
+    
+    RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+    cerr << v.length << endl;
+    CPPUNIT_ASSERT_EQUAL(string(",##2,##1"),string(v.data));
+  }
+  {
+    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("",0),TIMEOUT);
 
-  {
-    //rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",-1,RomaValue("###",3),TIMEOUT);
-    //CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
+    RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+    cerr << v.length << endl;
+    CPPUNIT_ASSERT_EQUAL(string(",,##2"),string(v.data));
   }
   {
-    //rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue(NULL,0),TIMEOUT);
-    //CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
-  }
-  {
-    //rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("",0),TIMEOUT);
-    //CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
-  }
+    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",-1,RomaValue("##3",3),TIMEOUT);
 
+    RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+    cerr << v.length << endl;
+    CPPUNIT_ASSERT_EQUAL(string("##3,,"),string(v.data));
+  }
+  {
+    rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",0,RomaValue("##4",3),TIMEOUT);
+
+    RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+    cerr << v.length << endl;
+    CPPUNIT_ASSERT_EQUAL(string("##4,##3,,"),string(v.data));
+  }
   try{
     rmc_ret_t ret = client.cmd_alist_sized_insert(NULL,3,RomaValue("###",3),TIMEOUT);
     CPPUNIT_FAIL("Should throw !");
@@ -175,8 +189,8 @@ void NomalTest::testJoin() {
       CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
     }
     {
-      //RomaValue v = client.cmd_alist_join("NOT_FOUND",",",TIMEOUT);
-      //cerr << v.length << endl;
+      RomaValue v = client.cmd_alist_join("NOT_FOUND",",",TIMEOUT);
+      cerr << "********" << v.length << endl;
       //CPPUNIT_ASSERT_EQUAL(string("###,###,AAA"),string(v.data));
     }
     try{
@@ -221,11 +235,8 @@ void NomalTest::testAlistDelete() {
     CPPUNIT_ASSERT_EQUAL(string("aaa"),string(v.data));
   }
   {
-    try{
-      rmc_ret_t ret = client.cmd_alist_delete("FOO",RomaValue("AAA",3),TIMEOUT);
-      CPPUNIT_FAIL("Should throw !");
-    }catch(const CommandFailedException & ex){
-    }
+    rmc_ret_t ret = client.cmd_alist_delete("FOO",RomaValue("AAA",3),TIMEOUT);
+    //CPPUNIT_FAIL("Should throw !");
   }
   {
     //rmc_ret_t ret = client.cmd_alist_delete("FOO",RomaValue("NOT_FOUND",9),TIMEOUT);
@@ -293,15 +304,15 @@ void NomalTest::testStoreError() {
 }
 CppUnit::TestSuite * NomalTest::getSuite(){
   CppUnit::TestSuite *suite = new CppUnit::TestSuite();
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testConnectionRefused",&NomalTest::testConnectionRefused));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testConnectionRefused",&NomalTest::testConnectionRefused));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testSet",&NomalTest::testSet));
   //suite->addTest(new CppUnit::TestCaller<NomalTest>("testDelete",&NomalTest::testDelete));
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testGet",&NomalTest::testGet));
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsert",&NomalTest::testSizedInsert));
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testJoin",&NomalTest::testJoin));
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsertError",&NomalTest::testSizedInsertError));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testGet",&NomalTest::testGet));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsert",&NomalTest::testSizedInsert));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testJoin",&NomalTest::testJoin));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testSizedInsertError",&NomalTest::testSizedInsertError));
   //suite->addTest(new CppUnit::TestCaller<NomalTest>("testStoreError",&NomalTest::testStoreError));
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testAlistDelete",&NomalTest::testAlistDelete));
-  //suite->addTest(new CppUnit::TestCaller<NomalTest>("testAlistDeleteAt",&NomalTest::testAlistDeleteAt));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testAlistDelete",&NomalTest::testAlistDelete));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testAlistDeleteAt",&NomalTest::testAlistDeleteAt));
   return suite;
 }

@@ -211,7 +211,7 @@ namespace rakuten {
       if( ! l ) {
 	Exception::throw_exception(0, EXP_PRE_MSG,"Key is empty !");
       } else if ( p ) {
-	Exception::throw_exception(0, EXP_PRE_MSG,"Key is invalid ! 0x%08x",p[0]);
+	Exception::throw_exception(0, EXP_PRE_MSG,"Key is invalid ! Included(0x%08x)",p[0]);
       }
     }
     const char * CmdKeyed::get_key()const {
@@ -226,7 +226,7 @@ namespace rakuten {
       if( ! l ) {
 	Exception::throw_exception(0, EXP_PRE_MSG,"Key is empty !");
       } else if ( p ) {
-	Exception::throw_exception(0, EXP_PRE_MSG,"Key is invalid ! 0x%08x",p[0]);
+	Exception::throw_exception(0, EXP_PRE_MSG,"Key is invalid ! Included(0x%08x)",p[0]);
       }
     }
     const char * CmdKeyedOne::get_key()const {

@@ -5,34 +5,34 @@ case $1 in
 	rm localhost_*
 	$DIR/roma/ruby/server/bin/mkroute localhost_11211 localhost_11212 localhost_11213 localhost_11214 --enabled_repeathost
 	#$DIR/roma/ruby/server/bin/mkroute localhost_11211 localhost_11212 --enabled_repeathost
-	$DIR/roma/ruby/server/bin/romad localhost -p 11211 -d --enabled_repeathost
-	$DIR/roma/ruby/server/bin/romad localhost -p 11212 -d --enabled_repeathost
-	$DIR/roma/ruby/server/bin/romad localhost -p 11213 -d --enabled_repeathost
-	$DIR/roma/ruby/server/bin/romad localhost -p 11214 -d --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11211 -d --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11212 -d --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11213 -d --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11214 -d --enabled_repeathost
 	$DIR/roma/ruby/server/bin/mkroute localhost_11219 -r 1 --enabled_repeathost
-	$DIR/roma/ruby/server/bin/romad --config $DIR/config.rb  localhost -p 11219 -d --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ptest_config.rb  localhost -p 11219 -d --enabled_repeathost
 	;;
     prof)
         rm localhost_*
 	$DIR/roma/ruby/server/bin/mkroute localhost_11211 localhost_11212 localhost_11213 localhost_11214 --enabled_repeathost
         #$DIR/roma/ruby/server/bin/mkroute localhost_11211 localhost_11212 --enabled_repeathost
-        /usr/local/ruby/bin/ruby $DIR/roma/ruby/server/bin/romad localhost -p 11211 -d --enabled_repeathost
-        ruby -r profile $DIR/roma/ruby/server/bin/romad localhost -p 11212 -d --enabled_repeathost
+        /usr/local/ruby/bin/ruby $DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11211 -d --enabled_repeathost
+        ruby -r profile $DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11212 -d --enabled_repeathost
 	;;
     start1)
-	$DIR/roma/ruby/server/bin/romad localhost -p 11211 -d -j localhost_11212 --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11211 -d -j localhost_11212 --enabled_repeathost
 	nc localhost 11212 <<< "recover"
 	;;
     start2)
-	$DIR/roma/ruby/server/bin/romad localhost -p 11212 -d -j localhost_11211 --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11212 -d -j localhost_11211 --enabled_repeathost
 	nc localhost 11211 <<< "recover"
 	;;
     start3)
-	$DIR/roma/ruby/server/bin/romad localhost -p 11213 -d -j localhost_11211 --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11213 -d -j localhost_11211 --enabled_repeathost
 	nc localhost 11212 <<< "recover"
 	;;
     start4)
-	$DIR/roma/ruby/server/bin/romad localhost -p 11214 -d -j localhost_11211 --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11214 -d -j localhost_11211 --enabled_repeathost
 	nc localhost 11212 <<< "recover"
 	;;
     stop)

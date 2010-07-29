@@ -103,6 +103,12 @@ void ProtocolTest::testGetValue() {
   CPPUNIT_ASSERT_EQUAL(string("FOOBAR"),string(v.data));
 }
 
+void ProtocolTest::testGetLarge() {
+  RomaValue v = client.cmd_get("CMD_LARGE",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL((long)100000,v.length);
+  CPPUNIT_ASSERT_EQUAL((size_t)100000,strlen(v.data));
+}
+
 void ProtocolTest::testGetServerError() {
   try {
     RomaValue v = client.cmd_get("CMD_SERVER_ERROR",TIMEOUT);

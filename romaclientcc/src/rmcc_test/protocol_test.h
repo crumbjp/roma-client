@@ -34,6 +34,7 @@ public:
 
   void testGetNull();
   void testGetValue();
+  void testGetLarge();
   void testGetServerError();
   void testGetError();
   void testGetTimeout();

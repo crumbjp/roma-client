@@ -36,6 +36,7 @@ namespace rakuten {
       parse_mode_t parse_mode;
       rmc_ret_t roma_ret;
       Command(op_t op,size_t nrcv,long timeout);
+      virtual void prepare() = 0;
       virtual const op_t get_op()const;
       virtual const char * get_key()const = 0;
       virtual string_vbuffer & send_callback() = 0;
@@ -50,6 +51,7 @@ namespace rakuten {
       char * mklhash;
     public:
       CmdMklHash(long timeout);
+      virtual void prepare();
       virtual const char * get_key()const;
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
@@ -63,6 +65,7 @@ namespace rakuten {
       std::map<char*,std::vector<char*> > ht;
     public:
       CmdRoutingDump(long timeout);
+      virtual void prepare();
       virtual const char * get_key()const;
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
@@ -74,6 +77,7 @@ namespace rakuten {
       const char * key;
     public:
       CmdKeyed(size_t nrcv,long timeout,const char *key);
+      virtual void prepare();
       virtual const char * get_key()const;
     };
     class CmdKeyedOne: public Command {
@@ -81,13 +85,19 @@ namespace rakuten {
       const char * key;
     public:
       CmdKeyedOne(size_t nrcv,long timeout,const char *key);
+      virtual void prepare();
       virtual const char * get_key()const;
     };
 
     class CmdSet: public CmdKeyedOne {
       string_vbuffer sbuf;
+      const int flags;
+      const long exp;
+      const char *data;
+      const long length;
     public:
       CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -97,6 +107,7 @@ namespace rakuten {
       string_vbuffer sbuf;
     public:
       CmdDelete(const char * key,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -105,6 +116,7 @@ namespace rakuten {
     class CmdBaseGet: public CmdKeyed {
     public:
       CmdBaseGet(size_t nrcv,long timeout,const char * key);
+      virtual void prepare() = 0;
       RomaValue parse_value_line(char * line);
     };
 
@@ -113,6 +125,7 @@ namespace rakuten {
     public:
       RomaValue value;
       CmdGet(const char * key,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -120,8 +133,12 @@ namespace rakuten {
 
     class CmdAlistSizedInsert: public CmdKeyedOne {
       string_vbuffer sbuf;
+      const long size;
+      const char *data;
+      const long length;
     public:
       CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -129,10 +146,12 @@ namespace rakuten {
 
     class CmdAlistJoin: public CmdBaseGet {
       string_vbuffer sbuf;
+      int count;
+      const char * sep;
     public:
       RomaValue value;
-      int count;
       CmdAlistJoin(const char * key,const char *sep,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -140,8 +159,11 @@ namespace rakuten {
 
     class CmdAlistDelete: public CmdKeyedOne {
       string_vbuffer sbuf;
+      const char *data;
+      const long length;
     public:
       CmdAlistDelete(const char * key,const char *data, long length,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);
@@ -149,8 +171,10 @@ namespace rakuten {
 
     class CmdAlistDeleteAt: public CmdKeyedOne {
       string_vbuffer sbuf;
+      int pos;
     public:
       CmdAlistDeleteAt(const char * key,int pos,long timeout);
+      virtual void prepare();
       virtual string_vbuffer & send_callback();
       virtual callback_ret_t recv_callback_line(char *line);
       virtual callback_ret_t recv_callback_bin(string_vbuffer &rbuf);

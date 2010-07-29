@@ -39,6 +39,7 @@ namespace rakuten{
     rmc_ret_t RomaClient::cmd_store(const char *key, RomaValue value, long exptime,long timeout){
       try {
         CmdSet cmd(key,0,exptime,value.data,value.length,timeout);
+        cmd.prepare();
         conn.command(cmd);
         return cmd.roma_ret;
       }catch(const rakuten::Exception & ex ) {
@@ -51,6 +52,7 @@ namespace rakuten{
     rmc_ret_t RomaClient::cmd_delete(const char *key,long timeout){
       try {
         CmdDelete cmd(key,timeout);
+        cmd.prepare();
         conn.command(cmd);
         return cmd.roma_ret;
       }catch(const rakuten::Exception & ex ) {
@@ -63,6 +65,7 @@ namespace rakuten{
     RomaValue RomaClient::cmd_get(const char *key,long timeout){
       try {
         CmdGet cmd(key,timeout);
+        cmd.prepare();
         this->conn.command(cmd);
         return cmd.value;
       }catch(const Exception & ex ) {
@@ -73,6 +76,7 @@ namespace rakuten{
     rmc_ret_t RomaClient::cmd_alist_sized_insert(const char *key, long size, RomaValue value,long timeout){
       try {
         CmdAlistSizedInsert cmd(key,size,value.data,value.length,timeout);
+        cmd.prepare();
         this->conn.command(cmd);
         return cmd.roma_ret;
       }catch(const Exception & ex ) {
@@ -84,6 +88,7 @@ namespace rakuten{
     RomaValue RomaClient::cmd_alist_join(const char *key,const char * sep,long timeout){
       try {
         CmdAlistJoin cmd(key,sep,timeout);
+        cmd.prepare();
         this->conn.command(cmd);
         return cmd.value;
       }catch(const Exception & ex ) {
@@ -95,6 +100,7 @@ namespace rakuten{
     rmc_ret_t RomaClient::cmd_alist_delete(const char *key,RomaValue value,long timeout){
       try {
         CmdAlistDelete cmd(key,value.data,value.length,timeout);
+        cmd.prepare();
         this->conn.command(cmd);
         return cmd.roma_ret;
       }catch(const Exception & ex ) {
@@ -106,6 +112,7 @@ namespace rakuten{
     rmc_ret_t RomaClient::cmd_alist_delete_at(const char *key,int pos,long timeout){
       try {
         CmdAlistDeleteAt cmd(key,pos,timeout);
+        cmd.prepare();
         this->conn.command(cmd);
         return cmd.roma_ret;
       }catch(const Exception & ex ) {

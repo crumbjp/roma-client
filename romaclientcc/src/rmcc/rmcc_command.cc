@@ -59,6 +59,8 @@ namespace rakuten {
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
+    void CmdMklHash::prepare(){
+    }
     callback_ret_t CmdMklHash::recv_callback_bin(string_vbuffer &rbuf){
       mklhash = rbuf.get_to_token("\r\n");
       if ( mklhash ) {
@@ -80,6 +82,8 @@ namespace rakuten {
       :Command(Command::RANDOM,32768,timeout)
     {
       parse_mode = BIN_MODE;
+    }
+    void CmdRoutingDump::prepare(){
     }
     string_vbuffer & CmdRoutingDump::send_callback(){
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
@@ -200,8 +204,14 @@ namespace rakuten {
 
     CmdKeyed::CmdKeyed(size_t nrcv,long timeout,const char * key)
       :Command(Command::KEYED,32768,timeout), key(key) {
-      if( key == NULL || key[0] == '\0' ){
-	Exception::throw_exception(0, EXP_PRE_MSG,"invalid key");
+    }
+    void CmdKeyed::prepare(){
+      size_t l = strlen(key);
+      const char * p = strpbrk(key,"\r\n\e ");
+      if( ! l ) {
+	Exception::throw_exception(0, EXP_PRE_MSG,"Key is empty !");
+      } else if ( p ) {
+	Exception::throw_exception(0, EXP_PRE_MSG,"Key is invalid ! 0x%08x",p[0]);
       }
     }
     const char * CmdKeyed::get_key()const {
@@ -209,8 +219,14 @@ namespace rakuten {
     }
     CmdKeyedOne::CmdKeyedOne(size_t nrcv,long timeout,const char * key)
       :Command(Command::KEYEDONE,32768,timeout), key(key) {
-      if( key == NULL || key[0] == '\0' ){
-	Exception::throw_exception(0, EXP_PRE_MSG,"invalid key");
+    }
+    void CmdKeyedOne::prepare(){
+      size_t l = strlen(key);
+      const char * p = strpbrk(key,"\r\n\e ");
+      if( ! l ) {
+	Exception::throw_exception(0, EXP_PRE_MSG,"Key is empty !");
+      } else if ( p ) {
+	Exception::throw_exception(0, EXP_PRE_MSG,"Key is invalid ! 0x%08x",p[0]);
       }
     }
     const char * CmdKeyedOne::get_key()const {
@@ -218,11 +234,15 @@ namespace rakuten {
     }
 
     CmdSet::CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout)
-      :CmdKeyedOne(32768,timeout,key){
+      :CmdKeyedOne(32768,timeout,key),
+       flags(flags),exp(exp),data(data),length(length)
+    {
+    }
+    void CmdSet::prepare(){
+      this->CmdKeyedOne::prepare();
       sbuf.append_sprintf("set %s %d %ld %ld\r\n",key,flags,exp,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
-      cout << sbuf.pointer() << endl;
     }
     string_vbuffer & CmdSet::send_callback(){
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
@@ -241,6 +261,9 @@ namespace rakuten {
 
     CmdDelete::CmdDelete(const char *key,long timeout)
       :CmdKeyedOne(32768,timeout,key){
+    }
+    void CmdDelete::prepare(){
+      this->CmdKeyedOne::prepare();
       sbuf.append_sprintf("delete %s\r\n",key);
     }
     string_vbuffer & CmdDelete::send_callback(){
@@ -293,6 +316,9 @@ namespace rakuten {
     CmdGet::CmdGet(const char * key,long timeout)
       :CmdBaseGet(32768,timeout,key)
     {
+    }
+    void CmdGet::prepare(){
+      this->CmdKeyed::prepare();
       sbuf.append_sprintf("get %s\r\n",key);
     }
     string_vbuffer & CmdGet::send_callback(){
@@ -313,7 +339,12 @@ namespace rakuten {
     }
 
     CmdAlistSizedInsert::CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout)
-      :CmdKeyedOne(32768,timeout,key){
+      :CmdKeyedOne(32768,timeout,key),
+       size(size),data(data),length(length)
+    {
+    }
+    void CmdAlistSizedInsert::prepare(){
+      this->CmdKeyedOne::prepare();
       sbuf.append_sprintf("alist_sized_insert %s %ld %ld\r\n",key,size,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
@@ -335,8 +366,12 @@ namespace rakuten {
     }
 
     CmdAlistJoin::CmdAlistJoin(const char * key,const char *sep,long timeout)
-      :CmdBaseGet(32768,timeout,key),count(0)
+      :CmdBaseGet(32768,timeout,key),
+       count(0),sep(sep)
     {
+    }
+    void CmdAlistJoin::prepare(){
+      this->CmdKeyed::prepare();
       sbuf.append_sprintf("alist_join %s %d\r\n%s\r\n",key,strlen(sep),sep);
     }
     string_vbuffer & CmdAlistJoin::send_callback(){
@@ -361,7 +396,13 @@ namespace rakuten {
     }
 
     CmdAlistDelete::CmdAlistDelete(const char * key,const char *data, long length,long timeout)
-      :CmdKeyedOne(32768,timeout,key){
+      :CmdKeyedOne(32768,timeout,key),
+       data(data),length(length)
+    {
+    }
+
+    void CmdAlistDelete::prepare(){
+      this->CmdKeyedOne::prepare();
       sbuf.append_sprintf("alist_delete %s %ld\r\n",key,length);
       sbuf.append(data,length);
       sbuf.append("\r\n",2);
@@ -386,7 +427,13 @@ namespace rakuten {
     }
 
     CmdAlistDeleteAt::CmdAlistDeleteAt(const char * key,int pos,long timeout)
-      :CmdKeyedOne(32768,timeout,key){
+      :CmdKeyedOne(32768,timeout,key),
+       pos(pos)
+    {
+    }
+
+    void CmdAlistDeleteAt::prepare(){
+      this->CmdKeyedOne::prepare();
       sbuf.append_sprintf("alist_delete_at %s %d\r\n",key,pos);
     }
 

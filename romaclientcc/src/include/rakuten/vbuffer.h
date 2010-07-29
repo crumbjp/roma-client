@@ -85,8 +85,6 @@ namespace rakuten {
     }
     // 
     virtual void append(const data_t * data,long len){
-      if( len == 0 || data == NULL )
-	return;
       long use = this->length();
       this->relength(this->length() + len);
       memcpy(this->pointer()+use,data,len*sizeof(data_t));

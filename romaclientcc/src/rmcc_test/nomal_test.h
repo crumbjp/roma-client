@@ -32,6 +32,7 @@ public:
   void testSetEmpValue();
 
   void testDelete();
+  void testDeleteNotfound();
   void testDeleteInvKey();
   void testDeleteEmpKey();
 

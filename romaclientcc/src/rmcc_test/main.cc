@@ -50,7 +50,7 @@ int main ( int argc , char * argv[]  ){
   return collector.wasSuccessful() ? 0 : 1;
 }
 // int main ( int argc , char * argv[]  ){
-//   RomaClientTestLoop2 test;
+//   ProtocolTest test;
 //   test.setUp();
-//   test.testLoop2();
+//   test.testSetStored();
 // }

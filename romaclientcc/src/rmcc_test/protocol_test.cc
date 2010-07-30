@@ -14,10 +14,11 @@
 #include "protocol_test.h"
 #include <iostream>
 
-static const long TIMEOUT = 1000;
+static const long TIMEOUT = 2000;
 
 void ProtocolTest::setUp() {
   set_loglv(0);
+  set_logfp(stderr);
   client.get_nodelist().push_back("localhost_11219");
 #ifdef NO_ROUTING_TEST
   client.init(0);
@@ -105,6 +106,35 @@ void ProtocolTest::testGetValue() {
   CPPUNIT_ASSERT_EQUAL(string("FOOBAR"),string(v.data));
 }
 
+void ProtocolTest::testGetValueError1() {
+  try {
+    RomaValue v = client.cmd_get("CMD_VALUEERR1",TIMEOUT);
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+  }
+}
+void ProtocolTest::testGetValueError2() {
+  try {
+    RomaValue v = client.cmd_get("CMD_VALUEERR2",TIMEOUT);
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+  }
+}
+void ProtocolTest::testGetValueError3() {
+  try {
+    RomaValue v = client.cmd_get("CMD_VALUEERR3",TIMEOUT);
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+  }
+}
+void ProtocolTest::testGetValueError4() {
+  try {
+    RomaValue v = client.cmd_get("CMD_VALUEERR4",TIMEOUT);
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+  }
+}
+
 void ProtocolTest::testGetLarge() {
   RomaValue v = client.cmd_get("CMD_LARGE",TIMEOUT);
   CPPUNIT_ASSERT_EQUAL((long)100000,v.length);
@@ -143,6 +173,58 @@ void ProtocolTest::testGetClose() {
   }
 }
 
+void ProtocolTest::testDeleteDeleted() {
+  rmc_ret_t ret = client.cmd_delete("CMD_DELETED",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(0,ret);
+}
+
+void ProtocolTest::testDeleteNotDeleted() {
+  rmc_ret_t ret = client.cmd_delete("CMD_NOT_DELETED",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(1,ret);
+}
+
+void ProtocolTest::testDeleteNotFound() {
+  rmc_ret_t ret = client.cmd_delete("CMD_NOT_FOUND",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(0,ret);
+}
+
+void ProtocolTest::testDeleteServerError() {
+  try{
+    rmc_ret_t ret = client.cmd_delete("CMD_SERVER_ERROR",TIMEOUT);
+    (void)ret;
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+    CPPUNIT_ASSERT(client.get_lasterror() != NULL);
+  }
+}
+void ProtocolTest::testDeleteError() {
+  try{
+    rmc_ret_t ret = client.cmd_delete("CMD_ERROR",TIMEOUT);
+    (void)ret;
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+    CPPUNIT_ASSERT(client.get_lasterror() != NULL);
+  }
+}
+
+void ProtocolTest::testDeleteTimeout() {
+  try {
+    rmc_ret_t ret = client.cmd_delete("TO_10",TIMEOUT);
+    (void)ret;
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+  }
+}
+
+void ProtocolTest::testDeleteClose() {
+  try{
+    rmc_ret_t ret = client.cmd_delete("CLOSE_",TIMEOUT);
+    (void)ret;
+    CPPUNIT_FAIL("Should throw !");
+  }catch(const Exception & ex){
+    CPPUNIT_ASSERT(client.get_lasterror() != NULL);
+  }
+}
 
 void ProtocolTest::testAlistSizedInsertStored() {
   rmc_ret_t ret = client.cmd_alist_sized_insert("CMD_STORED",2,RomaValue("bbb",3),TIMEOUT);
@@ -395,11 +477,23 @@ CppUnit::TestSuite * ProtocolTest::getSuite(){
 
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetNull",&ProtocolTest::testGetNull));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValue",&ProtocolTest::testGetValue));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValueError1",&ProtocolTest::testGetValueError1));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValueError2",&ProtocolTest::testGetValueError2));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValueError3",&ProtocolTest::testGetValueError3));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetValueError4",&ProtocolTest::testGetValueError4));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetLarge",&ProtocolTest::testGetLarge));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetServerError",&ProtocolTest::testGetServerError));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetError",&ProtocolTest::testGetError));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetTimeout",&ProtocolTest::testGetTimeout));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testGetClose",&ProtocolTest::testGetClose));
+
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteDeleted",&ProtocolTest::testDeleteDeleted));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteNotDeleted",&ProtocolTest::testDeleteNotDeleted));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteNotFound",&ProtocolTest::testDeleteNotFound));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteServerError",&ProtocolTest::testDeleteServerError));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteError",&ProtocolTest::testDeleteError));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteTimeout",&ProtocolTest::testDeleteTimeout));
+  suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testDeleteClose",&ProtocolTest::testDeleteClose));
 
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistSizedInsertStored",&ProtocolTest::testAlistSizedInsertStored));
   suite->addTest(new CppUnit::TestCaller<ProtocolTest>("testAlistSizedInsertStoredVal",&ProtocolTest::testAlistSizedInsertStoredVal));

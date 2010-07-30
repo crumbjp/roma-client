@@ -5,6 +5,14 @@
 
 namespace rakuten {
   namespace rmcc {
+
+    #ifdef SMALL_BUF_TEST
+    static const size_t NRCVDEF  = 5;
+    static const size_t NRCVMKLH = 5;
+    #else
+    static const size_t NRCVDEF  = 32768;
+    static const size_t NRCVMKLH = 42;
+    #endif
     Command::Command(op_t op,size_t nrcv,long timeout)
       :op(op),nrcv(nrcv),timeout(timeout),parse_mode(LINE_MODE),roma_ret(RMC_RET_ERROR)
     {
@@ -47,12 +55,10 @@ namespace rakuten {
       }
     }
 
-    const char * CmdMklHash::get_key()const {
-      return 0;
-    }
+    const char * CmdMklHash::get_key()const { return 0;}
     string_vbuffer CmdMklHash::sbuf("mklhash 0\r\n");
     CmdMklHash::CmdMklHash(long timeout)
-      :Command(Command::RANDOM,42,timeout),mklhash(0){
+      :Command(Command::RANDOM,NRCVMKLH,timeout),mklhash(0){
       parse_mode = BIN_MODE;
     }
     string_vbuffer & CmdMklHash::send_callback(){
@@ -69,17 +75,13 @@ namespace rakuten {
       }
       return RECV_MORE;
     }
-    callback_ret_t CmdMklHash::recv_callback_line(char *line) {
-      return RECV_OVER;
-    }
+    callback_ret_t CmdMklHash::recv_callback_line(char *line) {return RECV_OVER;}
 
     //
-    const char * CmdRoutingDump::get_key()const {
-      return 0;
-    }
+    const char * CmdRoutingDump::get_key()const {return 0;}
     string_vbuffer CmdRoutingDump::sbuf("routingdump json\r\n");
     CmdRoutingDump::CmdRoutingDump(long timeout)
-      :Command(Command::RANDOM,32768,timeout)
+      :Command(Command::RANDOM,NRCVDEF,timeout)
     {
       parse_mode = BIN_MODE;
     }
@@ -198,12 +200,10 @@ namespace rakuten {
       this->parse_mode = POST_BIN_MODE;
       return RECV_MORE;
     }
-    callback_ret_t CmdRoutingDump::recv_callback_line(char * line) {
-      return RECV_OVER;
-    }
+    callback_ret_t CmdRoutingDump::recv_callback_line(char * line) {return RECV_OVER;}
 
     CmdKeyed::CmdKeyed(size_t nrcv,long timeout,const char * key)
-      :Command(Command::KEYED,32768,timeout), key(key) {
+      :Command(Command::KEYED,nrcv,timeout), key(key) {
     }
     void CmdKeyed::prepare(){
       size_t l = strlen(key);
@@ -218,7 +218,7 @@ namespace rakuten {
       return this->key;
     }
     CmdKeyedOne::CmdKeyedOne(size_t nrcv,long timeout,const char * key)
-      :Command(Command::KEYEDONE,32768,timeout), key(key) {
+      :Command(Command::KEYEDONE,nrcv,timeout), key(key) {
     }
     void CmdKeyedOne::prepare(){
       size_t l = strlen(key);
@@ -234,7 +234,7 @@ namespace rakuten {
     }
 
     CmdSet::CmdSet(const char * key,int flags, long exp, const char *data, long length,long timeout)
-      :CmdKeyedOne(32768,timeout,key),
+      :CmdKeyedOne(NRCVDEF,timeout,key),
        flags(flags),exp(exp),data(data),length(length)
     {
     }
@@ -260,7 +260,7 @@ namespace rakuten {
     }
 
     CmdDelete::CmdDelete(const char *key,long timeout)
-      :CmdKeyedOne(32768,timeout,key){
+      :CmdKeyedOne(NRCVDEF,timeout,key){
     }
     void CmdDelete::prepare(){
       this->CmdKeyedOne::prepare();
@@ -272,11 +272,11 @@ namespace rakuten {
     }
     callback_ret_t CmdDelete::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdDelete::recv_callback_line(char * line) {
-      if ( strcmp("DELETED",line) == 0 ||
-	   strcmp("NOT_FOUND",line) == 0 ){
+      if ( strcmp("DELETED",line) == 0 ){
+	this->roma_ret = RMC_RET_OK;
+      }else if( strcmp("NOT_FOUND",line) == 0){
 	this->roma_ret = RMC_RET_OK;
       }else if( strcmp("NOT_DELETED",line) == 0){
-	this->roma_ret = RMC_RET_ERROR;
       }else{
 	Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }
@@ -314,7 +314,7 @@ namespace rakuten {
     }
 
     CmdGet::CmdGet(const char * key,long timeout)
-      :CmdBaseGet(32768,timeout,key)
+      :CmdBaseGet(NRCVDEF,timeout,key)
     {
     }
     void CmdGet::prepare(){
@@ -339,7 +339,7 @@ namespace rakuten {
     }
 
     CmdAlistSizedInsert::CmdAlistSizedInsert(const char * key,long size,const char *data, long length,long timeout)
-      :CmdKeyedOne(32768,timeout,key),
+      :CmdKeyedOne(NRCVDEF,timeout,key),
        size(size),data(data),length(length)
     {
     }
@@ -366,7 +366,7 @@ namespace rakuten {
     }
 
     CmdAlistJoin::CmdAlistJoin(const char * key,const char *sep,long timeout)
-      :CmdBaseGet(32768,timeout,key),
+      :CmdBaseGet(NRCVDEF,timeout,key),
        count(0),sep(sep)
     {
     }
@@ -396,7 +396,7 @@ namespace rakuten {
     }
 
     CmdAlistDelete::CmdAlistDelete(const char * key,const char *data, long length,long timeout)
-      :CmdKeyedOne(32768,timeout,key),
+      :CmdKeyedOne(NRCVDEF,timeout,key),
        data(data),length(length)
     {
     }
@@ -417,9 +417,7 @@ namespace rakuten {
       if ( strcmp("DELETED",line) == 0 ) {
         this->roma_ret = RMC_RET_OK;
       }else if ( strcmp("NOT_DELETED",line) == 0 ) {
-	this->roma_ret = RMC_RET_ERROR;
       }else if ( strcmp("NOT_FOUND",line) == 0 ) {
-	this->roma_ret = RMC_RET_ERROR;
       }else {
         Exception::throw_exception(0, EXP_PRE_MSG,"%s",line);
       }
@@ -427,7 +425,7 @@ namespace rakuten {
     }
 
     CmdAlistDeleteAt::CmdAlistDeleteAt(const char * key,int pos,long timeout)
-      :CmdKeyedOne(32768,timeout,key),
+      :CmdKeyedOne(NRCVDEF,timeout,key),
        pos(pos)
     {
     }

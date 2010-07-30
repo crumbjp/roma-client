@@ -174,7 +174,14 @@ void NomalTest::testDelete() {
     CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
     RomaValue v = client.cmd_get("foo4",TIMEOUT);
     CPPUNIT_ASSERT_EQUAL((long)-1,v.length);
-    ret = client.cmd_delete("foo4",TIMEOUT); // NOT_FOUND
+  }catch(const Exception & ex){
+    CPPUNIT_FAIL("Unexpected exception !");
+  }
+}
+void NomalTest::testDeleteNotfound() {
+  cerr << __PRETTY_FUNCTION__ << endl;
+  try{
+    rmc_ret_t ret = client.cmd_delete("not_found",TIMEOUT); // NOT_FOUND
     CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
   }catch(const Exception & ex){
     CPPUNIT_FAIL("Unexpected exception !");
@@ -398,6 +405,8 @@ void NomalTest::testJoin() {
       rmc_ret_t ret = client.cmd_alist_sized_insert("FOO",3,RomaValue("###",3),TIMEOUT);
       CPPUNIT_ASSERT_EQUAL(RMC_RET_OK,ret);
     }
+    RomaValue v = client.cmd_alist_join("FOO",",",TIMEOUT);
+    CPPUNIT_ASSERT_EQUAL(string("###,###,AAA"),string(v.data));
   }catch(const Exception & ex){
     CPPUNIT_FAIL("Unexpected exception !");
   }
@@ -643,6 +652,7 @@ CppUnit::TestSuite * NomalTest::getSuite(){
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testSetEmpValue",&NomalTest::testSetEmpValue));
 
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testDelete",&NomalTest::testDelete));
+  suite->addTest(new CppUnit::TestCaller<NomalTest>("testDeleteNotfound",&NomalTest::testDeleteNotfound));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testDeleteInvKey",&NomalTest::testDeleteInvKey));
   suite->addTest(new CppUnit::TestCaller<NomalTest>("testDeleteEmpKey",&NomalTest::testDeleteEmpKey));
 

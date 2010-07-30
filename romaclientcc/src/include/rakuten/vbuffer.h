@@ -12,6 +12,7 @@ using namespace std;
 #include <stdexcept>
 #include <inttypes.h>
 namespace rakuten {
+#define DEFBLOCKSIZ (1024)
   template < typename data_t = uint8_t>
   struct vbuffer {
   protected:
@@ -27,19 +28,19 @@ namespace rakuten {
       return static_cast<long>(vbuf.size()-poffset);
     }
     virtual ~vbuffer(){}
-    vbuffer(long BLOCKSIZ=1024)
+    vbuffer(long BLOCKSIZ=DEFBLOCKSIZ)
       :BLOCKSIZ(BLOCKSIZ),vbuf(BLOCKSIZ)
     {
       uselen  = 0;
       poffset = 0;
     }
     // copy
-    vbuffer(const vbuffer &in,long BLOCKSIZ=1024)
+    vbuffer(const vbuffer &in,long BLOCKSIZ=DEFBLOCKSIZ)
       :BLOCKSIZ(BLOCKSIZ),vbuf(BLOCKSIZ)
     {
       (*this) = in;
     }
-    vbuffer(const data_t * data, long len,long BLOCKSIZ=1024)
+    vbuffer(const data_t * data, long len,long BLOCKSIZ=DEFBLOCKSIZ)
       :BLOCKSIZ(BLOCKSIZ),vbuf(BLOCKSIZ)
     {
       reset(data,len);
@@ -102,8 +103,8 @@ namespace rakuten {
 
   struct string_vbuffer : vbuffer<char> {
     virtual ~string_vbuffer(){}
-    string_vbuffer(long BLOCKSIZ=1024) : vbuffer<char>(BLOCKSIZ){}
-    string_vbuffer(const char * in,long BLOCKSIZ=1024) : vbuffer<char>(BLOCKSIZ){
+    string_vbuffer(long BLOCKSIZ=DEFBLOCKSIZ) : vbuffer<char>(BLOCKSIZ){}
+    string_vbuffer(const char * in,long BLOCKSIZ=DEFBLOCKSIZ) : vbuffer<char>(BLOCKSIZ){
       (*this) += in;
     }
     string_vbuffer & operator += (const char * in ){

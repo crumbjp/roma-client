@@ -34,11 +34,23 @@ public:
 
   void testGetNull();
   void testGetValue();
+  void testGetValueError1();
+  void testGetValueError2();
+  void testGetValueError3();
+  void testGetValueError4();
   void testGetLarge();
   void testGetServerError();
   void testGetError();
   void testGetTimeout();
   void testGetClose();
+
+  void testDeleteDeleted();
+  void testDeleteNotDeleted();
+  void testDeleteNotFound();
+  void testDeleteServerError();
+  void testDeleteError();
+  void testDeleteTimeout();
+  void testDeleteClose();
 
   void testAlistSizedInsertStored();
   void testAlistSizedInsertStoredVal();

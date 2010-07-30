@@ -20,14 +20,11 @@ do
 	    echo '# BUILD'
 	    export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH
 	    make clean rmcc bin/rmcc_test DEBUG=1 GCOV=1 CXXFLAGS='-DWITH_NORMAL_TEST -DWITH_PROTOCOL_TEST -DSMALL_BUF_TEST';
-	    ./bin/rmcc_testdc
-	    #make clean rmcc bin/rmcc_test DEBUG=1 GCOV=1 CXXFLAGS='-DWITH_NORMAL_TEST -DWITH_PROTOCOL_TEST -DNO_ROUTING_TEST';
-	    #./bin/rmcc_testdc
+	    ./bin/rmcc_testdc 2>&1 | tee ./gcov/rmcctest-`date +'%Y%m%d%H%m'`.log
 	    ;;
 	gen)
 	    echo '###############'
 	    echo '# GEN-GCOV'
-	    rm -rf ./gcov
 	    mkdir -p ./gcov
 	    cd ./gcov
 	    for cc in `find .. -name '*.cc' ` ; do ln -sf $cc . ; done

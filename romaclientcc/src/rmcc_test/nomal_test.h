@@ -19,7 +19,7 @@ using namespace rmcc;
 class NomalTest : public CppUnit::TestFixture {
 public:
   RomaClient client;
-  virtual void setUp();
+  virtual void setUp() = 0;
   virtual void tearDown();
   void testUnknownServer();
   void testConnectFailed();
@@ -68,6 +68,15 @@ public:
   void testAlistDeleteAtNotfoundError();
   void testAlistDeleteAtInvKey();
   void testAlistDeleteAtEmpKey();
+};
+class NomalTest0 : public NomalTest {
+public:
+  virtual void setUp();
+  static CppUnit::TestSuite * getSuite();
+};
+class NomalTest1 : public NomalTest {
+public:
+  virtual void setUp();
   static CppUnit::TestSuite * getSuite();
 };
 

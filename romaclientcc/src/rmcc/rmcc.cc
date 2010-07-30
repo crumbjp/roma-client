@@ -31,6 +31,7 @@ namespace rakuten{
       try {
         this->conn.term();
       }catch(const Exception & ex ) {
+        // @TEST There is no route to reach here yet. : this->conn.term() never throws Exception.
         ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();
         throw ex;

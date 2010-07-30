@@ -40,10 +40,10 @@ namespace rakuten {
       this->host = this->node_info.substr(0,s);
       this->port = strtoul(this->node_info.substr(s+1).c_str(),0,0);
     }
+    // @TEST For the compile. (The STL-container requires no-argument constructor.)
     Node::Node()
-      : host(""),port(0),sock(INVALID_FD)
-    {
-    }
+      : host(""),port(0),sock(INVALID_FD){}
+
     Node::~Node() {
     }
 
@@ -72,6 +72,7 @@ namespace rakuten {
         }
         // Disconnect or remain data exists!
         //  Should close and reconnect.
+        // @TEST The case of unstabilized connection.
         this->disconnect();
       }
       return false;
@@ -81,6 +82,7 @@ namespace rakuten {
         WARN_LOG("Connect to [%s]",this->node_info.c_str());
         this->sock = ::socket(PF_INET,SOCK_STREAM,0);
         if(this->sock == INVALID_FD){
+          // @TEST It's very rare case. Maybe it'll be caused by the discriptor-limits.
           Exception::throw_exception(0, EXP_PRE_MSG,"socket() returned -1 ");
         }
         int ret = ::connect(this->sock,(struct sockaddr *)&this->addr,sizeof(sockaddr));
@@ -102,12 +104,14 @@ namespace rakuten {
       this->connect();
       ssize_t ssize = ::send(this->sock,data,len,MSG_NOSIGNAL);
       if(ssize < 0 ){
+        // @TEST Maybe it'll be caused by the problem of the connection. (or fatal bugs !!)
         char   work[BUFSIZ];
         char * msg = ::strerror_r(errno , work , sizeof(work));
         Exception::throw_exception(0, EXP_PRE_MSG,"send error ! send(len:%d) : %s ",len,msg);
         this->disconnect();
       }
       if(ssize != len){
+        // @TEST Maybe it'll never causes in blocking socket mode. (or fatal bugs !!)
         this->disconnect();
         Exception::throw_exception(0, EXP_PRE_MSG,"send error (remain) ! send(len:%d) : %d ",len,ssize);
       }
@@ -122,6 +126,7 @@ namespace rakuten {
       FD_SET(sock,&rfd);
       int n = ::select(FD_SETSIZE,&rfd,NULL,NULL,&tv);
       if(n == -1){
+        // @TEST Maybe it'll never causes. (or fatal bugs !!)
         char work[BUFSIZ];
         char * msg = ::strerror_r(errno , work , sizeof(work));
         WARN_LOG("select() error. [%s] : %s",this->node_info.c_str(),msg);
@@ -142,6 +147,7 @@ namespace rakuten {
       ssize_t rsize = ::recv(this->sock,(buf.pointer() + offset),num,0);
       *(buf.pointer()+offset+rsize) = 0; 
       if(rsize == -1){
+        // @TEST Maybe it'll never causes. (or fatal bugs !!)
         char work[BUFSIZ];
         char * msg = ::strerror_r(errno , work , sizeof(work));
         this->disconnect();
@@ -195,6 +201,7 @@ namespace rakuten {
         try {
           it->second.connect();
         }catch(const Exception & ex){
+          // @TEST The case of unstabilized connection.
           ERR_LOG("Cannot connect [%s]",node_info);
           return 0;
         }
@@ -255,6 +262,7 @@ namespace rakuten {
               return true;
             }
           }catch(const Exception & ex ) {
+            // @TEST The case of unstabilized connection.
             ERR_LOG("New RoutingTable error [%s]",node.node_info.c_str());
             return routing_table();
           }
@@ -271,12 +279,14 @@ namespace rakuten {
       int index = (1+rand_r(&this->seed))*(static_cast<double>(num_node)/RAND_MAX);
       node_list_t::iterator it = nodelist.begin();
       for( int i= 0;i<index;i++){
+        // @TEST For the torture test
         it++;
       }
       try {
         it->second.connect();
         return &it->second;
       }catch(const Exception & ex ) {
+        // @TEST The case of unstabilized connection.
         ERR_LOG("Node check error [%s] : %s",it->second.node_info.c_str(),ex.get_msg());
         this->nodelist.erase(it);
         return this->get_node_random();
@@ -308,6 +318,7 @@ namespace rakuten {
       if ( it != this->routing.end() ) {
         return it->second;
       }
+      // @TEST The case of the Roma's bug.
       Exception::throw_exception(0, EXP_PRE_MSG,"Routing table broken !!!" );
     }
 
@@ -330,6 +341,7 @@ namespace rakuten {
         if ( it != nodes.end() ) {
           node = prepare_node((*it).c_str());
           if ( ! node ) {
+            // @TEST The case of unstabilized connection.
             WARN_LOG("Primary node down ! So try to get new routing %s",typeid(cmd).name());
             if ( routing_table(true) ) {
               return this->command(cmd);
@@ -347,6 +359,7 @@ namespace rakuten {
         INFO_LOG("Command to [%s] %s",node->node_info.c_str(),typeid(cmd).name());
         this->command(cmd,*node);
       }else {
+        // @TEST The case of unstabilized connection.
         Exception::throw_exception(0, EXP_PRE_MSG,"Command failure(No-nodes) %s",typeid(cmd).name());
       }
     }
@@ -366,7 +379,8 @@ namespace rakuten {
           gettimeofday(&tv_now,0);
           timeout -= sum_timeval(tv_start,tv_now);
           tv_start = tv_now;
-          if ( timeout < 0 ) { // Hashed recv(). But very rare. It'll always be detected as recv() timeout.
+          if ( timeout < 0 ) { 
+            // @TEST Hashed recv(). But very rare. It'll always be detected as recv() timeout.
             Exception::throw_exception(0, EXP_PRE_MSG,"Command timeout ." );
           }
           node.recv(rbuf,cmd.nrcv,timeout);
@@ -375,7 +389,6 @@ namespace rakuten {
           }
         }
       }catch( const Exception & ex ) {
-        // TODO: Maybe to strict when the node returns "SERVER_ERROR".
         ERR_LOG("Command failure from [%s] : %s",node.node_info.c_str(),ex.get_msg());
         node.disconnect();
         this->nodelist.erase(node.node_info);

@@ -19,7 +19,7 @@ using namespace rmcc;
 class ProtocolTest : public CppUnit::TestFixture {
 public:
   RomaClient client;
-  virtual void setUp();
+  virtual void setUp() = 0;
   virtual void tearDown();
   void testNumValidConnection();
 
@@ -87,7 +87,15 @@ public:
   void testAlistDeleteAtError();
   void testAlistDeleteAtTimeout();
   void testAlistDeleteAtClose();
-
+};
+class ProtocolTest0 : public ProtocolTest {
+public:
+  virtual void setUp();
+  static CppUnit::TestSuite * getSuite();
+};
+class ProtocolTest1 : public ProtocolTest {
+public:
+  virtual void setUp();
   static CppUnit::TestSuite * getSuite();
 };
 

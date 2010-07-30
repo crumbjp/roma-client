@@ -50,12 +50,15 @@ namespace rakuten {
             return RECV_MORE;
           }
         } else {
-          Exception::throw_exception(0, EXP_PRE_MSG,"Unexpected mode." );
+          // @TEST There is no route to reach here.( or fatal bug !!)
+          Exception::throw_exception(0, EXP_PRE_MSG,"Unexpected mode." ); 
         }
       }
     }
 
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdMklHash is not keyed command.
     const char * CmdMklHash::get_key()const { return 0;}
+
     string_vbuffer CmdMklHash::sbuf("mklhash 0\r\n");
     CmdMklHash::CmdMklHash(long timeout)
       :Command(Command::RANDOM,NRCVMKLH,timeout),mklhash(0){
@@ -75,9 +78,10 @@ namespace rakuten {
       }
       return RECV_MORE;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdMklHash never becomes LINE_MODE.
     callback_ret_t CmdMklHash::recv_callback_line(char *line) {return RECV_OVER;}
 
-    //
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdRoutingDump is not keyed command.
     const char * CmdRoutingDump::get_key()const {return 0;}
     string_vbuffer CmdRoutingDump::sbuf("routingdump json\r\n");
     CmdRoutingDump::CmdRoutingDump(long timeout)
@@ -135,7 +139,7 @@ namespace rakuten {
         if ( *p == '[' )
           p++;
         else
-          strtok_r(0,"[",&p);
+          strtok_r(0,"[",&p);  // @TEST There is no padding in the string what The Roma returns.
         char *arr = strtok_r(0,"]",&p);
         array_parse::array_t array;
         array_parse()(arr,array);
@@ -143,7 +147,7 @@ namespace rakuten {
           p++;
         else
           strtok_r(0,",",&p);
-        return array;
+        return array;  // @TEST I don't have a good reason about why this line is never run. But I'm certain that it's a magic of the inline-expansion of the template.
       }
     };
 
@@ -200,6 +204,7 @@ namespace rakuten {
       this->parse_mode = POST_BIN_MODE;
       return RECV_MORE;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdRoutingDump never becomes LINE_MODE.
     callback_ret_t CmdRoutingDump::recv_callback_line(char * line) {return RECV_OVER;}
 
     CmdKeyed::CmdKeyed(size_t nrcv,long timeout,const char * key)
@@ -248,6 +253,7 @@ namespace rakuten {
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdSet never becomes BIN_MODE.
     callback_ret_t CmdSet::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdSet::recv_callback_line(char * line) {
       if ( strcmp("STORED",line) == 0 ) {
@@ -270,6 +276,7 @@ namespace rakuten {
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdDelete never becomes BIN_MODE.
     callback_ret_t CmdDelete::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdDelete::recv_callback_line(char * line) {
       if ( strcmp("DELETED",line) == 0 ){
@@ -307,6 +314,7 @@ namespace rakuten {
       ret.length = strtoul(len,0,0);
       const char * clk = strtok_r(0," ",&s1);
       if ( clk ) {
+        // @TEST Cas command is not supported yet.
         ret.cas = strtoul(clk,0,0);
       }
       this->parse_mode = BIN_MODE;
@@ -354,6 +362,7 @@ namespace rakuten {
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdAlistSizedInsert never becomes BIN_MODE.
     callback_ret_t CmdAlistSizedInsert::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdAlistSizedInsert::recv_callback_line(char * line) {
       if ( strcmp("STORED",line) == 0 ) {
@@ -412,6 +421,7 @@ namespace rakuten {
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdAlistDelete never becomes BIN_MODE.
     callback_ret_t CmdAlistDelete::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdAlistDelete::recv_callback_line(char * line) {
       if ( strcmp("DELETED",line) == 0 ) {
@@ -439,6 +449,7 @@ namespace rakuten {
       TRACE_LOG("%s",__PRETTY_FUNCTION__);
       return sbuf;
     }
+    // @TEST There is no route to reach here.( or fatal bug !!) : CmdAlistDeleteAt never becomes BIN_MODE.
     callback_ret_t CmdAlistDeleteAt::recv_callback_bin(string_vbuffer &rbuf){return RECV_OVER;}
     callback_ret_t CmdAlistDeleteAt::recv_callback_line(char * line) {
       if ( strcmp("DELETED",line) == 0 ) {

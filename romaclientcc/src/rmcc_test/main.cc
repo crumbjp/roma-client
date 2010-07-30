@@ -33,10 +33,12 @@ int main ( int argc , char * argv[]  ){
   result.addListener(&collector);
   CppUnit::TestSuite suite;
 #ifdef WITH_NORMAL_TEST
-  suite.addTest(NomalTest::getSuite());
+  suite.addTest(NomalTest0::getSuite());
+  suite.addTest(NomalTest1::getSuite());
 #endif
 #ifdef WITH_PROTOCOL_TEST
-  suite.addTest(ProtocolTest::getSuite());
+  suite.addTest(ProtocolTest0::getSuite());
+  suite.addTest(ProtocolTest1::getSuite());
 #endif
 #ifdef WITH_LOOP_TEST
   suite.addTest(LoopTest::getSuite());

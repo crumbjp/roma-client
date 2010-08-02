@@ -96,7 +96,7 @@ class RomaClient {
     }
     
 
-    public function delete($key, $exptime) {
+    public function delete($key) {
       $result = rmc_delete($this->client_id, $key, $this->default_timeout);
       if ( $result == RomaClient::RMC_RET_EXCEPTION ) {
         throw new Exception("rmc_delete() failure");

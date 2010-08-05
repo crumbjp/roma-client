@@ -43,6 +43,7 @@ public:
   void testGetError();
   void testGetTimeout();
   void testGetClose();
+  void testGetClose2();
 
   void testDeleteDeleted();
   void testDeleteNotDeleted();

@@ -73,6 +73,9 @@ namespace rakuten {
     callback_ret_t CmdMklHash::recv_callback_bin(string_vbuffer &rbuf){
       mklhash = rbuf.get_to_token("\r\n");
       if ( mklhash ) {
+        if ( strlen(mklhash) != 40 ) {
+          Exception::throw_exception(0, EXP_PRE_MSG,"Invalid mklhash != 40");
+        }
         this->roma_ret = RMC_RET_OK;
         return RECV_OVER;
       }
@@ -98,9 +101,14 @@ namespace rakuten {
 
 
     inline char* trimq(char * p){
+      if ( ! p ) 
+        Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (trimq)");
       if ( *p == '"' ){
         char *s1;
-        return strtok_r(p,"\"",&s1);
+        char *p1 = strtok_r(p,"\"",&s1);
+        if ( ! p1 ) 
+          Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (Notfound'\"')");
+        return p1;
       }
       return p;
     }
@@ -136,11 +144,16 @@ namespace rakuten {
     struct array_callback{
       typedef array_parse::array_t value_t;
       value_t operator()(char * &p)const {
-        if ( *p == '[' )
+        if ( *p == '[' ) {
           p++;
-        else
-          strtok_r(0,"[",&p);  // @TEST There is no padding in the string what The Roma returns.
+        }else{
+          char * p1 = strtok_r(0,"[",&p);  // @TEST There is no padding in the string what The Roma returns.
+          if ( ! p1 ) 
+            Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (Notfound '[')");
+        }
         char *arr = strtok_r(0,"]",&p);
+        if ( ! arr ) 
+          Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (Notfound ']')");
         array_parse::array_t array;
         array_parse()(arr,array);
         if ( *p == ',' )
@@ -177,12 +190,16 @@ namespace rakuten {
         { // CAPABILITY
           rbuf.get_to_token("{");
           char * capability = rbuf.get_to_token("}");
+          if ( ! capability ) 
+            Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (capability)");
           hash_parse<value_callback>()(capability,this->cap,value_callback());
         }
         rbuf.get_to_token(",");
         { // NODES
           rbuf.get_to_token("[");
           char * nodes = rbuf.get_to_token("]");
+          if ( ! nodes ) 
+            Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (nodes)");
           array_parse::array_t array;
           array_parse()(nodes,array);
           for ( array_parse::array_t::iterator it(array.begin()),itend(array.end());
@@ -195,6 +212,8 @@ namespace rakuten {
         { // HASH
           rbuf.get_to_token("{");
           char * hash = rbuf.get_to_token("}");
+          if ( ! hash ) 
+            Exception::throw_exception(0, EXP_PRE_MSG,"Invalid json (hash)");
           hash_parse<array_callback>()(hash,this->ht,array_callback());
         }
         rbuf.get_to_token("]");

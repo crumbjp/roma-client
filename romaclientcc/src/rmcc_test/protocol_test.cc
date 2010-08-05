@@ -220,6 +220,13 @@ void ProtocolTest::testGetClose() {
   }catch(const Exception & ex){
   }
 }
+void ProtocolTest::testGetClose2() {
+  cerr << "*TEST* " << __PRETTY_FUNCTION__ << " (" << typeid(*this).name() << ")" << endl;
+  RomaValue v = client.cmd_get("CLOSE2_",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(string("FOOBAR"),string(v.data));
+  v = client.cmd_get("CLOSE2_",TIMEOUT);
+  CPPUNIT_ASSERT_EQUAL(string("FOOBAR"),string(v.data));
+}
 
 
 void ProtocolTest::testDeleteDeleted() {
@@ -617,6 +624,7 @@ struct GetSuite {
     suite->addTest(new CppUnit::TestCaller<TEST >("testGetError",&TEST::testGetError));
     suite->addTest(new CppUnit::TestCaller<TEST >("testGetTimeout",&TEST::testGetTimeout));
     suite->addTest(new CppUnit::TestCaller<TEST >("testGetClose",&TEST::testGetClose));
+    suite->addTest(new CppUnit::TestCaller<TEST >("testGetClose2",&TEST::testGetClose2));
 
     suite->addTest(new CppUnit::TestCaller<TEST >("testDeleteDeleted",&TEST::testDeleteDeleted));
     suite->addTest(new CppUnit::TestCaller<TEST >("testDeleteNotDeleted",&TEST::testDeleteNotDeleted));

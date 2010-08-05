@@ -157,7 +157,9 @@ module Roma
         o = $1
         r = $2
         # o,r = key.split("_")
-        rets['SERVER_ERROR'] = "SERVER_ERROR Some error occurred.\r\n"
+        if not rets.has_key?('SERVER_ERROR')
+          rets['SERVER_ERROR'] = "SERVER_ERROR Some error occurred.\r\n"
+        end
         rets['ERROR'] = "ERROR\r\n"
         if ( o == 'CMD' ) 
           if ( rets[r] == nil )
@@ -189,6 +191,9 @@ module Roma
           #send_data(rets['_'])
         elsif ( o == 'CLOSE' )
           close_connection
+        elsif ( o == 'CLOSE2' )
+          send_data(rets['_'])
+          close_connection_after_writing
         end
       end
       def set(s)
@@ -199,6 +204,7 @@ module Roma
         v = read_bytes(s[4].to_i)
         read_bytes(2)
         stub(s,{
+               'SERVER_ERROR' => "SERVER_ERROR large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings large strings lar\r\n",
                'NOT_STORED'   => "NOT_STORED\r\n",
                'STORED'       => "STORED\r\n",
                '_'            => "STORED\r\n"
@@ -214,7 +220,7 @@ module Roma
                'VALUEERR3'    => "VALUE #{key} 0\r\nFOOBAR\r\nEND\r\n",
                'VALUEERR4'    => "VALUE #{key} 0 6\r\nFOOBAR\rEND\r\n",
                'NULL'         => "END\r\n",
-               '_'            => "END\r\n"
+               '_'            => "VALUE #{key} 0 6\r\nFOOBAR\r\nEND\r\n"
              })
       end
 

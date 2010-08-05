@@ -159,8 +159,8 @@ namespace rakuten {
       }
       buf.relength(offset+rsize); // fit
     }
-
-    RomaConnection::RomaConnection() : seed(345678) {
+    //RomaConnection::RomaConnection() : seed(345678) {
+    RomaConnection::RomaConnection() : seed(time(0)) {
       memset(mklhash,0,sizeof(mklhash));
       memset(&tv_last_mklhash,0,sizeof(tv_last_mklhash));
     }

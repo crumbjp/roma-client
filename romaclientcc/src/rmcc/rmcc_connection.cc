@@ -224,11 +224,8 @@ namespace rakuten {
             CmdMklHash cmdmklhash(MKLHASH_TIMEOUT);
             cmdmklhash.prepare();
             this->command(cmdmklhash,node);
-            gettimeofday(&tv_last_mklhash,0);
             if ( memcmp(mklhash,cmdmklhash.mklhash,sizeof(mklhash)) ) {
-              memcpy(this->mklhash,cmdmklhash.mklhash,sizeof(mklhash));
-              this->mklhash[40] = 0;
-              WARN_LOG("New routing dump [%s] : mklhash=%s",node.node_info.c_str(),this->mklhash);
+              WARN_LOG("New routing dump [%s] : mklhash=%s",node.node_info.c_str(),cmdmklhash.mklhash);
               // Init datas
               this->dgst_bits = 0;
               this->div_bits  = 0;
@@ -259,7 +256,12 @@ namespace rakuten {
                 }
               }
               this->prepare_nodes(cmdroutingdump.nl);
+              memcpy(this->mklhash,cmdmklhash.mklhash,sizeof(mklhash));
+              this->mklhash[40] = 0;
+              gettimeofday(&tv_last_mklhash,0);
               return true;
+            }else {
+              gettimeofday(&tv_last_mklhash,0);
             }
           }catch(const Exception & ex ) {
             // @TEST The case of unstabilized connection.

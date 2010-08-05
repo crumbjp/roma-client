@@ -35,7 +35,7 @@ void NomalTest0::setUp() {
 void NomalTest1::setUp() {
   set_loglv(0);
   client.get_nodelist().push_back("localhost_11211");
-  // client.get_nodelist().push_back("localhost_11212");
+  client.get_nodelist().push_back("localhost_11212");
   client.num_valid_connection();
   client.init(ROUTING_MODE_USE);
   client.init(ROUTING_MODE_USE);

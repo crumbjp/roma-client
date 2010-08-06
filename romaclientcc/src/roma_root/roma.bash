@@ -11,6 +11,8 @@ case $1 in
 	$DIR/roma/ruby/server/bin/romad --config $DIR/ntest_config.rb localhost -p 11214 -d --enabled_repeathost
 	$DIR/roma/ruby/server/bin/mkroute localhost_11219 -r 1 --enabled_repeathost
 	$DIR/roma/ruby/server/bin/romad --config $DIR/ptest_config.rb  localhost -p 11219 -d --enabled_repeathost
+	$DIR/roma/ruby/server/bin/mkroute localhost_23456 -r 1 --enabled_repeathost
+	$DIR/roma/ruby/server/bin/romad --config $DIR/ptest_config.rb  localhost -p 23456 -d --enabled_repeathost
 	;;
     prof)
         rm localhost_*
@@ -41,6 +43,7 @@ case $1 in
 	nc localhost 11213 <<< rbalse
 	nc localhost 11214 <<< rbalse
 	nc localhost 11219 <<< rbalse
+	nc localhost 23456 <<< rbalse
 	;;
     stop1)
 	nc localhost 11211 <<< rbalse

@@ -25,9 +25,12 @@
 * ROMA PHP client library (PHP-extension)
    It require librmcc.so.
   * How to build ? (phprmcc.so)
-    $ cd PECL
-    $ WITH_CONFIGURE=1 ./build.sh
-     It'll create file. 'PECL/phprmcc/modules/librmcc.so'
+    * Prepare to build.
+      # pear install -a codegen_pecl
+    * Build
+      $ cd PECL
+      $ WITH_CONFIGURE=1 ./build.sh
+       It'll create file. 'PECL/phprmcc/modules/librmcc.so'
 
 *************************
 * ROMA PHP client class (RomaClient.php)
@@ -39,6 +42,13 @@
       - extension_dir
         extension_dir=<PATH-TO-DIRECTORY of phprmcc.so>
       - extension=phprmcc.so
+  * How to run unit test ?
+    * Prepare to test.
+      # pear channel-discover pear.phpunit.de
+      # pear install phpunit/PHPUnit
+      # pear install xdebug
+    * Test
+      $ WITH_TEST=1 ./build.sh
   * TEST
      Please try to kick the test-script to check settings.
      $ export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH

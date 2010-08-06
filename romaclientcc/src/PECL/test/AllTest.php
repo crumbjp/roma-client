@@ -8,8 +8,8 @@ class AllTest extends PHPUnit_Framework_TestSuite {
       //return new AllTest('RomaClientTest');
         $suite  = new PHPUnit_Framework_TestSuite();
         //$suite->addTestSuite('RomaClientTest');
-        $suite->addTestSuite('RomaClientTest0');
-        $suite->addTestSuite('RomaClientTest1');
+        $suite->addTestSuite('RomaClientUnitTest0');
+        $suite->addTestSuite('RomaClientUnitTest1');
         return $suite;
     }
 }

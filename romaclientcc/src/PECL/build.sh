@@ -9,8 +9,9 @@ if [ "$WITH_CONFIGURE" == "1" ];then
     ./configure CPPFLAGS="-I`pwd`/../../include"
 fi
 make clean all test LDFLAGS=-L../../lib
+cd ..
 if [ "$WITH_TEST" == "1" ];then
-    `which phpunit` --coverage-html . PhpunitEnv
+    `which phpunit` --coverage-html xdebug PhpunitEnv
     source php.env
     cp -f $PHP_EXT_DIR/* `pwd`/phprmcc/modules/
     echo "extension_dir=`pwd`/phprmcc/modules" >> php.ini 

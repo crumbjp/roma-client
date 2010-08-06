@@ -229,7 +229,6 @@
   <proto>int rmc_set(string client_id, string key, string value, int exptime,int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);
@@ -273,7 +272,6 @@
   <proto>int rmc_delete(string client_id, string key, int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);
@@ -317,7 +315,6 @@
   <proto>array rmc_get(string client_id, string key,int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);
@@ -382,7 +379,6 @@
   <proto>int rmc_alist_sized_insert(string client_id, string key,int size,string value,int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);
@@ -428,7 +424,6 @@
   <proto>array rmc_alist_join(string client_id, string key,string sep,int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);
@@ -495,7 +490,6 @@
   <proto>int rmc_alist_delete(string client_id, string key,string value,int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);
@@ -554,7 +548,6 @@
   <proto>int rmc_alist_delete_at(string client_id, string key,int pos,int timeout)</proto>
   <code>
   <![CDATA[
-     if ( key == NULL ) RETURN_LONG(rakuten::rmcc::RMC_RET_EXCEPTION);
      typedef std::map<std::string,rakuten::rmcc::RomaClient *> client_map_t;
      client_map_t *client_map = (client_map_t*)PHPRMCC_G(client_map);
      client_map_t::iterator it = client_map->find(client_id);

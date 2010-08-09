@@ -62,17 +62,19 @@ namespace rakuten {
       string_vbuffer rbuf;
       unsigned int seed;
       char mklhash[41];
-      timeval tv_last_mklhash;
-      unsigned long mklhash_threshold;
+      timeval tv_last_check;
+      unsigned long check_threshold;
       int dgst_bits;
       int div_bits;
       int rn;
       routing_mode_t routing_mode;
     public:
       typedef std::vector<const char*> node_info_list_t;
+      string_vbuffer inited_list_buf;
+      node_info_list_t inited_list;
       RomaConnection();
-      void init(const node_info_list_t &info_list,routing_mode_t routing_mode);
-      int  num_valid()const;
+      void init(const node_info_list_t &info_list,routing_mode_t routing_mode,unsigned long check_threshold);
+      size_t  num_valid()const;
       void command(Command & cmd);
       void term();
       ~RomaConnection();

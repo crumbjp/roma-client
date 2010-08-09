@@ -40,9 +40,12 @@ namespace rakuten {
       /**
        * @brief Try to connect to the all-nodes of the nodelist.(Able to call repeatly)
        *
+       * @param routing_mode ROUTING_MODE_USE meams using routingdump.
+       * @param check_interval Specialize the interval time(msec) checking the MKLHASH, if routing_mode equals ROUTING_MODE_USE.
+       *
        * @throws Exception Around network error. It'll be set the error message.
        */
-      void init(routing_mode_t routing_mode);
+      void init(routing_mode_t routing_mode,unsigned long check_interval = 10000);
       /**
        * @brief Get the number of valid connection. 
        *
@@ -51,8 +54,6 @@ namespace rakuten {
       int num_valid_connection() const;
       /**
        * @brief Try to disconnect to the all-nodes.
-       *
-       * @param routing_mode ROUTING_MODE_USE meams using routingdump.
        *
        * @throws Exception Around network error. It'll be set the error message.
        */

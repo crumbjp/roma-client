@@ -13,10 +13,11 @@
 #include <cppunit/TestAssert.h>
 #include <cppunit/SourceLine.h>
 
-#include "nomal_test.h"
+#include "normal_test.h"
 #include "loop_test.h"
 #include "loop_monkey_test.h"
 #include "protocol_test.h"
+#include "loop_connection_test.h"
 
 using namespace std;
 
@@ -45,6 +46,10 @@ int main ( int argc , char * argv[]  ){
 #endif
 #ifdef WITH_LOOP_MONKEY_TEST
   suite.addTest(LoopMonkeyTest::getSuite());
+#endif
+#ifdef WITH_LOOP_CONN_TEST
+  suite.addTest(LoopConnectionTest0::getSuite());
+  suite.addTest(LoopConnectionTest1::getSuite());
 #endif
   suite.run(&result);
   CppUnit::CompilerOutputter outputter(&collector, CppUnit::stdCOut());

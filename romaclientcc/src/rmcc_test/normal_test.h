@@ -1,12 +1,12 @@
 /*
- * nomal_test.h - ????
+ * normal_test.h - ????
  *
  *   Copyright (C) 2010 rakuten 
  *     by hiroaki.kubota <hiroaki.kubota@rakuten.co.jp> 
  *     Date : 2010/07/21
  */
-#ifndef NOMAL_TEST_H
-#define NOMAL_TEST_H
+#ifndef NORMAL_TEST_H
+#define NORMAL_TEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/TestSuite.h>
@@ -16,7 +16,7 @@ using namespace std;
 using namespace rakuten;
 using namespace rmcc;
 
-class NomalTest : public CppUnit::TestFixture {
+class NormalTest : public CppUnit::TestFixture {
 public:
   RomaClient client;
   virtual void setUp() = 0;
@@ -69,12 +69,12 @@ public:
   void testAlistDeleteAtInvKey();
   void testAlistDeleteAtEmpKey();
 };
-class NomalTest0 : public NomalTest {
+class NormalTest0 : public NormalTest {
 public:
   virtual void setUp();
   static CppUnit::TestSuite * getSuite();
 };
-class NomalTest1 : public NomalTest {
+class NormalTest1 : public NormalTest {
 public:
   virtual void setUp();
   static CppUnit::TestSuite * getSuite();

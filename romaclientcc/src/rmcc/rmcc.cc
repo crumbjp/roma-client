@@ -18,9 +18,9 @@ namespace rakuten{
     int RomaClient::num_valid_connection() const {
       return this->conn.num_valid();
     }
-    void RomaClient::init(routing_mode_t routing_mode){
+    void RomaClient::init(routing_mode_t routing_mode,unsigned long check_interval){
       try {
-        this->conn.init(this->node_info_list,routing_mode);
+        this->conn.init(this->node_info_list,routing_mode,check_interval);
       }catch(const Exception & ex ) {
         ERR_LOG(ex.get_msg());
         this->lasterr << ex.get_func() << ":" << ex.get_line() << ":" << ex.get_msg();

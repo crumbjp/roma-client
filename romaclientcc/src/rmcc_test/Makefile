@@ -1,9 +1,10 @@
 #TARGET_NAME = test
 
 SRC = \
-	nomal_test.cc \
+	normal_test.cc \
 	loop_test.cc  \
 	loop_monkey_test.cc  \
+	loop_connection_test.cc  \
 	protocol_test.cc  \
 	main.cc 
 

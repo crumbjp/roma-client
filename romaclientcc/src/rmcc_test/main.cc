@@ -34,8 +34,8 @@ int main ( int argc , char * argv[]  ){
   result.addListener(&collector);
   CppUnit::TestSuite suite;
 #ifdef WITH_NORMAL_TEST
-  suite.addTest(NomalTest0::getSuite());
-  suite.addTest(NomalTest1::getSuite());
+  suite.addTest(NormalTest0::getSuite());
+  suite.addTest(NormalTest1::getSuite());
 #endif
 #ifdef WITH_PROTOCOL_TEST
   suite.addTest(ProtocolTest0::getSuite());

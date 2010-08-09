@@ -20,12 +20,12 @@ static const long TIMEOUT = 1000;
 void LoopConnectionTest0::setUp() {
   set_loglv(0);
   client.get_nodelist().push_back("localhost_11211");
-  client.init(0);
+  client.init(0,5000);
 }
 void LoopConnectionTest1::setUp() {
   set_loglv(0);
   client.get_nodelist().push_back("localhost_11211");
-  client.init(ROUTING_MODE_USE);
+  client.init(ROUTING_MODE_USE,5000);
 }
 void LoopConnectionTest::tearDown() {
   client.term();
@@ -36,6 +36,7 @@ void LoopConnectionTest::testLoopAllNodeDown() {
   cerr << __PRETTY_FUNCTION__ << endl;
   {
     client.cmd_store("AAAA",RomaValue("aaaa",4),0,TIMEOUT);
+    sleep(5);
     RomaValue v = client.cmd_get("AAAA",TIMEOUT);
     CPPUNIT_ASSERT_EQUAL((long)4,v.length);
     CPPUNIT_ASSERT_EQUAL(string("aaaa"),string(v.data));

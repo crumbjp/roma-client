@@ -19,7 +19,8 @@ do
 	    echo '###############'
 	    echo '# BUILD'
 	    export LD_LIBRARY_PATH=`pwd`/lib:$LD_LIBRARY_PATH
-	    make clean rmcc bin/rmcc_test DEBUG=1 GCOV=1 CXXFLAGS='-DWITH_NORMAL_TEST -DWITH_PROTOCOL_TEST -DSMALL_BUF_TEST';
+	    export PATH=`pwd`/roma_root:$PATH
+	    make clean rmcc bin/rmcc_test DEBUG=1 GCOV=1 CXXFLAGS='-DWITH_NORMAL_TEST -DWITH_PROTOCOL_TEST -DWITH_LOOP_CONN_TEST -DSMALL_BUF_TEST';
 	    ./bin/rmcc_testdc 2>&1 | tee ./gcov/rmcctest-`date +'%Y%m%d%H%m'`.log
 	    ;;
 	gen)

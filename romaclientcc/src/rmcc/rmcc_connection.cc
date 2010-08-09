@@ -192,7 +192,6 @@ namespace rakuten {
       }
     }
     void RomaConnection::prepare_nodes(const node_info_list_t &info_list){
-      // @@@ cleen up to ignore node
       for ( node_info_list_t::const_iterator it(info_list.begin()),itend(info_list.end());
             it != itend;
             it++ ) {
@@ -239,8 +238,11 @@ namespace rakuten {
             CmdMklHash cmdmklhash(MKLHASH_TIMEOUT);
             cmdmklhash.prepare();
             this->command(cmdmklhash,node);
-            if ( memcmp(mklhash,cmdmklhash.mklhash,sizeof(mklhash)) ) {
-              WARN_LOG("New routing dump [%s] : mklhash=%s",node.node_info.c_str(),cmdmklhash.mklhash);
+            if ( memcmp(this->mklhash,cmdmklhash.mklhash,sizeof(mklhash)-1) ) {
+              char tmphash[41];
+              memcpy(tmphash,cmdmklhash.mklhash,sizeof(mklhash));
+              tmphash[40] = 0;
+              WARN_LOG("New routing dump [%s] : mklhash(old)=%s : mklhash=%s",node.node_info.c_str(),this->mklhash,cmdmklhash.mklhash);
               // Init datas
               this->dgst_bits = 0;
               this->div_bits  = 0;
@@ -271,7 +273,7 @@ namespace rakuten {
                 }
               }
               this->prepare_nodes(cmdroutingdump.nl);
-              memcpy(this->mklhash,cmdmklhash.mklhash,sizeof(mklhash));
+              memcpy(this->mklhash,tmphash,sizeof(mklhash));
               this->mklhash[40] = 0;
               gettimeofday(&tv_last_check,0);
               return true;

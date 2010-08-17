@@ -49,8 +49,6 @@ case $1 in
 	;;  
     clean)
 	rm -rf .deps \
-	AUTHORS    \
-	INSTALL \
 	Makefile.in \
 	aclocal.m4 \
 	confdefs.h \
@@ -60,17 +58,13 @@ case $1 in
 	configure.scan \
 	libtool \
 	missing \
-	COPYING \
 	Makefile \
-	NEWS \
         autom4te.cache \
 	config.guess \
 	config.log \
 	configure \
 	depcomp \
         ltmain.sh \
-	ChangeLog \
-	README \
 	autoscan.log \
 	config.h \
 	config.status \
